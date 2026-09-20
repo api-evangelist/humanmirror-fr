@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanmirror.fr/m2m/genesis.schema.json",
+  "title": "HumanMirror Genesis Manifest",
+  "type": "object",
+  "required": [
+    "protocol",
+    "status",
+    "service",
+    "endpoints",
+    "free_resource",
+    "x402"
+  ],
+  "properties": {
+    "protocol": {
+      "const": "HumanMirror-Genesis-v1"
+    },
+    "status": {
+      "enum": [
+        "ACTIVE",
+        "DEGRADED",
+        "MAINTENANCE"
+      ]
+    },
+    "service": {
+      "type": "object",
+      "required": [
+        "name",
+        "canonical_origin",
+        "canonical_manifest"
+      ]
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "free_resource": {
+      "type": "object",
+      "required": [
+        "duration_hours",
+        "calls",
+        "operation"
+      ],
+      "properties": {
+        "duration_hours": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operation": {
+          "type": "string"
+        }
+      }
+    },
+    "x402": {
+      "type": "object",
+      "required": [
+        "version",
+        "scheme",
+        "network",
+        "asset",
+        "pay_to"
+      ],
+      "properties": {
+        "version": {
+          "const": 2
+        },
+        "scheme": {
+          "const": "exact"
+        },
+        "network": {
+          "const": "eip155:8453"
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

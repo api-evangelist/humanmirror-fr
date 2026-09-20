@@ -1,0 +1,110 @@
+generated: '2026-09-19'
+method: probed
+source: openapi/ (16 first-party documents), a live 402 challenge on POST /api/x402/secret-scanning/, live MCP initialize
+  on seven endpoints, the A2A card probe, and the provider's llms.txt / manifests
+standards:
+- id: x402
+  name: x402 payment protocol v2 (HTTP 402 + PAYMENT-REQUIRED / PAYMENT-SIGNATURE / PAYMENT-RESPONSE)
+  conforms: true
+  domain_standard: true
+  evidence:
+  - 'PROBED 2026-09-19: POST https://humanmirror.fr/api/x402/secret-scanning/ without payment returned HTTP 402
+    with a base64 PAYMENT-REQUIRED header whose JSON body carries x402Version 2, accepts[] {scheme: exact, network:
+    eip155:8453, asset: 0x8335…2913 (USDC on Base), payTo, maxTimeoutSeconds 60, extra.assetTransferMethod eip3009}
+    plus a bazaar extension.'
+  - 'openapi/humanmirror-fr-x402-openapi.yml: components.schemas.PaymentRequired (x402Version const 2, accepts[]
+    minItems 1), 68 operations declaring a 402 response and a PAYMENT-REQUIRED header, PAYMENT-SIGNATURE request
+    header, PAYMENT-RESPONSE response header, top-level x-x402 {{payTo, asset USDC, network eip155:8453}}.'
+  - a2a card capabilities.extensions[] uri https://github.com/google-a2a/a2a-x402/v0.1 (x402 payment negotiation
+    for A2A tasks).
+  note: This IS the market's machine-payment standard and the contract declares it in schema, headers and extension
+    fields — not marketing prose.
+- id: eip-3009
+  name: EIP-3009 transferWithAuthorization (USDC on Base, CAIP-2 eip155:8453)
+  conforms: true
+  evidence:
+  - '402 challenge extra.assetTransferMethod = eip3009; llms.txt ''Authorization: EIP-3009''; agent card payments.x402.networks[0].caip2
+    eip155:8453.'
+- id: mcp
+  name: Model Context Protocol (streamable HTTP, JSON-RPC 2.0)
+  conforms: true
+  evidence:
+  - 'PROBED 2026-09-19: initialize on seven endpoints returned protocolVersion 2025-06-18 (nexus, forge, oracle)
+    or 2026-07-28 (x402-catalog, omnidome, one, flow) with serverInfo and capabilities.tools; tools/list returned
+    inputSchema per tool. Registry entries fr.humanmirror/* validate against static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json.'
+- id: a2a
+  name: A2A Agent Card (A2A 1.0.0)
+  conforms: false
+  grade: flavored
+  evidence:
+  - 'a2a/humanmirror-fr-a2a.yml: card served at the canonical well-known path but with no top-level protocolVersion
+    and supportedInterfaces instead of additionalInterfaces.'
+- id: json-rpc-2.0
+  conforms: true
+  evidence:
+  - All MCP endpoints and /api/a2a/ answer JSON-RPC 2.0 envelopes (jsonrpc, id, result/error with code -32601 for
+    unknown methods).
+- id: openapi-3.1
+  conforms: true
+  evidence:
+  - 'All 16 published contracts declare openapi: 3.1.0 and parse.'
+- id: json-schema-2020-12
+  conforms: true
+  evidence:
+  - json-schema/humanmirror-fr-agent-os-v1.json, -escrow-v1.json, -genesis.json are published standalone schemas;
+    the 402 challenge's bazaar extension embeds a $schema https://json-schema.org/draft/2020-12/schema.
+- id: rfc8615-well-known
+  conforms: true
+  evidence:
+  - /.well-known/ai-plugin.json, agent-card.json, agent.json and ~40 vendor manifests served under /.well-known/
+    (well-known/humanmirror-fr-well-known.yml).
+- id: openai-ai-plugin-manifest
+  conforms: true
+  evidence:
+  - /.well-known/ai-plugin.json schema_version v1 with api.type openapi -> /oracle/openapi.json; siblings nexus-ai-plugin.json
+    and forge-ai-plugin.json.
+- id: json-ld
+  conforms: true
+  evidence:
+  - /m2m/index.jsonld served as application/ld+json (json-ld/humanmirror-fr-m2m.jsonld).
+- id: llms-txt
+  conforms: true
+  evidence:
+  - /llms.txt and /llms-full.txt served as text/plain; index.html.md served as text/markdown (Markdown twin of the
+    homepage).
+- id: oauth2
+  conforms: false
+  evidence:
+  - No oauth2 securityScheme in any spec; /.well-known/oauth-authorization-server and oauth-protected-resource 404.
+    Auth is Bearer API keys, X-API-Key and x402 payment signatures.
+- id: oidc
+  conforms: false
+  evidence:
+  - /.well-known/openid-configuration 404.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence:
+  - Errors are a custom application/json envelope (components.schemas.MachineError {error, code, retryable}); no
+    application/problem+json anywhere.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence:
+  - /.well-known/security.txt and /security.txt 404 (the CLI tarball's SECURITY.md names security@humanmirror.fr
+    instead).
+- id: idempotency-key
+  conforms: false
+  evidence:
+  - No Idempotency-Key header or equivalent in any of the 16 specs (see conventions/).
+- id: pagination
+  conforms: false
+  evidence:
+  - Only GET /api/magnet/hot takes a limit parameter; no cursor/offset convention is published.
+- id: ap2
+  conforms: false
+  evidence:
+  - 'skill.md: ''AP2, ERC-8004, UPI and Stripe are adapter-ready interfaces until real adapters are connected''
+    — the provider itself says these are not live.'
+compliance_programs:
+  published: false
+  note: No SOC 2 / ISO 27001 / PCI / HIPAA certification or trust center is published; GDPR handling is described
+    in the privacy policy (regulatory/). No Compliance pointer emitted.

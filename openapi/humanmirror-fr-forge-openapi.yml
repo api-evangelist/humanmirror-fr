@@ -1,0 +1,129 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Forge API
+  version: 1.0.0
+  description: Five deterministic micro-tools for AI agents and automations.
+servers:
+- url: https://humanmirror.fr
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_forge_*
+  schemas:
+    ForgeRun:
+      type: object
+      required:
+      - tool
+      - input
+      properties:
+        tool:
+          type: string
+          enum:
+          - clean_json
+          - dedupe_records
+          - normalize_entity
+          - score_data_quality
+          - detect_anomaly
+        input: {}
+        options:
+          type: object
+    ForgeSuccess:
+      type: object
+      required:
+      - ok
+      - version
+      - request_id
+      - tool
+      - result
+      - usage
+      properties:
+        ok:
+          const: true
+        version:
+          type: string
+        request_id:
+          type: string
+        tool:
+          type: string
+        result:
+          type: object
+        usage:
+          type: object
+          properties:
+            credits_used:
+              type: integer
+            credits_remaining:
+              type: integer
+    ForgeError:
+      type: object
+      required:
+      - ok
+      - version
+      - error
+      properties:
+        ok:
+          const: false
+        version:
+          type: string
+        request_id:
+          type:
+          - string
+          - 'null'
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details: {}
+paths:
+  /api/forge:
+    get:
+      summary: Get Forge service metadata and optional authenticated balance
+      security:
+      - {}
+      - BearerAuth: []
+      responses:
+        '200':
+          description: Forge service metadata
+  /api/forge/trial:
+    post:
+      summary: Create a 25-credit trial API key
+      responses:
+        '201':
+          description: Trial key created
+        '409':
+          description: Trial already used for this network origin
+  /api/forge/run:
+    post:
+      summary: Run a Forge micro-tool
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgeRun'
+      responses:
+        '200':
+          description: Tool result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForgeSuccess'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForgeError'
+        '401':
+          description: Invalid API key
+        '402':
+          description: Insufficient credits
+        '429':
+          description: Rate limited

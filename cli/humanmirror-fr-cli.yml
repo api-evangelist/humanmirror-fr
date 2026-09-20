@@ -1,0 +1,59 @@
+generated: '2026-09-19'
+method: searched
+source: https://humanmirror.fr/docs/vibecode/
+tarball: https://humanmirror.fr/downloads/humanmirror-audit-0.2.0.tgz
+description: 'HumanMirror Audit — a local-first scanner for AI-generated code: secrets, hardcoded prompts, unvalidated
+  MCP/tool calls, dynamic execution and permissive configuration. Free, no account, Node 20+. It is the acquisition
+  layer for HumanMirror Pro (49 EUR/month) and the only first-party CLI; it does not drive the REST APIs.'
+name: humanmirror-audit
+version: 0.2.0
+license: MIT
+binary: humanmirror-audit (bin -> ./cli.js)
+repo: https://github.com/VibeMirror-coder/humanmirror (packages/humanmirror-audit)
+install:
+  npx: npx --yes https://humanmirror.fr/downloads/humanmirror-audit-0.2.0.tgz .
+  npm: null
+  homebrew: null
+  note: URL-distributed tarball only; not on the npm registry on the probe date.
+commands:
+  scan:
+  - name: humanmirror-audit <path>
+    description: Scan a repository locally; prints security score, risk score, grade, severity totals, stable rule
+      IDs, paths and line numbers.
+flags:
+- flag: --json
+  description: Machine-readable audit output for CI, issue automation and dashboards.
+- flag: --ci
+  description: Exit 1 when the risk score is 70 or higher.
+- flag: --upload
+  description: Upload scores and finding metadata (never source contents) to POST https://humanmirror.fr/api/v1/saas/audit/
+    using a Pro key.
+- flag: --api-key <key>
+  description: Pro key for --upload; alternative to HUMANMIRROR_API_KEY.
+- flag: --version
+  description: Print the version.
+- flag: --help
+  description: Usage.
+environment:
+  HUMANMIRROR_API_KEY: HumanMirror Pro key used by --upload (hm_live_ prefix in the README example)
+privacy_boundary: Scanning is local by default; nothing leaves the machine unless --upload is supplied, and uploads
+  contain rule, severity, path and line only.
+security_policy:
+  file: SECURITY.md in the tarball
+  contact: security@humanmirror.fr
+  detail: security/humanmirror-fr-vulnerability-disclosure.yml
+pro_api_surfaces:
+- method: POST
+  path: /api/v1/saas/audit/
+  purpose: store finding metadata and scores
+- method: GET
+  path: /api/v1/saas/dashboard/
+  purpose: subscription, audits, stocks, needs, team keys
+- method: GET/POST
+  path: /api/v1/saas/resources/
+  purpose: Stocks & Needs (resource thresholds with webhook_url alerts)
+- method: GET/POST
+  path: /api/v1/saas/team/
+  purpose: create or revoke Pro workspace keys
+note: The Pro SaaS endpoints above are documented only in prose on /docs/vibecode/ — no OpenAPI is published for
+  them, so they are recorded here and not fabricated into openapi/.

@@ -1,0 +1,104 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Outcome API
+  version: 1.0.0
+  description: Verified outcome execution for AI agents. Quote and verify are free; a successful outcome.run costs 5 Nexus
+    credits and failed execution or verification is refunded.
+servers:
+- url: https://humanmirror.fr
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+paths:
+  /api/outcome/quote/:
+    post:
+      summary: Create a free deterministic Outcome quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                objective:
+                  type: string
+                outcome_type:
+                  type: string
+                input: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Outcome contract quote
+        '422':
+          description: Objective is not deterministically supported
+  /api/outcome/run/:
+    post:
+      summary: Execute and charge only on verified success
+      security:
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                objective:
+                  type: string
+                outcome_type:
+                  type: string
+                contract_id:
+                  type: string
+                input: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Verified success
+        '400':
+          description: Execution or verification failed; credits refunded
+        '401':
+          description: Invalid Nexus key
+        '402':
+          description: Insufficient credits
+  /api/outcome/verify/:
+    post:
+      summary: Free deterministic re-verification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                receipt_id:
+                  type: string
+                outcome_type:
+                  type: string
+                input: {}
+                output: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Verification result
+  /api/outcome/stats/:
+    get:
+      summary: Public aggregated Outcome success statistics
+      responses:
+        '200':
+          description: Aggregated statistics

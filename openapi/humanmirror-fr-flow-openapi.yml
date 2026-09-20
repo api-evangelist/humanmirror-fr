@@ -1,0 +1,42 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Flow API
+  version: 1.0.0
+  description: Verified 2-3 step missions with whole-transaction success-only billing.
+servers:
+- url: https://humanmirror.fr
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+paths:
+  /api/flow/quote/:
+    post:
+      summary: Create a free Flow contract quote
+      responses:
+        '200':
+          description: Flow quote
+  /api/flow/run/:
+    post:
+      summary: Execute Flow; charge only if every step succeeds
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: Verified Flow success
+        '400':
+          description: Flow failed; reservation refunded
+  /api/flow/mcp/:
+    post:
+      summary: HumanMirror Flow MCP server
+      responses:
+        '200':
+          description: MCP JSON-RPC response
+  /api/flow/stats/:
+    get:
+      summary: Public aggregate Flow stats
+      responses:
+        '200':
+          description: Flow stats

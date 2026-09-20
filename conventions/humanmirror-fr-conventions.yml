@@ -1,0 +1,123 @@
+generated: '2026-09-19'
+method: searched
+source: https://humanmirror.fr/llms.txt, https://humanmirror.fr/index.html.md, https://humanmirror.fr/skill.md,
+  https://humanmirror.fr/connect/, the seven MCP servers' instructions, openapi/ (16 documents) and response headers
+  observed live on 2026-09-19
+derived_from: openapi/_original/humanmirror-fr-x402-openapi.json and the 15 product specs
+base_url: https://humanmirror.fr
+media_type: application/json
+auth:
+  style: Per-product Bearer API keys with a recognisable prefix (hm_nexus_*, hm_forge_*, hm_oracle_*, hm_omni_*,
+    hm_guard_*), X-API-Key for HumanMirror Pro, Bearer hmep1 Enterprise Fleet pass, plus x402 payment signatures
+    on pay-per-call routes
+  detail: authentication/humanmirror-fr-authentication.yml
+payment_as_protocol:
+  headers:
+    challenge: PAYMENT-REQUIRED (402 response, base64 JSON)
+    proof: PAYMENT-SIGNATURE (request)
+    settlement: PAYMENT-RESPONSE (200 response)
+  flow: 1 request -> 2 receive 402 + PAYMENT-REQUIRED -> 3 authorize exact USDC (EIP-3009) -> 4 retry with PAYMENT-SIGNATURE
+    -> 5 verify -> 6 execute -> 7 settle on success -> 8 200 + PAYMENT-RESPONSE
+  settlement_rule: settlement is requested only after successful execution; a 422 (execution or verification failed)
+    settles nothing
+  observed: '2026-09-19: POST /api/x402/secret-scanning/ without payment -> 402, PAYMENT-REQUIRED present, amount
+    10000 atomic (0.010 USDC), maxTimeoutSeconds 60'
+idempotency:
+  supported: false
+  coverage: none
+  header: null
+  scope: []
+  retention: null
+  description: No Idempotency-Key header, idempotency field or replay guarantee is documented in any of the 16 contracts
+    or the docs. The nearest mechanisms are (a) outcome_run's optional contract_id from outcome_quote, which must
+    match the current input (a binding, not a replay key), (b) the Mirror Loop context token, which the provider
+    says is stateless continuity and never blocks a call, and (c) the x402 exact-amount authorization, which a facilitator
+    will not settle twice for one signature — a payment-level property the docs do not promise as request idempotency.
+  gaps:
+  - No documented behaviour for a retried POST after a network timeout on a paid route.
+  - Credit-billed routes (Nexus/Forge/Oracle) document 'one credit per successful call' but no duplicate-suppression.
+dry_run:
+  supported: true
+  coverage: partial
+  mechanisms:
+  - surface: MCP humanmirror_do (One) and humanmirror_flow (Flow)
+    field: 'dry_run: true'
+    effect: free quote, no credits, no execution
+  - surface: REST
+    operations:
+    - POST /api/outcome/quote/
+    - POST /api/flow/quote/
+    - POST /api/physical-oracle/quote/
+    effect: free contract quote returning verifier, selected tool and credit cost
+  - surface: x402 routes
+    mechanism: first unpaid call returns the 402 price challenge without executing — an implicit price preview
+  - surface: discovery GETs
+    operations:
+    - GET /api/v1/sanitize/shield/
+    - GET /api/v1/m2m/payload-normalizer/
+    - GET /api/v1/consensus/verify/
+    - GET /api/v1/sink/
+    - GET /api/v1/zero/
+    effect: free capability/price description
+reversibility:
+  grade: none
+  write_surfaces:
+  - operation: outcome_run / humanmirrorX402Outcome / nexus_call / forge run / oracle analyze
+    reversal: null
+    window: null
+    note: 'No cancel/refund/void operation exists. Billing is success-only: a failed execution or failed deterministic
+      verification is automatically refunded (nexus.json model.failed_execution: ''automatic refund''; One/Flow
+      tool descriptions). That is a billing guarantee the agent cannot invoke, not a reversal path.'
+  - operation: POST /api/market/intent/ (paid, 0.010 USDC)
+    reversal: null
+    window: null
+    note: No withdraw/cancel-intent operation in market/openapi.json.
+  - operation: POST /api/nexus/checkout/ (Stripe credit pack)
+    reversal: consumer withdrawal handled by e-mail, not an API
+    window: 14 days (statutory, CGV §8), waived on express consent to immediate digital delivery
+    docs: https://humanmirror.fr/cgv/
+  - operation: POST /api/x402/enterprise-pass/ (297 USDC / 30 days)
+    reversal: null
+    window: null
+  note: 'Graded none: no write operation has an agent-invocable reversal. Documented only as context: automatic
+    refund on failure and the French consumer 14-day withdrawal right on Stripe packs.'
+pagination:
+  style: none published
+  known_params:
+  - operation: GET /api/magnet/hot
+    param: limit
+  note: List surfaces are small and unpaged (nexus search, magnet hot gaps, market live, physical-oracle missions).
+request_tracing:
+  response_headers:
+  - X-HumanMirror-Trace (sha256:<digest> of the execution)
+  - X-HumanMirror-Provenance (hmv1.<ts>.<HMAC-SHA256>) with X-HumanMirror-Provenance-Alg
+  - X-HumanMirror-Node
+  receipts: Trace receipts are verifiable at GET/POST /api/trace/verify (AgentOps) and Execution Receipts at POST
+    /api/x402/execution-receipt/
+  observed: '2026-09-19: both X-HumanMirror-Trace and X-HumanMirror-Provenance were present on the 402 response'
+continuity_headers:
+  protocol: humanmirror-mirror-loop/1
+  headers:
+  - X-HumanMirror-Loop
+  - X-HumanMirror-Context
+  - X-HumanMirror-Next
+  - X-HumanMirror-Repeat
+  - X-HumanMirror-Repeat-Price
+  manifest: https://humanmirror.fr/.well-known/mirror-loop.json
+  semantics: optional stateless continuity token + deterministic next action; omitting it never blocks a product
+discovery_headers:
+  note: Every response carries ~20 x-humanmirror-* discovery headers pointing at sibling products (x-humanmirror-agent-os,
+    -machine-port, -products, -sink, -pulse-url …) — the provider uses response headers as a discovery channel.
+  observed_on: GET /api/v1/sanitize/shield/ and the 402 above, 2026-09-19
+versioning: lifecycle/humanmirror-fr-lifecycle.yml
+error_envelope: errors/humanmirror-fr-problem-types.yml (MachineError {error, code, retryable}; 402 PaymentRequired)
+rate_limit_signaling:
+  headers_declared: []
+  headers_observed:
+  - 'x-humanmirror-free-quota: 3;w=86400 (RateLimit-style policy string on the Sanitize Shield discovery GET)'
+  exhaustion: 429 'Rate limited' / 'Limite anti-abus atteinte'; on x402 routes exhaustion of a free quota surfaces
+    as the 402 price challenge
+  detail: rate-limits/humanmirror-fr-rate-limits.yml
+localisation:
+  note: Docs and product pages are French-first with EN/ES/DE/IT/JA/KO/ZH/HI/ID/AR variants under /<lang>/; the
+    Oracle contract's error text and CGV are French.

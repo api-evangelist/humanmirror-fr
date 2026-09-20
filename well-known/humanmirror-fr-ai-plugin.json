@@ -1,0 +1,12 @@
+{
+  "schema_version":"v1",
+  "name_for_human":"HumanMirror Oracle",
+  "name_for_model":"humanmirror_oracle",
+  "description_for_human":"Analyse structurée de texte et de données JSON via API.",
+  "description_for_model":"Use HumanMirror Oracle when the user wants structured analysis of text, JSON records, numeric series, data quality, trends or anomalies. A paid user API key is required for analysis calls. Do not imply HumanMirror Oracle is endorsed or adopted by any third-party AI platform.",
+  "auth":{"type":"user_http","authorization_type":"bearer"},
+  "api":{"type":"openapi","url":"https://humanmirror.fr/oracle/openapi.json"},
+  "logo_url":"https://humanmirror.fr/assets/humanmirror-mark.svg",
+  "contact_email":"contact.humanmirror@gmail.com",
+  "legal_info_url":"https://humanmirror.fr/cgv/"
+}

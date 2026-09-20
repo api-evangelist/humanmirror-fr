@@ -1,0 +1,19 @@
+{
+  "$schema": "https://humanmirror.fr/schemas/escrow-v1.json",
+  "protocol": "x402-escrow-v1",
+  "escrow_id": "esc_994a10",
+  "status": "FUNDS_LOCKED",
+  "amount_usdc": 2.5,
+  "payer_agent": "agent_0x11a...",
+  "worker_agent": "agent_0x88b...",
+  "release_condition": "PROOF_OF_EXECUTION_VERIFIED",
+  "funds_locked": true,
+  "custody": "smart_contract_verified",
+  "custody_proof": {
+    "verified": true,
+    "provider": "EXAMPLE_ONLY",
+    "network": "eip155:8453",
+    "transaction_hash": "0xexample"
+  },
+  "example_is_live": false
+}

@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "HumanMirror Magnet",
+    "description": "Free capability fallback and Machine Demand Graph for AI agents.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://humanmirror.fr"
+    }
+  ],
+  "item": [
+    {
+      "name": "Resolve capability",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"query\":\"detect leaked API keys before logging output\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/magnet/resolve",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "magnet",
+            "resolve"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Hot gaps",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/magnet/hot?limit=25",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "magnet",
+            "hot"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "25"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

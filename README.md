@@ -64,5 +64,20 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-HumanMirror is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry) and added to the network as a stub for full-pipeline profiling.
-- https://humanmirror.fr/
+HumanMirror is a Toulouse, France-based agent-infrastructure provider (operated as an entrepreneur individuel) that sells security, verification, data-quality and payment-orchestration services to autonomous agents and the developers who run them. Agents pay per call in USDC on Base through x402 V2 (0.001 / 0.010 / 0.050 USDC tiers, 5 USDC bundles, a 297 USDC 30-day pass) or in Stripe-bought credits (Oracle, Forge, Nexus); humans buy audits, a Pro subscription and Enterprise Guard governance tiers in EUR. The surface is unusually machine-first: 16 OpenAPI 3.1 contracts, seven hosted MCP servers whose tools/list is open, an A2A agent card, llms.txt, an ai-plugin manifest, published JSON Schemas and ~40 vendor /.well-known/ manifests, all on a single host.
+
+- Website: https://humanmirror.fr/
+- Machine discovery: [llms.txt](https://humanmirror.fr/llms.txt) · [A2A agent card](https://humanmirror.fr/.well-known/agent-card.json) · [x402 OpenAPI](https://humanmirror.fr/x402/openapi.json) · [Nexus MCP](https://humanmirror.fr/api/nexus/mcp/)
+
+## What this profile holds
+
+| Area | Files | Method |
+|---|---|---|
+| `openapi/` | 16 first-party OpenAPI 3.1 contracts (verbatim JSON under `_original/`, YAML alongside) | searched |
+| `mcp/` | 7 hosted MCP servers with live `tools/list` bodies (22 tools), 3 registry `server.json`, manifest + tool crosswalk | probed / derived |
+| `a2a/` | Agent card at the canonical well-known path (graded flavored) + legacy `agent.json` | probed |
+| `skills/` | Provider-published `skill.md` (verbatim) + 2 generated skills grounded in real operations | searched / generated |
+| `json-schema/`, `json-ld/`, `postman/`, `llms/`, `well-known/` | Published schemas, JSON-LD index, 4 Postman collections, llms.txt, ai-plugin manifest | searched / probed |
+| `conformance/`, `conventions/`, `errors/`, `lifecycle/`, `rate-limits/`, `plans/`, `sandbox/`, `cli/`, `packages/`, `regulatory/`, `security/`, `authentication/`, `overlays/` | Cross-cutting profiles derived from the contracts and the provider's own pages; a live x402 402 challenge is recorded in conformance | searched / derived / probed |
+
+Everything under `openapi/_original/`, `mcp/*-tools.json`, `a2a/*.json`, `json-schema/`, `json-ld/`, `postman/`, `llms/` and `skills/*-genesis-skill.md` is the provider's document byte-for-byte; the `.yml` profiles say in their `method:` field how each was produced.

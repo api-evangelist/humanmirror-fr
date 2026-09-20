@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror M2M Payload Normalizer
+  version: 2.0.0
+  description: 'Deterministic canonical JSON normalizer with a bounded public benchmark quota and x402 Base/USDC transition.
+    Granular unit surface: Canonical bundle: https://humanmirror.fr/api/v1/agent/data-quality/'
+servers:
+- url: https://humanmirror.fr
+paths:
+  /api/v1/m2m/payload-normalizer/:
+    get:
+      operationId: discoverPayloadNormalizer
+      responses:
+        '200':
+          description: Discovery metadata
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+    post:
+      operationId: normalizeM2MPayload
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload: {}
+                options:
+                  type: object
+                  properties:
+                    trim_strings:
+                      type: boolean
+                      default: true
+                    drop_nulls:
+                      type: boolean
+                      default: false
+                    key_case:
+                      type: string
+                      enum:
+                      - preserve
+                      - snake_case
+                      default: preserve
+                  additionalProperties: false
+              additionalProperties: false
+      responses:
+        '200':
+          description: Canonical normalized payload
+        '400':
+          description: Invalid or oversized payload
+        '402':
+          description: Free/test quota exhausted; x402 payment required at the 0.001 USDC granular unit tier
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota or payment facilitator unavailable
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+externalDocs:
+  url: https://humanmirror.fr/.well-known/payload-normalizer.json
+x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/

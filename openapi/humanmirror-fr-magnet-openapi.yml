@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Magnet API
+  version: 1.0.0
+  description: Free fallback capability discovery and privacy-thresholded Machine Demand Graph for AI agents.
+servers:
+- url: https://humanmirror.fr
+paths:
+  /api/magnet/resolve:
+    get:
+      summary: Resolve a capability or record a gap
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Resolved capability or capability gap
+        '429':
+          description: Rate limited
+    post:
+      summary: Resolve a capability or record a gap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - query
+              properties:
+                query:
+                  type: string
+      responses:
+        '200':
+          description: Resolved capability or capability gap
+        '429':
+          description: Rate limited
+  /api/magnet/hot:
+    get:
+      summary: Get aggregated public capability gaps
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      responses:
+        '200':
+          description: Machine Demand Graph
+  /api/magnet/gap:
+    get:
+      summary: Get public status for a Magnet capability gap
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Gap status
+        '404':
+          description: Gap not found

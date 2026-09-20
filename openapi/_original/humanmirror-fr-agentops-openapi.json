@@ -1,0 +1,160 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HumanMirror AgentOps API",
+    "version": "1.0.0",
+    "description": "Deterministic operational utilities for AI-agent workflows. Authentication uses a HumanMirror Nexus API key."
+  },
+  "servers": [
+    {
+      "url": "https://humanmirror.fr"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "NexusBearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "hm_nexus_*"
+      }
+    }
+  },
+  "paths": {
+    "/api/sentinel/inspect": {
+      "post": {
+        "summary": "Inspect AI output hygiene",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sentinel quality report"
+          },
+          "401": {
+            "description": "Invalid Nexus key"
+          },
+          "402": {
+            "description": "Insufficient credits"
+          }
+        }
+      }
+    },
+    "/api/trace/issue": {
+      "post": {
+        "summary": "Issue a verifiable Trace receipt",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Receipt issued"
+          },
+          "401": {
+            "description": "Invalid Nexus key"
+          },
+          "402": {
+            "description": "Insufficient credits"
+          }
+        }
+      }
+    },
+    "/api/trace/verify": {
+      "get": {
+        "summary": "Verify whether a Trace receipt exists",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Receipt exists"
+          },
+          "404": {
+            "description": "Receipt not found"
+          }
+        }
+      },
+      "post": {
+        "summary": "Verify a Trace receipt and optionally compare supplied payload hashes",
+        "responses": {
+          "200": {
+            "description": "Verification result"
+          },
+          "404": {
+            "description": "Receipt not found"
+          }
+        }
+      }
+    },
+    "/api/lens/infer": {
+      "post": {
+        "summary": "Infer a JSON contract",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inferred contract"
+          }
+        }
+      }
+    },
+    "/api/lens/diff": {
+      "post": {
+        "summary": "Detect breaking JSON contract changes",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract diff"
+          }
+        }
+      }
+    },
+    "/api/vault/scan": {
+      "post": {
+        "summary": "Scan for likely secret leakage",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Redacted secret scan"
+          }
+        }
+      }
+    },
+    "/api/circuit/preflight": {
+      "post": {
+        "summary": "Preflight operational risk in a proposed action",
+        "security": [
+          {
+            "NexusBearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Risk preflight"
+          }
+        }
+      }
+    }
+  }
+}

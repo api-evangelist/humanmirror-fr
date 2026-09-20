@@ -1,0 +1,223 @@
+generated: '2026-09-19'
+method: probed
+source: https://humanmirror.fr/products/human-catalog.json
+docs:
+- https://humanmirror.fr/products/
+- https://humanmirror.fr/cgv/
+- https://humanmirror.fr/x402/catalog.json
+- https://humanmirror.fr/.well-known/products.json
+plan_count: 16
+currency: EUR (humans, Stripe) and USDC (machines, x402)
+model: 'Two rails: humans buy one-time credit packs, one-time services or monthly subscriptions in EUR through Stripe;
+  agents pay per call in USDC through x402 with a fixed price ladder and an optional 30-day unlimited pass. No free-forever
+  API tier beyond trials and small daily quotas.'
+plans:
+- id: humanmirror_audit_cli
+  name: HumanMirror Audit CLI
+  audience: developer
+  price_label: 0 €
+  billing: free
+  currency: EUR
+  description: Free local scanner for AI-generated code, secrets, unsafe tool calls and risky configuration. No
+    source upload by default.
+  url: https://humanmirror.fr/docs/vibecode/
+  capabilities:
+  - vibe-code-security
+  - local-scan
+  - ci
+- id: sitetrust
+  name: HumanMirror SiteTrust
+  audience: human
+  price_label: 29 €
+  billing: one_time
+  currency: EUR
+  description: Automated public-site trust audit covering legal notices, privacy, cookies, commerce terms and technical
+    trust signals.
+  url: https://humanmirror.fr/contact/
+  capabilities:
+  - site-audit
+  - privacy-signals
+  - trust-score
+- id: zero_point_human
+  name: Zero Point Consensus
+  audience: human
+  price_label: 99 €
+  billing: one_time
+  currency: EUR
+  description: Structured mathematical, financial and strategic decision analysis with a shareable consensus certificate.
+  url: https://humanmirror.fr/zero/
+  capabilities:
+  - decision-analysis
+  - strategy
+  - certificate
+- id: humanmirror_pro
+  name: HumanMirror Pro
+  audience: developer
+  price_label: 49 €/mois
+  billing: subscription
+  currency: EUR
+  description: Cloud audit history, Flow Guard, team keys, resource monitoring and Next-Gen preview for developers
+    and technical teams.
+  url: https://humanmirror.fr/dashboard/
+  capabilities:
+  - vibe-code-security
+  - flow-guard
+  - resource-monitoring
+- id: agent_safety_audit
+  name: Agent Safety Audit
+  audience: b2b
+  price_label: 299 €
+  billing: one_time
+  currency: EUR
+  description: Targeted audit of a real AI agent or workflow covering actions, secrets, permissions, tool calls,
+    pre-execution guardrails and available execution evidence.
+  url: https://humanmirror.fr/agent-safety-audit/
+  capabilities:
+  - agent-security-audit
+  - workflow-review
+  - guardrail-assessment
+- id: agent_safety_sprint
+  name: Agent Safety Sprint
+  audience: b2b
+  price_label: 990 €
+  billing: one_time
+  currency: EUR
+  description: Audit approfondi d’un agent ou workflow réel, configuration de garde-fous, restitution et plan de
+    déploiement.
+  url: https://humanmirror.fr/agent-safety-sprint/
+  capabilities:
+  - agent-security
+  - guardrail-configuration
+  - deployment-plan
+- id: humanmirror_optimize
+  name: HumanMirror Optimize
+  audience: b2b
+  price_label: performance pilot
+  billing: success_fee
+  currency: null
+  description: 'AI cost-optimization pilot: establish a baseline, compare admissible providers and measure verified
+    savings through private, hybrid or open competition.'
+  url: https://humanmirror.fr/optimize/
+  capabilities:
+  - ai-cost-optimization
+  - provider-routing
+  - verified-savings
+  - intent-market
+- id: enterprise_guard_core
+  name: Enterprise Guard Core
+  audience: b2b
+  price_label: 1 500 €/mois
+  billing: subscription
+  currency: EUR
+  description: Governance middleware for organizations running up to 25 active agents with 500,000 preflight calls
+    per month.
+  url: https://humanmirror.fr/enterprise-guard/#plans
+  capabilities:
+  - brand-governance
+  - agent-state
+  - signed-decisions
+- id: enterprise_guard_scale
+  name: Enterprise Guard Scale
+  audience: b2b
+  price_label: 3 000 €/mois
+  billing: subscription
+  currency: EUR
+  description: High-volume governance for agencies and multi-brand structures operating up to 100 agents.
+  url: https://humanmirror.fr/enterprise-guard/#plans
+  capabilities:
+  - brand-governance
+  - cohort-risk
+  - 2m-preflights
+- id: enterprise_guard_sovereign
+  name: Enterprise Guard Sovereign
+  audience: b2b
+  price_label: 5 000 €/mois
+  billing: subscription
+  currency: EUR
+  description: Highest self-service Enterprise Guard capacity for structures operating up to 500 governed agents.
+  url: https://humanmirror.fr/enterprise-guard/#plans
+  capabilities:
+  - fleet-governance
+  - aggregate-reputation-risk
+  - 5m-preflights
+credit_packs:
+- id: oracle-100
+  product: HumanMirror Oracle
+  credits: 100
+  price: 4.99
+  currency: EUR
+  period: one-time
+  unit: 1 credit per successful analysis call
+  source: https://humanmirror.fr/cgv/
+- id: forge-1000
+  product: HumanMirror Forge
+  credits: 1000
+  price: 4.99
+  currency: EUR
+  period: one-time
+  trial: 25 free calls
+  unit: 1 credit per successful tool call
+  source: https://humanmirror.fr/cgv/
+- id: nexus-5000
+  product: HumanMirror Nexus
+  credits: 5000
+  price: 9.99
+  currency: EUR
+  period: one-time
+  trial: 100 free credits (one per network origin per 90 days)
+  unit: declared per-tool credit cost; Outcome 5, One 6, Flow 12, AgentOps tools 1-2
+  referral: +500 credits to both accounts when a referred user buys the 9.99 pack
+  source: https://humanmirror.fr/cgv/ and /.well-known/nexus.json
+- id: omni-sync-micro
+  product: HumanMirror Omni-Sync
+  credits: 100
+  price: 1.99
+  currency: EUR
+  period: one-time
+  source: https://humanmirror.fr/llms.txt
+- id: omni-sync-daily
+  product: HumanMirror Omni-Sync
+  credits: 1000
+  price: 9.99
+  currency: EUR
+  period: one-time
+  source: https://humanmirror.fr/llms.txt
+- id: omni-sync-swarm
+  product: HumanMirror Omni-Sync
+  credits: 10000
+  price: 49.99
+  currency: EUR
+  period: one-time
+  source: https://humanmirror.fr/llms.txt
+machine_pricing:
+  protocol: x402 V2, USDC on Base mainnet (eip155:8453), exact scheme
+  catalog: https://humanmirror.fr/x402/catalog.json (64 services on the probe date)
+  ladder:
+    granular_unit_tiers_usdc:
+    - '0.001'
+    - '0.010'
+    - '0.050'
+    thematic_bundle_usdc: '5.000'
+    enterprise_fleet_usdc: 297.000 per 30 days
+    emergency_pack_usdc: 5.000 (24h, 10 calls)
+  examples:
+  - service: Sanitize Shield / Payload Normalizer / Consensus Oracle
+    price_usdc: '0.001'
+    free_quota: 3 calls per 24h
+  - service: Secret Scanning / Safe Preflight / Execution Receipt / Machine Resolve
+    price_usdc: 0.010 (Machine Resolve 0.001)
+  - service: Next-Gen preview, Agent OS State & Trust, Perception vector, Zero Point Consensus
+    price_usdc: '0.050'
+  - service: Canonical bundles (security-intelligence, data-quality, verification, operations)
+    price_usdc: '5.000'
+  - service: Enterprise Fleet pass
+    price_usdc: 297.000 / 30 days, unlimited Payload Normalizer + Consensus Oracle + Sanitize Shield, quota bypass
+  protocol_fee: 'HUVP / Agent Exchange: 1 bp (0.01%) on applicable third-party flows; no double charge on HumanMirror-owned
+    product fees'
+notes:
+- Prices are as published on the probe date; the seller is a French entrepreneur individuel under VAT franchise
+  (CGV §1), so EUR prices carry no VAT.
+- Human catalog version 1.2.0; the Enterprise Guard tiers (1 500 / 3 000 / 5 000 EUR per month) state agent counts
+  (25 / 100 / 500) and monthly preflight volumes (500k / 2M / 5M).
+- 'No enterprise ''contact us'' opacity: every tier has a number except HumanMirror Optimize (success fee) and SiteTrust''s
+  endpoint (contact form).'

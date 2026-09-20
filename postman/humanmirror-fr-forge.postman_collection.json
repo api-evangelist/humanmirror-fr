@@ -1,0 +1,9 @@
+{
+  "info":{"name":"HumanMirror Forge API","description":"Five deterministic micro-tools for AI agents and automations.","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"base_url","value":"https://humanmirror.fr"},{"key":"forge_api_key","value":"hm_forge_YOUR_KEY","type":"secret"}],
+  "item":[
+    {"name":"Create free trial key","request":{"method":"POST","url":{"raw":"{{base_url}}/api/forge/trial","host":["{{base_url}}"],"path":["api","forge","trial"]}}},
+    {"name":"Forge service info","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{forge_api_key}}"}],"url":{"raw":"{{base_url}}/api/forge","host":["{{base_url}}"],"path":["api","forge"]}}},
+    {"name":"Detect anomaly","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{forge_api_key}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"tool\": \"detect_anomaly\",\n  \"input\": [10, 11, 12, 13, 60]\n}"},"url":{"raw":"{{base_url}}/api/forge/run","host":["{{base_url}}"],"path":["api","forge","run"]}}}
+  ]
+}

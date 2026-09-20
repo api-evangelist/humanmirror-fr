@@ -1,0 +1,51 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror Magnet API
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-magnet-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-magnet-openapi.yml (4 operations) and the searched artifacts in
+  this repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/magnet/openapi.json
+      sha256: 84e7c960253da1c1c63f2c25c48014bc9822221b0ac837615c564e909769ea36
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/
+- target: $.paths['/api/magnet/resolve'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiMagnetResolveGet
+- target: $.paths['/api/magnet/resolve'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiMagnetResolvePost
+- target: $.paths['/api/magnet/hot'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiMagnetHotGet
+- target: $.paths['/api/magnet/gap'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiMagnetGapGet

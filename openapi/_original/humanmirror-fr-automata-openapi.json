@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HumanMirror Automata API",
+    "version": "1.0.0",
+    "description": "Public machine catalog and status for HumanMirror Automata. Operational event intake is private and provider-verified."
+  },
+  "servers": [
+    {
+      "url": "https://humanmirror.fr"
+    }
+  ],
+  "paths": {
+    "/api/automata": {
+      "get": {
+        "summary": "Get the 25 Automata definitions and aggregate status",
+        "responses": {
+          "200": {
+            "description": "Automata catalog"
+          }
+        }
+      }
+    }
+  }
+}

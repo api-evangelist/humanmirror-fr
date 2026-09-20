@@ -1,0 +1,308 @@
+generated: '2026-09-19'
+method: derived
+source: 'Derived by aligning the 22 tools enumerated live from HumanMirror''s seven MCP servers (mcp/humanmirror-fr-*-tools.json,
+  all anonymous 200s on 2026-09-19) with the 16 first-party OpenAPI documents under openapi/. Nothing gated: every
+  inputSchema is on disk verbatim.'
+purpose: Bind each MCP tool to the REST operation that backs it so the tool inherits a real request contract; record
+  the tools that have no public REST contract (x402 catalog reads, OmniDome) and the large REST surface (x402 pay-per-call
+  routes, AgentOps, Market, Agent OS, Physical Oracle) that no MCP tool exposes.
+surfaces:
+  rest_openapi: openapi/ (16 documents, 148 operations; 3 deprecated in the x402 spec)
+  graphql: null
+  mcp:
+  - https://humanmirror.fr/api/nexus/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/x402/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/omnidome/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/forge/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/oracle/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/one/mcp/ (tools/list open)
+  - https://humanmirror.fr/api/flow/mcp/ (tools/list open)
+  a2a: https://humanmirror.fr/api/a2a/ (JSON-RPC; SendMessage / message/send)
+crosswalk:
+- tool: outcome_quote
+  category: verified-outcome
+  rest:
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/quote/
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/outcome/quote/
+  binding: rest
+  confidence: high
+  note: Same path is published in both the Outcome and Nexus specs; neither declares an operationId, so the row
+    cites method+path.
+- tool: outcome_run
+  category: verified-outcome
+  rest:
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/run/
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Outcome
+  binding: rest
+  confidence: high
+  note: REST twin bills Nexus credits; the x402 twin (humanmirrorX402Outcome) bills USDC for the same outcome contract.
+- tool: outcome_verify
+  category: verified-outcome
+  rest:
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/verify/
+  binding: rest
+  confidence: high
+- tool: nexus_search
+  category: discovery
+  rest:
+  - openapi/humanmirror-fr-nexus-openapi.yml#GET /api/nexus/search
+  binding: rest
+  confidence: high
+- tool: magnet_resolve
+  category: discovery
+  rest:
+  - openapi/humanmirror-fr-magnet-openapi.yml#POST /api/magnet/resolve
+  - openapi/humanmirror-fr-magnet-openapi.yml#GET /api/magnet/resolve
+  binding: rest
+  confidence: high
+- tool: nexus_call
+  category: routing
+  rest:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/call
+  binding: rest
+  confidence: high
+  note: tool_id + input envelope is identical in the REST body and the MCP inputSchema.
+- tool: clean_json
+  category: data-quality
+  rest:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanJson
+  binding: rest
+  confidence: high
+  note: Forge REST multiplexes five tools through POST /api/forge/run (ForgeRun.tool); the x402 spec exposes the
+    same tool as its own paid route.
+- tool: dedupe_records
+  category: data-quality
+  rest:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeduplicateRecords
+  binding: rest
+  confidence: high
+- tool: normalize_entity
+  category: data-quality
+  rest:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402NormalizeEntity
+  binding: rest
+  confidence: high
+- tool: score_data_quality
+  category: data-quality
+  rest:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataQuality
+  binding: rest
+  confidence: high
+- tool: detect_anomaly
+  category: data-quality
+  rest:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AnomalyDetection
+  binding: rest
+  confidence: high
+- tool: humanmirror_oracle
+  category: analysis
+  rest:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+  binding: rest
+  confidence: high
+- tool: humanmirror_do
+  category: verified-outcome
+  rest:
+  - openapi/humanmirror-fr-one-openapi.yml#POST /api/one/run/
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402One
+  binding: rest
+  confidence: high
+  note: dry_run=true in the tool maps to the free quote; the REST spec exposes /api/one/run/ and /api/one/mcp/ only.
+- tool: humanmirror_flow
+  category: verified-outcome
+  rest:
+  - openapi/humanmirror-fr-flow-openapi.yml#POST /api/flow/run/
+  - openapi/humanmirror-fr-flow-openapi.yml#POST /api/flow/quote/
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Flow
+  binding: rest
+  confidence: high
+  note: dry_run=true -> /api/flow/quote/; execution -> /api/flow/run/.
+mcp_only:
+- tool: list_humanmirror_x402_services
+  server: x402-catalog
+  reason: Reads the static machine catalog (https://humanmirror.fr/x402/catalog.json); no REST operation in any
+    spec.
+- tool: get_humanmirror_x402_service
+  server: x402-catalog
+  reason: Catalog lookup by product id; backed by x402/catalog.json, not an OpenAPI operation.
+- tool: match_humanmirror_x402_service
+  server: x402-catalog
+  reason: Server-side semantic match over the catalog; no REST equivalent (the nearest is POST /api/solve/, which
+    is itself absent from every published spec).
+- tool: discover_omnidome_commons
+  server: omnidome
+  reason: OmniDome REST endpoints (/api/omnidome/*) are described in .well-known/omnidome.json but HumanMirror publishes
+    no OpenAPI for them.
+- tool: read_omnidome_agora
+  server: omnidome
+  reason: 'Same: /api/omnidome/agora/ has a manifest entry but no OpenAPI contract.'
+- tool: quote_omnidome_settlement
+  server: omnidome
+  reason: 'Same: /api/omnidome/settlement/ has no OpenAPI contract.'
+- tool: discover_omnidome_beacon
+  server: omnidome
+  reason: 'Same: /api/omnidome/beacon/ has no OpenAPI contract.'
+- tool: join_omnidome
+  server: omnidome
+  reason: 'Same: /api/omnidome/registrar/ has no OpenAPI contract.'
+rest_only:
+  x402:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SecretScanning
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402OutputQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SchemaCompatibility
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SafePreflight
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ExecutionReceipt
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AutomataDecision
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AnnualRenewalGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402BrokenLinkRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CartGlitchShield
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ChargebackShield
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CheckoutLinkGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CloudCreditOptimizer
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CloudMigrationWatchdog
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DbBloatGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeliverabilityFailover
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DependencyAutohealer
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DigitalAssetGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402FxCostOptimizer
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402InventorySyncSentinel
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402InvoiceRecovery
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402InvoiceSyntaxSentinel
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402KycRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402LeadDropShield
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ReputationGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SecopsAutopatch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SeoDomainWatch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SmartDunning
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402TaxLedger
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402UptimePanicGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402VatRecovery
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402WebhookDeadLetter
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AutonomousEscrowAgent
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ApiBreakSentinel
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GlobalAiTaxProxy
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GhostCartFormRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataBrokerageAutomate
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ExpiredDomainOpportunityWatch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402MediaKitGenerator
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanEx
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402PriceSniper
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ProofOfVibe
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeadBotSwitch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ContextCompressorSanitizer
+  - openapi/humanmirror-fr-x402-openapi.yml#discoverZeroCostExecutionSink
+  - openapi/humanmirror-fr-x402-openapi.yml#executeZeroCostExecutionSink
+  - openapi/humanmirror-fr-x402-openapi.yml#discoverM2MFallback
+  - openapi/humanmirror-fr-x402-openapi.yml#normalizeM2MFallback
+  - openapi/humanmirror-fr-x402-openapi.yml#convertBotPayload
+  - openapi/humanmirror-fr-x402-openapi.yml#claimMicroWork
+  - openapi/humanmirror-fr-x402-openapi.yml#submitMicroWork
+  - openapi/humanmirror-fr-x402-openapi.yml#readLiquidityStatus
+  - openapi/humanmirror-fr-x402-openapi.yml#discoverZeroPointConsensus
+  - openapi/humanmirror-fr-x402-openapi.yml#buyZeroPointConsensus
+  - openapi/humanmirror-fr-x402-openapi.yml#discoverPayloadNormalizer
+  - openapi/humanmirror-fr-x402-openapi.yml#normalizeM2MPayload
+  - openapi/humanmirror-fr-x402-openapi.yml#discoverConsensusOracle
+  - openapi/humanmirror-fr-x402-openapi.yml#verifyAgentConsensus
+  - openapi/humanmirror-fr-x402-openapi.yml#sanitizeShield
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseEnterpriseFleet
+  - openapi/humanmirror-fr-x402-openapi.yml#GET /api/x402/emergency-pack/
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/x402/emergency-pack/
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/referral/create/
+  - openapi/humanmirror-fr-x402-openapi.yml#GET /api/referral/status/
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/referral/claim/
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseSecurityIntelligence
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseDataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseVerification
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseOperations
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorSharedContext
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorPerceptionBehaviorVector
+  oracle:
+  - openapi/humanmirror-fr-oracle-openapi.yml#getOracleStatus
+  forge:
+  - openapi/humanmirror-fr-forge-openapi.yml#GET /api/forge
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/trial
+  nexus:
+  - openapi/humanmirror-fr-nexus-openapi.yml#GET /api/nexus
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/trial
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/checkout
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/claim
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/outcome/run/
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/outcome/verify/
+  agentops:
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/sentinel/inspect
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/trace/issue
+  - openapi/humanmirror-fr-agentops-openapi.yml#GET /api/trace/verify
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/trace/verify
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/lens/infer
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/lens/diff
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/vault/scan
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/circuit/preflight
+  magnet:
+  - openapi/humanmirror-fr-magnet-openapi.yml#GET /api/magnet/hot
+  - openapi/humanmirror-fr-magnet-openapi.yml#GET /api/magnet/gap
+  outcome:
+  - openapi/humanmirror-fr-outcome-openapi.yml#GET /api/outcome/stats/
+  one:
+  - openapi/humanmirror-fr-one-openapi.yml#POST /api/one/mcp/
+  flow:
+  - openapi/humanmirror-fr-flow-openapi.yml#POST /api/flow/mcp/
+  - openapi/humanmirror-fr-flow-openapi.yml#GET /api/flow/stats/
+  automata:
+  - openapi/humanmirror-fr-automata-openapi.yml#GET /api/automata
+  market:
+  - openapi/humanmirror-fr-market-openapi.yml#GET /api/market/live/
+  - openapi/humanmirror-fr-market-openapi.yml#GET /api/market/intent/
+  - openapi/humanmirror-fr-market-openapi.yml#POST /api/market/intent/
+  - openapi/humanmirror-fr-market-openapi.yml#GET /api/market/bid/
+  - openapi/humanmirror-fr-market-openapi.yml#POST /api/market/bid/
+  - openapi/humanmirror-fr-market-openapi.yml#GET /api/market/award/
+  - openapi/humanmirror-fr-market-openapi.yml#POST /api/market/award/
+  agent-os:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#validateStateAndTrust
+  - openapi/humanmirror-fr-agent-os-openapi.yml#GET /api/value/resolve/
+  - openapi/humanmirror-fr-agent-os-openapi.yml#resolveUniversalValueIntent
+  - openapi/humanmirror-fr-agent-os-openapi.yml#evaluateValueFirewall
+  - openapi/humanmirror-fr-agent-os-openapi.yml#createUniversalValueReceipt
+  physical-oracle:
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#GET /api/physical-oracle/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/quote/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/missions/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#GET /api/physical-oracle/missions/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/workers/register/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#GET /api/physical-oracle/workers/snapshot/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/claim/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/submit/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/verify/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/commission/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/payout-confirm/
+  payload-normalizer:
+  - openapi/humanmirror-fr-payload-normalizer-openapi.yml#discoverPayloadNormalizer
+  - openapi/humanmirror-fr-payload-normalizer-openapi.yml#normalizeM2MPayload
+  consensus-verify:
+  - openapi/humanmirror-fr-consensus-verify-openapi.yml#discoverConsensusOracle
+  - openapi/humanmirror-fr-consensus-verify-openapi.yml#verifyAgentConsensus
+  sanitize-shield:
+  - openapi/humanmirror-fr-sanitize-shield-openapi.yml#discoverSanitizeShield
+  - openapi/humanmirror-fr-sanitize-shield-openapi.yml#sanitizeShield
+coverage:
+  tools_named: 22
+  tools_bound: 14
+  mcp_only: 8
+  rest_operations_total: 148
+  rest_operations_with_tool: 21
+  rest_only_operations: 127
+notes:
+- Most product specs omit operationId; rows cite `#METHOD /path` for those and a real operationId where one exists
+  (x402, oracle, agent-os, m2m specs).
+- The x402 spec and the Forge/Outcome/One/Flow specs describe the SAME capabilities under two billing rails (credits
+  vs USDC); the crosswalk lists both twins where they exist.

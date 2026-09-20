@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Oracle API
+  version: '2026-08-30'
+  description: API d’analyse structurée conçue pour les applications et agents IA. Un appel d’analyse réussi consomme 1 crédit.
+servers:
+- url: https://humanmirror.fr
+paths:
+  /api/oracle:
+    get:
+      operationId: getOracleStatus
+      summary: Informations publiques ou solde de crédits si authentifié
+      security:
+      - {}
+      - ApiKeyBearer: []
+      responses:
+        '200':
+          description: Service disponible
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/oracle/analyze:
+    post:
+      operationId: analyzeWithHumanMirrorOracle
+      summary: Analyser des données avec HumanMirror Oracle
+      security:
+      - ApiKeyBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: {}
+                objective:
+                  type: string
+                context:
+                  type: string
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Analyse réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '413':
+          description: Entrée trop volumineuse
+        '429':
+          description: Limite anti-abus atteinte
+        '503':
+          description: Service temporairement indisponible
+components:
+  securitySchemes:
+    ApiKeyBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_oracle_…
+  schemas:
+    AnalyzeSuccess:
+      type: object
+      required:
+      - ok
+      - version
+      - request_id
+      - result
+      - usage
+      properties:
+        ok:
+          const: true
+        version:
+          type: string
+        request_id:
+          type: string
+        result:
+          type: object
+        usage:
+          type: object
+          properties:
+            credits_used:
+              type: integer
+            credits_remaining:
+              type: integer
+          required:
+          - credits_used
+          - credits_remaining
+    Error:
+      type: object
+      required:
+      - ok
+      - version
+      - error
+      properties:
+        ok:
+          const: false
+        version:
+          type: string
+        request_id:
+          type:
+          - string
+          - 'null'
+        error:
+          type: object
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details: {}
+  responses:
+    BadRequest:
+      description: Requête invalide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Clé API invalide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PaymentRequired:
+      description: Crédits insuffisants
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

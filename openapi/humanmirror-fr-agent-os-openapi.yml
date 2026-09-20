@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Agent OS API
+  version: 1.0.0
+  description: Machine-native Proof-of-State and exact SHA-256 state-continuity verification with scoped trust/automation
+    signals. Paid execution uses x402 V2 with USDC on Base mainnet.
+servers:
+- url: https://humanmirror.fr
+externalDocs:
+  description: HumanMirror Agent OS discovery manifest
+  url: https://humanmirror.fr/.well-known/agent-os.json
+paths:
+  /api/v1/agent/state-and-trust/:
+    post:
+      summary: Sign agent state and verify exact continuity
+      operationId: validateStateAndTrust
+      description: Signs a caller-supplied SHA-256 state, compares it with an optional previous SHA-256 state hash for exact
+        continuity, and issues a scoped trust/automation signal. This endpoint does not claim semantic-vector distance, persistent
+        reputation history, MEV protection, or unmeasured efficiency gains.
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-protocol: x402-humanmirror-v1
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 v2 signed payment payload. Omit to receive an HTTP 402 challenge unless Pro/Enterprise access applies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - agent_id
+              - current_state_hash
+              properties:
+                agent_id:
+                  type: string
+                  minLength: 1
+                  maxLength: 160
+                  examples:
+                  - agent_example
+                current_state_hash:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+                previous_vector:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+              additionalProperties: false
+      responses:
+        '200':
+          description: Signed state proof and scoped trust signal after authorized access/payment.
+        '400':
+          description: Invalid state input.
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet.
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+              description: Base64-encoded x402 v2 payment requirements.
+        '503':
+          description: x402 runtime or facilitator unavailable.
+  /api/value/resolve/:
+    get:
+      summary: Discover HumanMirror Universal Value Resolver
+      responses:
+        '200':
+          description: HUVP discovery and rail status.
+    post:
+      summary: Normalize value intent and select a compatible live rail
+      operationId: resolveUniversalValueIntent
+      description: Applies HUVP normalization, Value Firewall policy and safe live-rail routing. Returns a fee quote; it does
+        not fabricate settlement.
+      responses:
+        '200':
+          description: Normalized intent, firewall decision, route and fee policy.
+        '400':
+          description: Invalid intent.
+        '403':
+          description: Policy blocked the transaction.
+  /api/value/firewall/:
+    post:
+      summary: Evaluate transaction policy before routing
+      operationId: evaluateValueFirewall
+      responses:
+        '200':
+          description: ALLOW, REVIEW or BLOCK policy result.
+  /api/value/receipt/:
+    post:
+      summary: Create a signed caller-attested universal receipt
+      operationId: createUniversalValueReceipt
+      description: Caller-attested receipts are kept distinct from authoritative verified settlement receipts.
+      responses:
+        '200':
+          description: Signed HUVP receipt.
+        '400':
+          description: Transaction reference required.
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

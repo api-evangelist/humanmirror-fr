@@ -1,0 +1,76 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror Nexus API
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-nexus-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-nexus-openapi.yml (9 operations) and the searched artifacts in this
+  repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/nexus/openapi.json
+      sha256: cd1fe90dc59c27e99e603db960ae67bc0ab3f1d626ac303b25dbd7cd8f786a0d
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/
+- target: $.paths['/api/nexus'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusGet
+- target: $.paths['/api/nexus/search'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusSearchGet
+- target: $.paths['/api/nexus/trial'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusTrialPost
+- target: $.paths['/api/nexus/checkout'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusCheckoutPost
+- target: $.paths['/api/nexus/claim'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusClaimPost
+- target: $.paths['/api/nexus/call'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiNexusCallPost
+- target: $.paths['/api/outcome/quote/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiOutcomeQuotePost
+- target: $.paths['/api/outcome/run/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiOutcomeRunPost
+- target: $.paths['/api/outcome/verify/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiOutcomeVerifyPost

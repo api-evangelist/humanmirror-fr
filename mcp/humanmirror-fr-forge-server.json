@@ -1,0 +1,18 @@
+{
+  "$schema":"https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name":"fr.humanmirror/forge",
+  "title":"HumanMirror Forge",
+  "description":"Five deterministic micro-tools for AI-agent data pipelines: clean, dedupe, normalize, score, detect.",
+  "version":"1.0.0",
+  "websiteUrl":"https://humanmirror.fr/forge/",
+  "remotes":[{
+    "type":"streamable-http",
+    "url":"https://humanmirror.fr/api/forge/mcp/",
+    "headers":[{
+      "name":"Authorization",
+      "description":"HumanMirror Forge API key. Use: Bearer hm_forge_…",
+      "isRequired":true,
+      "isSecret":true
+    }]
+  }]
+}

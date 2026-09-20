@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror Sanitize Shield
+  version: 2.0.0
+  description: 'Quarantine external context, detect indirect prompt injection and issue a signed Cleanliness Proof. Three
+    test calls per 24 hours, then x402 Base/USDC. Granular unit surface: Canonical bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/'
+servers:
+- url: https://humanmirror.fr
+paths:
+  /api/v1/sanitize/shield/:
+    get:
+      operationId: discoverSanitizeShield
+      responses:
+        '200':
+          description: Machine-readable service discovery
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+    post:
+      operationId: sanitizeShield
+      summary: Analyze and quarantine untrusted agent context
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShieldRequest'
+            examples:
+              structured:
+                value:
+                  payload:
+                    source: web
+                    content: Release notes for version 2.0
+                  context:
+                    trust_level: untrusted
+        responses:
+          '200':
+            description: Analysis completed
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ShieldResponse'
+          '400':
+            description: Invalid or oversized payload
+          '402':
+            description: Free quota exhausted; x402 payment required
+            headers:
+              PAYMENT-REQUIRED:
+                schema:
+                  type: string
+                description: Base64url x402 V2 payment requirements
+          '503':
+            description: Quota, proof-signing or payment service unavailable
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  components:
+    schemas:
+      ShieldRequest:
+        type: object
+        required:
+        - payload
+        properties:
+          payload: {}
+          context:
+            type: object
+            additionalProperties: true
+          policy:
+            type: object
+            properties:
+              false_positive_cost:
+                type: number
+                minimum: 0.01
+                maximum: 1000
+                default: 1
+              false_negative_cost:
+                type: number
+                minimum: 0.01
+                maximum: 1000
+                default: 4
+              block_threshold:
+                type: number
+                minimum: 0.01
+                maximum: 0.99
+          options:
+            type: object
+            properties:
+              return_sanitized:
+                type: boolean
+                default: true
+      Finding:
+        type: object
+        required:
+        - category
+        - severity
+        - confidence
+        - path
+        - offset
+        - evidence_sha256
+        properties:
+          category:
+            type: string
+          severity:
+            enum:
+            - medium
+            - high
+            - critical
+          confidence:
+            type: number
+          path:
+            type: string
+          offset:
+            type: integer
+          evidence_sha256:
+            type: string
+      ShieldResponse:
+        type: object
+        properties:
+          ok:
+            const: true
+          status:
+            const: ANALYZED
+          result:
+            type: object
+            properties:
+              verdict:
+                enum:
+                - CLEAN
+                - REVIEW
+                - QUARANTINED
+              allowed:
+                type: boolean
+              risk_score:
+                type: number
+              findings:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Finding'
+              sanitized_payload: {}
+              cleanliness_proof:
+                type: object
+                properties:
+                  format:
+                    const: hm-clean-v1
+                  algorithm:
+                    const: HMAC-SHA256
+                  token:
+                    type: string
+      x-humanmirror-pricing-tier: granular_unit_0_001
+x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/

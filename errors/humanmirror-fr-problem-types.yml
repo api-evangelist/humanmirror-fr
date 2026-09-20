@@ -1,0 +1,507 @@
+generated: '2026-09-19'
+method: derived
+source: openapi/ (all 16 documents) plus a live 402 observed on POST /api/x402/secret-scanning/ on 2026-09-19
+format: custom-json
+envelope:
+  schema: MachineError (openapi/humanmirror-fr-x402-openapi.yml#/components/schemas/MachineError)
+  media_type: application/json
+  fields:
+  - name: error
+    type: string
+    required: true
+  - name: code
+    type: string
+  - name: retryable
+    type: boolean
+  additional_properties: true
+  payment_required_envelope:
+    schema: PaymentRequired
+    status: 402
+    fields:
+    - x402Version (const 2)
+    - error
+    - resource
+    - accepts[]
+    header: PAYMENT-REQUIRED (base64 JSON of the same body)
+    observed_example_error: PAYMENT-SIGNATURE header is required
+  note: 'Not RFC 9457. The 402 is the API''s primary ''error'': it is the payment challenge every paid route returns
+    on first call. 422 means execution or deterministic verification failed and no payment settled; 503 means the
+    x402 facilitator/settlement was unavailable.'
+retry_semantics:
+  retryable_flag: MachineError.retryable
+  rate_limited: 429 'Rate limited' on Forge run, Nexus call, Magnet resolve, Oracle analyze ('Limite anti-abus atteinte');
+    no Retry-After header is declared.
+problems:
+- status: 400
+  title: Invalid or oversized payload
+  occurrences: 3
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#normalizeM2MPayload
+  - openapi/humanmirror-fr-x402-openapi.yml#sanitizeShield
+  - openapi/humanmirror-fr-payload-normalizer-openapi.yml#normalizeM2MPayload
+- status: 400
+  title: Invalid signal model
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#verifyAgentConsensus
+  - openapi/humanmirror-fr-consensus-verify-openapi.yml#verifyAgentConsensus
+- status: 400
+  title: Invalid JSON payload
+  occurrences: 5
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseEnterpriseFleet
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseSecurityIntelligence
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseDataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseVerification
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseOperations
+- status: 400
+  title: Invalid preview input
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+- status: 400
+  title: Invalid request
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorSharedContext
+- status: 400
+  title: Invalid, individual or sensitive input
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorPerceptionBehaviorVector
+- status: 400
+  title: (no description)
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 400
+  title: Invalid input
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+- status: 400
+  title: Invalid or unpaid checkout session
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/claim
+- status: 400
+  title: Failed execution or verification; credits refunded
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/outcome/run/
+- status: 400
+  title: Execution or verification failed; credits refunded
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/run/
+- status: 400
+  title: Execution/verification failed and credits refunded
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-one-openapi.yml#POST /api/one/run/
+- status: 400
+  title: Flow failed; reservation refunded
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-flow-openapi.yml#POST /api/flow/run/
+- status: 400
+  title: Invalid state input.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#validateStateAndTrust
+- status: 400
+  title: Invalid intent.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#resolveUniversalValueIntent
+- status: 400
+  title: Transaction reference required.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#createUniversalValueReceipt
+- status: 401
+  title: Active Enterprise pass required.
+  occurrences: 3
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/referral/create/
+  - openapi/humanmirror-fr-x402-openapi.yml#GET /api/referral/status/
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/referral/claim/
+- status: 401
+  title: Invalid HumanMirror Pro API key
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+- status: 401
+  title: Omni-Sync API key required
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorSharedContext
+- status: 401
+  title: (no description)
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#getOracleStatus
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 401
+  title: Invalid API key
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/call
+- status: 401
+  title: Invalid Nexus key
+  occurrences: 3
+  source_operations:
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/sentinel/inspect
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/trace/issue
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/run/
+- status: 401
+  title: Missing or invalid Nexus key for execution
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-one-openapi.yml#POST /api/one/run/
+- status: 402
+  title: Payment required; inspect PAYMENT-REQUIRED header
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Outcome
+- status: 402
+  title: Payment required
+  occurrences: 50
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402One
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Flow
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanJson
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeduplicateRecords
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402NormalizeEntity
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataQuality
+  - … 44 more
+- status: 402
+  title: x402 V2 payment required after grace/quota.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#executeZeroCostExecutionSink
+- status: 402
+  title: x402 payment required
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#buyZeroPointConsensus
+  - openapi/humanmirror-fr-market-openapi.yml#POST /api/market/intent/
+  - openapi/humanmirror-fr-market-openapi.yml#POST /api/market/award/
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/commission/
+- status: 402
+  title: Initial benchmark quota exhausted; x402 payment required
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#normalizeM2MPayload
+- status: 402
+  title: Oracle test quota exhausted
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#verifyAgentConsensus
+- status: 402
+  title: Free quota exhausted; x402 exact payment required
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#sanitizeShield
+- status: 402
+  title: Payment Required — 297.000 USDC on Base mainnet
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseEnterpriseFleet
+- status: 402
+  title: x402 V2 Base/USDC authorization required.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/x402/emergency-pack/
+- status: 402
+  title: Payment Required — 5.000 USDC on Base mainnet
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseSecurityIntelligence
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseDataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseVerification
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseOperations
+- status: 402
+  title: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+- status: 402
+  title: Credits exhausted; x402 payment required (0.010 USDC on Base)
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorSharedContext
+- status: 402
+  title: x402 payment required (0.050 USDC on Base)
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorPerceptionBehaviorVector
+- status: 402
+  title: (no description)
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 402
+  title: Insufficient credits
+  occurrences: 5
+  source_operations:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/call
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/sentinel/inspect
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/trace/issue
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/run/
+- status: 402
+  title: Payment Required — 0.050 USDC on Base mainnet.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#validateStateAndTrust
+- status: 402
+  title: Free/test quota exhausted; x402 payment required at the 0.001 USDC granular unit tier
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-payload-normalizer-openapi.yml#normalizeM2MPayload
+  - openapi/humanmirror-fr-consensus-verify-openapi.yml#verifyAgentConsensus
+- status: 403
+  title: HumanMirror Pro or Enterprise access required for credentialed preview
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+- status: 403
+  title: Origin not allowed
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/checkout
+- status: 403
+  title: Policy blocked the transaction.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#resolveUniversalValueIntent
+- status: 404
+  title: Unknown tool
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/call
+- status: 404
+  title: Receipt not found
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-agentops-openapi.yml#GET /api/trace/verify
+  - openapi/humanmirror-fr-agentops-openapi.yml#POST /api/trace/verify
+- status: 404
+  title: Gap not found
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-magnet-openapi.yml#GET /api/magnet/gap
+- status: 405
+  title: Method not allowed
+  occurrences: 5
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseEnterpriseFleet
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseSecurityIntelligence
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseDataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseVerification
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseOperations
+- status: 409
+  title: Trial already used for this network origin
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/trial
+- status: 409
+  title: Trial already used
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/trial
+- status: 413
+  title: Entrée trop volumineuse
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 422
+  title: Execution or deterministic verification failed; payment is not settled
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Outcome
+- status: 422
+  title: Execution or deterministic verification failed; no settlement
+  occurrences: 10
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanJson
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeduplicateRecords
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402NormalizeEntity
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AnomalyDetection
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402SecretScanning
+  - … 4 more
+- status: 422
+  title: Decision execution failed; payment is not settled
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AutomataDecision
+- status: 422
+  title: Decision failed; payment is not settled
+  occurrences: 25
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AnnualRenewalGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402BrokenLinkRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CartGlitchShield
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ChargebackShield
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CheckoutLinkGuard
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CloudCreditOptimizer
+  - … 19 more
+- status: 422
+  title: Execution failed; payment is not settled
+  occurrences: 3
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AutonomousEscrowAgent
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ApiBreakSentinel
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GlobalAiTaxProxy
+- status: 422
+  title: Execution failed; payment not settled
+  occurrences: 9
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GhostCartFormRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataBrokerageAutomate
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ExpiredDomainOpportunityWatch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402MediaKitGenerator
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanEx
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402PriceSniper
+  - … 3 more
+- status: 422
+  title: Consensus generation failed; payment not settled
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#buyZeroPointConsensus
+- status: 422
+  title: Objective is not deterministically supported
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-outcome-openapi.yml#POST /api/outcome/quote/
+- status: 422
+  title: Unsafe or invalid mission
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-physical-oracle-openapi.yml#POST /api/physical-oracle/quote/
+- status: 429
+  title: Limite anti-abus atteinte
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 429
+  title: Rate limited
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-forge-openapi.yml#POST /api/forge/run
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/call
+  - openapi/humanmirror-fr-magnet-openapi.yml#GET /api/magnet/resolve
+  - openapi/humanmirror-fr-magnet-openapi.yml#POST /api/magnet/resolve
+- status: 502
+  title: Payment facilitator unavailable
+  occurrences: 5
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseEnterpriseFleet
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseSecurityIntelligence
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseDataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseVerification
+  - openapi/humanmirror-fr-x402-openapi.yml#purchaseOperations
+- status: 503
+  title: Facilitator or settlement unavailable
+  occurrences: 37
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402Outcome
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanJson
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DeduplicateRecords
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402NormalizeEntity
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataQuality
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AnomalyDetection
+  - … 31 more
+- status: 503
+  title: Dependency or settlement unavailable
+  occurrences: 3
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402AutonomousEscrowAgent
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ApiBreakSentinel
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GlobalAiTaxProxy
+- status: 503
+  title: Dependency unavailable
+  occurrences: 9
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402GhostCartFormRescue
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402DataBrokerageAutomate
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402ExpiredDomainOpportunityWatch
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402MediaKitGenerator
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402CleanEx
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402PriceSniper
+  - … 3 more
+- status: 503
+  title: Payment facilitator unavailable
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#buyZeroPointConsensus
+- status: 503
+  title: Quota or payment facilitator unavailable
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#normalizeM2MPayload
+  - openapi/humanmirror-fr-payload-normalizer-openapi.yml#normalizeM2MPayload
+- status: 503
+  title: Quota or payment service unavailable
+  occurrences: 2
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#verifyAgentConsensus
+  - openapi/humanmirror-fr-consensus-verify-openapi.yml#verifyAgentConsensus
+- status: 503
+  title: Quota, proof or payment service unavailable
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#sanitizeShield
+- status: 503
+  title: Settlement or activation unavailable.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/x402/emergency-pack/
+- status: 503
+  title: Payment, usage or preview infrastructure unavailable
+  occurrences: 4
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenIntentProof
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenConsensusLock
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorNextGenEscrowSettle
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorAgentOsStateAndTrust
+- status: 503
+  title: Context store or payment infrastructure unavailable
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorSharedContext
+- status: 503
+  title: Payment infrastructure unavailable
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorPerceptionBehaviorVector
+- status: 503
+  title: Service temporairement indisponible
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-oracle-openapi.yml#analyzeWithHumanMirrorOracle
+- status: 503
+  title: LIVE checkout unavailable
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-nexus-openapi.yml#POST /api/nexus/checkout
+- status: 503
+  title: x402 runtime or facilitator unavailable.
+  occurrences: 1
+  source_operations:
+  - openapi/humanmirror-fr-agent-os-openapi.yml#validateStateAndTrust

@@ -1,0 +1,190 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HumanMirror Nexus API",
+    "version": "1.3.1",
+    "description": "Machine-to-machine tool discovery, routing, credit metering and success-only verified Outcome execution for AI agents."
+  },
+  "servers": [
+    {
+      "url": "https://humanmirror.fr"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "hm_nexus_*"
+      }
+    }
+  },
+  "paths": {
+    "/api/nexus": {
+      "get": {
+        "summary": "Get Nexus metadata, catalog and optional account balance",
+        "security": [
+          {},
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nexus service metadata"
+          }
+        }
+      }
+    },
+    "/api/nexus/search": {
+      "get": {
+        "summary": "Search Nexus catalog",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching tools"
+          }
+        }
+      }
+    },
+    "/api/nexus/trial": {
+      "post": {
+        "summary": "Create a 100-credit Nexus trial key",
+        "responses": {
+          "201": {
+            "description": "Trial key created"
+          },
+          "409": {
+            "description": "Trial already used"
+          }
+        }
+      }
+    },
+    "/api/nexus/checkout": {
+      "post": {
+        "summary": "Create a LIVE Stripe Checkout session for the existing 5000-credit Nexus pack",
+        "responses": {
+          "200": {
+            "description": "Checkout URL returned"
+          },
+          "403": {
+            "description": "Origin not allowed"
+          },
+          "503": {
+            "description": "LIVE checkout unavailable"
+          }
+        }
+      }
+    },
+    "/api/nexus/claim": {
+      "post": {
+        "summary": "Claim Nexus credits after successful payment",
+        "responses": {
+          "200": {
+            "description": "Credits claimed or existing claim returned"
+          },
+          "400": {
+            "description": "Invalid or unpaid checkout session"
+          }
+        }
+      }
+    },
+    "/api/nexus/call": {
+      "post": {
+        "summary": "Route a Nexus tool call",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "tool_id",
+                  "input"
+                ],
+                "properties": {
+                  "tool_id": {
+                    "type": "string"
+                  },
+                  "input": {},
+                  "options": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Routed tool result"
+          },
+          "401": {
+            "description": "Invalid API key"
+          },
+          "402": {
+            "description": "Insufficient credits"
+          },
+          "404": {
+            "description": "Unknown tool"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/api/outcome/quote/": {
+      "post": {
+        "summary": "Create a free HumanMirror Outcome contract",
+        "responses": {
+          "200": {
+            "description": "Outcome quote"
+          }
+        }
+      }
+    },
+    "/api/outcome/run/": {
+      "post": {
+        "summary": "Execute an Outcome and keep the charge only on verified success",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verified Outcome success"
+          },
+          "400": {
+            "description": "Failed execution or verification; credits refunded"
+          }
+        }
+      }
+    },
+    "/api/outcome/verify/": {
+      "post": {
+        "summary": "Free deterministic Outcome verification",
+        "responses": {
+          "200": {
+            "description": "Outcome verification result"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+generated: '2026-09-19'
+method: searched
+source: registry.npmjs.org search 'humanmirror' (0 results) and /humanmirror-audit (404), pypi.org/pypi/humanmirror
+  (404), rubygems (404), crates.io (403 to anonymous), NuGet search (0), Maven/Go (no candidate names); https://humanmirror.fr/docs/vibecode/
+  and the downloaded tarball on 2026-09-19
+docs: https://humanmirror.fr/docs/vibecode/
+note: 'HumanMirror publishes NO SDK on any package registry. First-party client code is self-hosted on humanmirror.fr:
+  one CLI tarball (version pinned in the URL) and three unpinned example client scripts. The tarball''s package.json
+  declares name humanmirror-audit 0.2.0 with publishConfig.access public and a GitHub repository, but the npm registry
+  returns 404 for that name — it is distributed by URL only. No SDKs pointer is emitted (a scanner CLI and e2e scripts
+  are not client libraries).'
+packages:
+- language: javascript
+  name: humanmirror-audit
+  kind: cli
+  registry: cdn
+  official: true
+  url: https://humanmirror.fr/downloads/humanmirror-audit-0.2.0.tgz
+  install: npx --yes https://humanmirror.fr/downloads/humanmirror-audit-0.2.0.tgz .
+  version: 0.2.0
+  published: null
+  version_source: pinned in the download URL and package.json; the tarball carries no publish date and the npm registry
+    has no record (404)
+  repository: https://github.com/VibeMirror-coder/humanmirror (packages/humanmirror-audit, per package.json) — the
+    account github.com/VibeMirror-coder answers 200 but this repository returned 404 on the probe date (private
+    or unpublished)
+  license: MIT
+  engines: node >=20
+  detail: cli/humanmirror-fr-cli.yml
+- language: javascript
+  name: x402-e2e.mjs
+  kind: example client
+  registry: cdn
+  official: true
+  url: https://humanmirror.fr/m2m/x402-e2e.mjs
+  version: null
+  published: null
+  note: Unpinned end-to-end x402 payment client referenced by skill.md ('Verification challenge'); floats to whatever
+    is deployed, so a consumer cannot tell which version they run.
+- language: javascript
+  name: next-gen-client.mjs
+  kind: example client
+  registry: cdn
+  official: true
+  url: https://humanmirror.fr/m2m/next-gen-client.mjs
+  version: null
+  published: null
+  note: Unpinned Next-Gen preview client template.
+- language: javascript
+  name: probe.mjs
+  kind: example client
+  registry: cdn
+  official: true
+  url: https://humanmirror.fr/omni-sync/probe.mjs
+  version: null
+  published: null
+  note: Unpinned Omni-Sync probe script.
+- language: postman
+  name: Postman collections
+  kind: collection
+  registry: cdn
+  official: true
+  url: https://humanmirror.fr/{forge,nexus,agentops,magnet}/postman-collection.json
+  version: null
+  published: null
+  note: Four collections saved verbatim under postman/.

@@ -1,0 +1,71 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror AgentOps API
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-agentops-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-agentops-openapi.yml (8 operations) and the searched artifacts in
+  this repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/agentops/openapi.json
+      sha256: 2423729376a742fa5690b78f4b43f468588e27a47a43050557ba527250e4aca2
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/
+- target: $.paths['/api/sentinel/inspect'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiSentinelInspectPost
+- target: $.paths['/api/trace/issue'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiTraceIssuePost
+- target: $.paths['/api/trace/verify'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiTraceVerifyGet
+- target: $.paths['/api/trace/verify'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiTraceVerifyPost
+- target: $.paths['/api/lens/infer'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiLensInferPost
+- target: $.paths['/api/lens/diff'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiLensDiffPost
+- target: $.paths['/api/vault/scan'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiVaultScanPost
+- target: $.paths['/api/circuit/preflight'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiCircuitPreflightPost

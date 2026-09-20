@@ -1,0 +1,3617 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror x402 API
+  version: 3.2.0
+  description: 'HumanMirror Agent-First machine-payment API: M2M infrastructure on Base using x402 V2 and USDC, autonomous
+    agent security, prompt injection defense, AI micro-transactions and non-custodial escrow preview. Granular calls use 0.001
+    / 0.010 / 0.050 USDC, thematic bundles 5.000 USDC, Enterprise Fleet 297.000 USDC / 30 days, plus the 2027-2030 Next-Gen
+    preview suite at 0.050 USDC per test call.'
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+servers:
+- url: https://humanmirror.fr
+paths:
+  /api/x402/outcome/:
+    post:
+      operationId: humanmirrorX402Outcome
+      summary: Buy one deterministic verified outcome
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive payment requirements.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                outcome_type:
+                  type: string
+                  enum:
+                  - clean_json
+                  - deduplicate_records
+                  - normalize_entity
+                  - data_quality_at_least
+                  - detect_anomalies
+                  - no_secrets
+                  - output_quality
+                  - schema_compatible
+                  - safe_preflight
+                  - execution_receipt
+                objective:
+                  type: string
+                input: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required; inspect PAYMENT-REQUIRED header
+        '422':
+          description: Execution or deterministic verification failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/one/:
+    post:
+      operationId: humanmirrorX402One
+      summary: Buy one minimal verified-result call
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                outcome_type:
+                  type: string
+                objective:
+                  type: string
+                input: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+      responses:
+        '200':
+          description: Verified result
+        '402':
+          description: Payment required
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/flow/:
+    post:
+      operationId: humanmirrorX402Flow
+      summary: Buy a verified 2–3 step deterministic mission
+      description: 'Granular unit route at 0.050 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                steps:
+                  type: array
+                  minItems: 2
+                  maxItems: 3
+                  items:
+                    type: object
+                    properties:
+                      outcome_type:
+                        type: string
+                      objective:
+                        type: string
+                      input_from:
+                        type: string
+                        enum:
+                        - explicit
+                        - previous
+                      input: {}
+                      criteria:
+                        type: object
+                      options:
+                        type: object
+              required:
+              - steps
+      responses:
+        '200':
+          description: Verified mission result
+        '402':
+          description: Payment required
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+  /api/x402/clean-json/:
+    post:
+      operationId: humanmirrorX402CleanJson
+      summary: Clean and canonicalize JSON
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/deduplicate-records/:
+    post:
+      operationId: humanmirrorX402DeduplicateRecords
+      summary: Remove duplicate JSON records
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/normalize-entity/:
+    post:
+      operationId: humanmirrorX402NormalizeEntity
+      summary: Normalize entity identifiers
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/data-quality/:
+    post:
+      operationId: humanmirrorX402DataQuality
+      summary: Verify a data-quality threshold
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/anomaly-detection/:
+    post:
+      operationId: humanmirrorX402AnomalyDetection
+      summary: Detect numeric anomalies
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/secret-scanning/:
+    post:
+      operationId: humanmirrorX402SecretScanning
+      summary: Scan API keys, tokens, private keys and credentials before deploy
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: Text, source code, JSON, config, logs or AI-agent tool output to scan for API keys, access
+                    tokens, private keys, passwords and credential-like secrets.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/output-quality/:
+    post:
+      operationId: humanmirrorX402OutputQuality
+      summary: Apply an AI-output quality gate
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/schema-compatibility/:
+    post:
+      operationId: humanmirrorX402SchemaCompatibility
+      summary: Check JSON schema compatibility
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: JSON-serializable input for this deterministic outcome.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/safe-preflight/:
+    post:
+      operationId: humanmirrorX402SafePreflight
+      summary: Preflight a command before an AI agent executes it
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: Command, tool call or structured proposed action to preflight before an AI agent executes it.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/execution-receipt/:
+    post:
+      operationId: humanmirrorX402ExecutionReceipt
+      summary: Create a cryptographic execution receipt for an agent tool call
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  description: Executed agent tool-call input/output pair to bind into a verifiable cryptographic execution
+                    receipt.
+                criteria:
+                  type: object
+                options:
+                  type: object
+              required:
+              - input
+              additionalProperties: false
+      responses:
+        '200':
+          description: Verified result after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Execution or deterministic verification failed; no settlement
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-decision/:
+    post:
+      operationId: humanmirrorX402AutomataDecision
+      summary: Buy a deterministic Automata recovery decision
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                automaton_slug:
+                  type: string
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              required:
+              - automaton_slug
+              additionalProperties: false
+      responses:
+        '200':
+          description: Decision returned after successful x402 settlement
+        '402':
+          description: Payment required
+        '422':
+          description: Decision execution failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-annual-renewal-guard/:
+    post:
+      operationId: humanmirrorX402AnnualRenewalGuard
+      summary: Buy Annual Renewal Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-broken-link-rescue/:
+    post:
+      operationId: humanmirrorX402BrokenLinkRescue
+      summary: Buy Broken Link Rescue machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-cart-glitch-shield/:
+    post:
+      operationId: humanmirrorX402CartGlitchShield
+      summary: Buy Cart Glitch Shield machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-chargeback-shield/:
+    post:
+      operationId: humanmirrorX402ChargebackShield
+      summary: Buy Chargeback Shield machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-checkout-link-guard/:
+    post:
+      operationId: humanmirrorX402CheckoutLinkGuard
+      summary: Buy Checkout Link Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-cloud-credit-optimizer/:
+    post:
+      operationId: humanmirrorX402CloudCreditOptimizer
+      summary: Buy Cloud Credit Optimizer machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-cloud-migration-watchdog/:
+    post:
+      operationId: humanmirrorX402CloudMigrationWatchdog
+      summary: Buy Cloud Migration Watchdog machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-db-bloat-guard/:
+    post:
+      operationId: humanmirrorX402DbBloatGuard
+      summary: Buy DB Bloat Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-deliverability-failover/:
+    post:
+      operationId: humanmirrorX402DeliverabilityFailover
+      summary: Buy Deliverability Failover machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-dependency-autohealer/:
+    post:
+      operationId: humanmirrorX402DependencyAutohealer
+      summary: Buy Dependency Auto-Healer machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-digital-asset-guard/:
+    post:
+      operationId: humanmirrorX402DigitalAssetGuard
+      summary: Buy Digital Asset Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-fx-cost-optimizer/:
+    post:
+      operationId: humanmirrorX402FxCostOptimizer
+      summary: Buy FX Cost Optimizer machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-inventory-sync-sentinel/:
+    post:
+      operationId: humanmirrorX402InventorySyncSentinel
+      summary: Buy Inventory Sync Sentinel machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-invoice-recovery/:
+    post:
+      operationId: humanmirrorX402InvoiceRecovery
+      summary: Buy Invoice Recovery Bot machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-invoice-syntax-sentinel/:
+    post:
+      operationId: humanmirrorX402InvoiceSyntaxSentinel
+      summary: Buy Invoicing Syntax Sentinel machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-kyc-rescue/:
+    post:
+      operationId: humanmirrorX402KycRescue
+      summary: Buy KYC Rescue Desk machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-lead-drop-shield/:
+    post:
+      operationId: humanmirrorX402LeadDropShield
+      summary: Buy Lead Drop Shield machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-reputation-guard/:
+    post:
+      operationId: humanmirrorX402ReputationGuard
+      summary: Buy Brand Reputation Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-secops-autopatch/:
+    post:
+      operationId: humanmirrorX402SecopsAutopatch
+      summary: Buy SecOps Auto-Patch machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-seo-domain-watch/:
+    post:
+      operationId: humanmirrorX402SeoDomainWatch
+      summary: Buy SEO Domain Watch machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-smart-dunning/:
+    post:
+      operationId: humanmirrorX402SmartDunning
+      summary: Buy Smart Dunning machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-tax-ledger/:
+    post:
+      operationId: humanmirrorX402TaxLedger
+      summary: Buy Tax Ledger Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-uptime-panic-guard/:
+    post:
+      operationId: humanmirrorX402UptimePanicGuard
+      summary: Buy SSL & Uptime Panic Guard machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-vat-recovery/:
+    post:
+      operationId: humanmirrorX402VatRecovery
+      summary: Buy VAT Recovery Draft machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-webhook-dead-letter/:
+    post:
+      operationId: humanmirrorX402WebhookDeadLetter
+      summary: Buy Webhook Dead-Letter Office machine preflight
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid Automata decision returned
+        '402':
+          description: Payment required
+        '422':
+          description: Decision failed; payment is not settled
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-autonomous-escrow-agent/:
+    post:
+      operationId: humanmirrorX402AutonomousEscrowAgent
+      summary: Buy Autonomous Escrow Agent
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment is not settled
+        '503':
+          description: Dependency or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-api-break-sentinel/:
+    post:
+      operationId: humanmirrorX402ApiBreakSentinel
+      summary: Buy API Break Sentinel
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment is not settled
+        '503':
+          description: Dependency or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-global-ai-tax-proxy/:
+    post:
+      operationId: humanmirrorX402GlobalAiTaxProxy
+      summary: Buy Global AI Tax Proxy
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment is not settled
+        '503':
+          description: Dependency or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-ghost-cart-form-rescue/:
+    post:
+      operationId: humanmirrorX402GhostCartFormRescue
+      summary: Buy Ghost Cart & Form Rescue
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-data-brokerage-automate/:
+    post:
+      operationId: humanmirrorX402DataBrokerageAutomate
+      summary: Buy Data Brokerage Automate
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-expired-domain-opportunity-watch/:
+    post:
+      operationId: humanmirrorX402ExpiredDomainOpportunityWatch
+      summary: Buy Expired Domain Opportunity Watch
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                  items:
+                    type: string
+                context:
+                  type: object
+              additionalProperties: false
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-media-kit-generator/:
+    post:
+      operationId: humanmirrorX402MediaKitGenerator
+      summary: Buy Media Kit Generator
+      description: 'Legacy compatibility route. Effective paid x402 floor: 5.000 USDC on Base mainnet. Prefer canonical bundle:
+        https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: true
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '5.000'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /api/x402/automata-clean-ex/:
+    post:
+      operationId: humanmirrorX402CleanEx
+      summary: Buy Clean-Ex
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/x402/automata-price-sniper/:
+    post:
+      operationId: humanmirrorX402PriceSniper
+      summary: Buy Price Sniper
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-proof-of-vibe/:
+    post:
+      operationId: humanmirrorX402ProofOfVibe
+      summary: Buy Proof-of-Vibe
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/x402/automata-dead-bot-switch/:
+    post:
+      operationId: humanmirrorX402DeadBotSwitch
+      summary: Buy Dead-Bot Switch
+      description: 'Granular unit route at 0.010 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-pricing-tier: granular_unit_0_010
+  /api/x402/automata-context-compressor-sanitizer/:
+    post:
+      operationId: humanmirrorX402ContextCompressorSanitizer
+      summary: Buy Context Compressor & Sanitizer
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Paid machine result returned
+        '402':
+          description: Payment required
+        '422':
+          description: Execution failed; payment not settled
+        '503':
+          description: Dependency unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/v1/sink/:
+    get:
+      operationId: discoverZeroCostExecutionSink
+      summary: Discover HumanMirror Zero-Cost Execution Sink
+      responses:
+        '200':
+          description: Machine-readable ingress capabilities and payment transition.
+          content:
+            application/json:
+              schema:
+                type: object
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+    post:
+      operationId: executeZeroCostExecutionSink
+      summary: Normalize and process agent context with zero-cost grace then x402
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                  maxLength: 5000
+                text:
+                  type: string
+                prompt:
+                  type: string
+                message:
+                  type: string
+                data: {}
+                payload: {}
+                context:
+                  type: object
+              additionalProperties: true
+          text/plain:
+            schema:
+              type: string
+              maxLength: 5000
+      responses:
+        '200':
+          description: Free grace execution or token-authorized execution.
+          headers:
+            Link:
+              schema:
+                type: string
+              description: Machine discovery links.
+            X-HumanMirror-Node:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+        '402':
+          description: x402 V2 payment required after grace/quota.
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+              description: Base64url-encoded x402 V2 payment requirements.
+          content:
+            application/json:
+              schema:
+                type: object
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/v1/m2m/fallback/:
+    get:
+      operationId: discoverM2MFallback
+      summary: Discover HumanMirror machine fallback normalizer
+      responses:
+        '200':
+          description: Fallback routing metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: normalizeM2MFallback
+      summary: Normalize malformed or adjacent machine requests and return resilience pointers
+      responses:
+        '200':
+          description: Normalized request plus sink/x402 pointers.
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/m2m/bot-convert/:
+    post:
+      operationId: convertBotPayload
+      summary: Convert common bot/agent payloads into canonical HumanMirror context requests
+      responses:
+        '200':
+          description: Canonical machine request.
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/m2m/micro-work/claim/:
+    get:
+      operationId: claimMicroWork
+      summary: Claim deterministic micro-work for one HumanMirror service execution credit
+      responses:
+        '200':
+          description: Challenge issued
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/m2m/micro-work/submit/:
+    post:
+      operationId: submitMicroWork
+      summary: Submit deterministic micro-work and receive one short-lived service credit
+      responses:
+        '200':
+          description: Service credit issued
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/m2m/liquidity-status/:
+    get:
+      operationId: readLiquidityStatus
+      summary: Read Base USDC balance for a supplied wallet
+      parameters:
+      - name: wallet
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Read-only balance result
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/zero/:
+    get:
+      operationId: discoverZeroPointConsensus
+      summary: Discover Zero Point Consensus
+      responses:
+        '200':
+          description: Product and x402 payment metadata
+          content:
+            application/json:
+              schema:
+                type: object
+      deprecated: false
+      description: 'Granular unit route at 0.050 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+    post:
+      operationId: buyZeroPointConsensus
+      summary: Generate a Zero Point Consensus Certificate
+      description: 'Granular unit route at 0.050 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  minLength: 20
+                  maxLength: 8000
+                public_share:
+                  type: boolean
+              required:
+              - question
+              additionalProperties: false
+      responses:
+        '200':
+          description: Consensus Certificate after successful x402 settlement
+        '402':
+          description: x402 payment required
+        '422':
+          description: Consensus generation failed; payment not settled
+        '503':
+          description: Payment facilitator unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+  /api/v1/m2m/payload-normalizer/:
+    get:
+      operationId: discoverPayloadNormalizer
+      responses:
+        '200':
+          description: Discovery metadata
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+    post:
+      operationId: normalizeM2MPayload
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload: {}
+                options:
+                  type: object
+                  properties:
+                    trim_strings:
+                      type: boolean
+                      default: true
+                    drop_nulls:
+                      type: boolean
+                      default: false
+                    key_case:
+                      type: string
+                      enum:
+                      - preserve
+                      - snake_case
+                      default: preserve
+                  additionalProperties: false
+              additionalProperties: false
+      responses:
+        '200':
+          description: Canonical normalized payload
+        '400':
+          description: Invalid or oversized payload
+        '402':
+          description: Initial benchmark quota exhausted; x402 payment required
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota or payment facilitator unavailable
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/v1/consensus/verify/:
+    get:
+      operationId: discoverConsensusOracle
+      responses:
+        '200':
+          description: Discovery metadata
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+    post:
+      operationId: verifyAgentConsensus
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - signal_a
+              - signal_b
+              properties:
+                signal_a:
+                  $ref: '#/$defs/signal'
+                signal_b:
+                  $ref: '#/$defs/signal'
+                prior_probability:
+                  type: number
+                  exclusiveMinimum: 0
+                  exclusiveMaximum: 1
+                  default: 0.5
+                costs:
+                  type: object
+                  properties:
+                    false_positive:
+                      type: number
+                      exclusiveMinimum: 0
+                      default: 1
+                    false_negative:
+                      type: number
+                      exclusiveMinimum: 0
+                      default: 1
+                  additionalProperties: false
+              additionalProperties: false
+      responses:
+        '200':
+          description: Normalized consensus metric
+        '400':
+          description: Invalid signal model
+        '402':
+          description: Oracle test quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota or payment service unavailable
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/v1/sanitize/shield/:
+    post:
+      summary: Sanitize untrusted agent context and issue a Cleanliness Proof
+      operationId: sanitizeShield
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload:
+                  description: Bounded text or structured JSON.
+                context:
+                  type: object
+                policy:
+                  type: object
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Analysis and signed proof returned
+        '400':
+          description: Invalid or oversized payload
+        '402':
+          description: Free quota exhausted; x402 exact payment required
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota, proof or payment service unavailable
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/security-intelligence/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+  /api/x402/enterprise-pass/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseEnterpriseFleet
+      summary: HumanMirror Enterprise Fleet
+      description: Thirty-day unlimited access to core HumanMirror M2M services for autonomous agent fleets.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '297.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '297000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 297.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: enterprise_30d
+  /api/x402/emergency-pack/:
+    get:
+      summary: Inspect HumanMirror Emergency 10
+      responses:
+        '200':
+          description: Emergency pack purchase terms
+      deprecated: true
+      description: 'Legacy compatibility route. Effective paid x402 floor: 5.000 USDC on Base mainnet. Prefer canonical bundle:
+        https://humanmirror.fr/api/v1/agent/security-intelligence/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-price-usdc: '5.000'
+      x-humanmirror-pricing-tier: thematic_bundle
+    post:
+      summary: Purchase 10 emergency core calls
+      description: 'Legacy compatibility route. Effective paid x402 floor: 5.000 USDC on Base mainnet. Prefer canonical bundle:
+        https://humanmirror.fr/api/v1/agent/security-intelligence/'
+      responses:
+        '200':
+          description: Emergency pack activated after successful settlement.
+        '402':
+          description: x402 V2 Base/USDC authorization required.
+        '503':
+          description: Settlement or activation unavailable.
+      deprecated: true
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-price-usdc: '5.000'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /api/referral/create/:
+    post:
+      summary: Create an Enterprise referral identifier
+      description: Requires an active Enterprise Bearer token. Creates a signed referral identifier bound to the referrer.
+      responses:
+        '200':
+          description: Referral identifier created.
+        '401':
+          description: Active Enterprise pass required.
+  /api/referral/status/:
+    get:
+      summary: Read Enterprise referral rewards
+      responses:
+        '200':
+          description: Referral reward ledger.
+        '401':
+          description: Active Enterprise pass required.
+  /api/referral/claim/:
+    post:
+      summary: Claim credited referral days
+      description: Claims all unclaimed 30-day rewards and returns a replacement Enterprise Bearer token with extended expiry.
+      responses:
+        '200':
+          description: Reward claim result.
+        '401':
+          description: Active Enterprise pass required.
+  /api/v1/agent/security-intelligence/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseSecurityIntelligence
+      summary: HumanMirror Security Intelligence Bundle
+      description: 'Curated defensive intelligence for autonomous-agent gateways: prompt injection, secrets, tool safety,
+        SSRF, webhook, x402 and supply-chain controls.'
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bundle:
+                  type: string
+                  const: agent-security-intelligence
+              additionalProperties: true
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - indicators
+                - controls
+                - recommended_pipeline
+                - license
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /api/v1/agent/data-quality/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseDataQuality
+      summary: HumanMirror Data Quality Bundle
+      description: Bundle-normalize structured JSON, deduplicate record arrays when applicable, score data quality and return
+        machine-verifiable proofs.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input: {}
+                options:
+                  type: object
+                min_quality_score:
+                  type: number
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - normalized
+                - quality
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /api/v1/agent/verification/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseVerification
+      summary: HumanMirror Verification & Safety Bundle
+      description: Run a bundled safety preflight across secrets, output quality, command/tool risk and optional execution
+        provenance.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: {}
+                output: {}
+                command: {}
+                receipt_metadata:
+                  type: object
+                min_trust_score:
+                  type: number
+                max_risk:
+                  type: string
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - checks
+                - status
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /api/v1/agent/operations/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseOperations
+      summary: HumanMirror Operations Decision Bundle
+      description: Combine autonomous-operations preflight, optional automaton decision and optional two-signal probabilistic
+        consensus into one paid bundle.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                automaton_slug:
+                  type: string
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                signal_a:
+                  type: object
+                signal_b:
+                  type: object
+                prior_probability:
+                  type: number
+                costs:
+                  type: object
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - operations
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+  /v1/agent/intent-proof/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenIntentProof
+      summary: Intent Proof — Passport of Intent
+      description: Analyze an untrusted agent payload for prompt-injection risk and issue a signed safe-routing certificate.
+        The non-malice score is a risk signal, not a guarantee of benign intent.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is
+          supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload: {}
+                context:
+                  type: object
+                policy:
+                  type: object
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+  /v1/fleet/consensus-lock/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenConsensusLock
+      summary: Fleet Consensus Lock — Fleet Tribunal
+      description: Arbitrate 2-12 caller-supplied model decisions with deterministic confidence/weight scoring and issue a
+        signed execution receipt.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is
+          supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - models
+              properties:
+                models:
+                  type: array
+                  minItems: 2
+                  maxItems: 12
+                  items:
+                    type: object
+                lock_threshold:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+  /v1/m2m/escrow-settle/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenEscrowSettle
+      summary: Escrow Settle — Smart Escrow Preview
+      description: 'Evaluate quality checks and issue RELEASE, REFUND or REVIEW plus an x402-escrow-v1 state envelope. This
+        is a non-custodial preview: HumanMirror does not hold or move third-party funds and does not claim FUNDS_LOCKED without
+        independently verified custody evidence.'
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is
+          supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - checks
+              properties:
+                escrow_reference:
+                  type: string
+                checks:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  items:
+                    type: object
+                release_threshold:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                escrow_id:
+                  type: string
+                  description: Alias of escrow_reference for x402-escrow-v1 clients.
+                amount_usdc:
+                  type: number
+                  minimum: 0
+                  description: Optional escrow amount metadata. This does not lock funds.
+                payer_agent:
+                  type: string
+                worker_agent:
+                  type: string
+                release_condition:
+                  type: string
+                  default: PROOF_OF_EXECUTION_VERIFIED
+              anyOf:
+              - required:
+                - escrow_reference
+              - required:
+                - escrow_id
+      responses:
+        '200':
+          description: Next-Gen preview result with signed settlement receipt and x402-escrow-v1 state envelope.
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+            X-HumanMirror-Escrow-Protocol:
+              description: Escrow state protocol identifier
+              schema:
+                type: string
+                const: x402-escrow-v1
+            X-HumanMirror-Escrow-Manifest:
+              description: Escrow machine manifest
+              schema:
+                type: string
+                format: uri
+            X-HumanMirror-Escrow-Schema:
+              description: Escrow state JSON Schema
+              schema:
+                type: string
+                format: uri
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+      x-humanmirror-escrow-protocol: x402-escrow-v1
+      x-humanmirror-escrow-manifest: https://humanmirror.fr/.well-known/escrow.json
+      x-humanmirror-escrow-schema: https://humanmirror.fr/schemas/escrow-v1.json
+  /v1/agent/state-and-trust/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorAgentOsStateAndTrust
+      summary: Agent OS — State & Trust Proof
+      description: Sign a SHA-256 agent state, verify exact continuity against an optional previous state hash, and issue
+        a scoped trust and automation signal. Exact hash continuity is not semantic-vector distance.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is
+          supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - agent_id
+              - current_state_hash
+              properties:
+                agent_id:
+                  type: string
+                  minLength: 1
+                  maxLength: 160
+                previous_vector:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+                current_state_hash:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+              additionalProperties: false
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+  /v1/agent/shared-context/:
+    post:
+      tags:
+      - M2M Core
+      operationId: humanmirrorSharedContext
+      summary: Persist or recall inter-agent shared context
+      description: Capability-based shared memory across agents and sessions. Uses Omni-Sync credits first, then x402 at 0.010
+        USDC on Base.
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-status: production
+      x-humanmirror-manifest: https://humanmirror.fr/.well-known/shared-context.json
+      security:
+      - OmniSyncApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - create_space
+                  - append
+                  - recall
+                  - sync
+                context_key:
+                  type: string
+                kind:
+                  type: string
+                  enum:
+                  - fact
+                  - decision
+                  - state
+                  - event
+                  - note
+                content: {}
+                tags:
+                  type: array
+                  items:
+                    type: string
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 50
+      responses:
+        '200':
+          description: Shared context operation completed
+        '400':
+          description: Invalid request
+        '401':
+          description: Omni-Sync API key required
+        '402':
+          description: Credits exhausted; x402 payment required (0.010 USDC on Base)
+        '503':
+          description: Context store or payment infrastructure unavailable
+  /v1/agent/perception-vector/:
+    post:
+      tags:
+      - M2M Core
+      operationId: humanmirrorPerceptionBehaviorVector
+      summary: Project aggregate cohort behavioral signals
+      description: Deterministic cohort-level projection for non-sensitive aggregate metrics. Individual targeting, sensitive-trait
+        inference and high-impact eligibility decisions are not supported.
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-status: production
+      x-humanmirror-manifest: https://humanmirror.fr/.well-known/perception-behavior.json
+      x-humanmirror-privacy:
+        minimum_cohort_size: 30
+        individual_targeting: false
+        sensitive_attributes: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cohort_size
+              - metrics
+              properties:
+                cohort_size:
+                  type: integer
+                  minimum: 30
+                cohort_label:
+                  type: string
+                  maxLength: 120
+                metrics:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    adhesion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    resistance:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    hesitation:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    completion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    abandonment:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    engagement:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    conversion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+      responses:
+        '200':
+          description: Aggregate signal vector returned
+        '400':
+          description: Invalid, individual or sensitive input
+        '402':
+          description: x402 payment required (0.050 USDC on Base)
+        '503':
+          description: Payment infrastructure unavailable
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-humanmirror-agent-manifest: https://humanmirror.fr/.well-known/agent-manifest.json
+tags:
+- name: Canonical agent bundles
+  description: Canonical, bundle-priced HumanMirror services for autonomous agents. These routes supersede primitive legacy
+    aliases.
+- name: M2M Next-Gen Preview
+  description: HumanMirror Next-Gen / Pack Futur — pre-launch 2027-2030 routes. 0.050 USDC per test call, included in Enterprise
+    Fleet and available as Preview for HumanMirror Pro.
+components:
+  schemas:
+    MachineError:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+        code:
+          type: string
+        retryable:
+          type: boolean
+      additionalProperties: true
+    PaymentRequired:
+      type: object
+      required:
+      - x402Version
+      - accepts
+      properties:
+        x402Version:
+          type: integer
+          const: 2
+        error:
+          type: string
+        resource:
+          type: object
+        accepts:
+          type: array
+          minItems: 1
+          items:
+            type: object
+      additionalProperties: true
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+x-humanmirror-canonical-endpoints:
+- id: security-intelligence
+  url: https://humanmirror.fr/api/v1/agent/security-intelligence/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: data-quality
+  url: https://humanmirror.fr/api/v1/agent/data-quality/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: verification
+  url: https://humanmirror.fr/api/v1/agent/verification/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: operations
+  url: https://humanmirror.fr/api/v1/agent/operations/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: enterprise-fleet
+  url: https://humanmirror.fr/api/x402/enterprise-pass/
+  price_usdc: '297.000'
+  billing_unit: 30_days
+x-humanmirror-pricing-ladder:
+  granular_unit_tiers_usdc:
+  - '0.001'
+  - '0.010'
+  - '0.050'
+  thematic_bundle_usdc: '5.000'
+  enterprise_fleet_usdc: '297.000'
+x-humanmirror-next-gen-endpoints:
+- id: next_gen_intent_proof
+  url: https://humanmirror.fr/v1/agent/intent-proof/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_consensus_lock
+  url: https://humanmirror.fr/v1/fleet/consensus-lock/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_escrow_settle
+  url: https://humanmirror.fr/v1/m2m/escrow-settle/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+x-humanmirror-provenance:
+  owner: HumanMirror
+  scheme: zero-width+HMAC-SHA256
+  watermark_sha256: 8cf2f98bdc78f5034d0fc568f119d07fe18f884c4384d5df43d486e5659e9592
+x-humanmirror-agent-first:
+  future_lexicon: https://humanmirror.fr/future/
+  llms: https://humanmirror.fr/llms.txt
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+x-humanmirror-core-products:
+  shared_context:
+    endpoint: https://humanmirror.fr/v1/agent/shared-context/
+    manifest: https://humanmirror.fr/.well-known/shared-context.json
+    price_usdc: '0.010'
+    stripe_credits: true
+  perception_behavior_vector:
+    endpoint: https://humanmirror.fr/v1/agent/perception-vector/
+    manifest: https://humanmirror.fr/.well-known/perception-behavior.json
+    price_usdc: '0.050'
+    privacy_mode: aggregate_cohort_only
+x-humanmirror-global-enterprise:
+  version: 2026-09-04-v1
+  manifest: https://humanmirror.fr/.well-known/global-enterprise.json
+  profile_endpoint: https://humanmirror.fr/api/v1/global-enterprise/profile/
+  billing_capabilities: https://humanmirror.fr/api/v1/global-enterprise/billing-capabilities/
+  headers:
+  - X-Industry-Profile
+  - X-Jurisdiction
+  - X-Billing-Currency
+  built_in_profiles:
+  - finance
+  - pharma
+  - retail
+  - logistics
+  - tech
+  - entertainment
+  custom_profiles: true
+  compatibility: additive_no_header_no_behavior_change
+  compliance_assurance: policy_guardrails_not_legal_certification

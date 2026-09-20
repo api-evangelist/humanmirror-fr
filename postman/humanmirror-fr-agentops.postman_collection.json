@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "HumanMirror AgentOps",
+    "description": "Sentinel, Trace, Lens, Vault and Circuit using one HumanMirror Nexus API key.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://humanmirror.fr"
+    },
+    {
+      "key": "nexus_api_key",
+      "value": "hm_nexus_YOUR_KEY",
+      "type": "secret"
+    }
+  ],
+  "item": [
+    {
+      "name": "Sentinel — inspect output",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{nexus_api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"input\":{\"answer\":\"ok\",\"source\":\"https://example.com\"}}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sentinel/inspect",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "sentinel",
+            "inspect"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Trace — issue receipt",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{nexus_api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"input\":{\"task\":\"demo\"},\"output\":{\"ok\":true},\"metadata\":{\"workflow\":\"postman\"}}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/trace/issue",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "trace",
+            "issue"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Lens — infer contract",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{nexus_api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"input\":{\"id\":1,\"name\":\"Ada\"}}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/lens/infer",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "lens",
+            "infer"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Vault — scan secrets",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{nexus_api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"input\":\"example text\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/vault/scan",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "vault",
+            "scan"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Circuit — preflight",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{nexus_api_key}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"input\":\"git status\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/circuit/preflight",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "circuit",
+            "preflight"
+          ]
+        }
+      }
+    }
+  ]
+}

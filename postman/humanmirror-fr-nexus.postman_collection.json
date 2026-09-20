@@ -1,0 +1,9 @@
+{
+  "info":{"name":"HumanMirror Nexus API","description":"Machine-to-machine tool discovery, routing and metering for AI agents.","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"base_url","value":"https://humanmirror.fr"},{"key":"nexus_api_key","value":"hm_nexus_YOUR_KEY","type":"secret"}],
+  "item":[
+    {"name":"Create free Nexus trial","request":{"method":"POST","url":{"raw":"{{base_url}}/api/nexus/trial","host":["{{base_url}}"],"path":["api","nexus","trial"]}}},
+    {"name":"Search catalog","request":{"method":"GET","url":{"raw":"{{base_url}}/api/nexus/search?q=data%20quality","host":["{{base_url}}"],"path":["api","nexus","search"],"query":[{"key":"q","value":"data quality"}]}}},
+    {"name":"Call routed tool","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{nexus_api_key}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"tool_id\": \"forge.detect_anomaly\",\n  \"input\": [10, 11, 12, 13, 60]\n}"},"url":{"raw":"{{base_url}}/api/nexus/call","host":["{{base_url}}"],"path":["api","nexus","call"]}}}
+  ]
+}

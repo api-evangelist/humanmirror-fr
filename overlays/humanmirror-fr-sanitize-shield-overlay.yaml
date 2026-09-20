@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror Sanitize Shield
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-sanitize-shield-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-sanitize-shield-openapi.yml (2 operations) and the searched artifacts
+  in this repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/m2m/sanitize-shield.openapi.json
+      sha256: ee23e8b7247a6a7a1f34dbce0f6140f2e141c481bb48184c433b15fa64affb0f
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/

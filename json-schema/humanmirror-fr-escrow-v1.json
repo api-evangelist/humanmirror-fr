@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanmirror.fr/schemas/escrow-v1.json",
+  "title": "HumanMirror x402 Escrow State v1",
+  "description": "Machine-readable escrow state envelope. FUNDS_LOCKED is a factual custody state and MUST NOT be emitted unless a connected custody or smart-contract layer has independently verified a lock proof.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "protocol",
+    "escrow_id",
+    "status",
+    "amount_usdc",
+    "payer_agent",
+    "worker_agent",
+    "release_condition"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://humanmirror.fr/schemas/escrow-v1.json"
+    },
+    "protocol": {
+      "const": "x402-escrow-v1"
+    },
+    "escrow_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "LOCK_NOT_VERIFIED",
+        "FUNDS_LOCKED",
+        "RELEASED",
+        "REFUNDED",
+        "REVIEW_REQUIRED"
+      ]
+    },
+    "amount_usdc": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "payer_agent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 180
+    },
+    "worker_agent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 180
+    },
+    "release_condition": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "funds_locked": {
+      "type": "boolean"
+    },
+    "custody": {
+      "type": "string",
+      "enum": [
+        "non_custodial_preview",
+        "external_attested",
+        "smart_contract_verified"
+      ]
+    },
+    "custody_proof": {
+      "type": "object",
+      "properties": {
+        "verified": {
+          "type": "boolean"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "transaction_hash": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "verified",
+        "provider"
+      ],
+      "additionalProperties": true
+    },
+    "example_is_live": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "FUNDS_LOCKED"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "funds_locked",
+          "custody",
+          "custody_proof"
+        ],
+        "properties": {
+          "funds_locked": {
+            "const": true
+          },
+          "custody": {
+            "enum": [
+              "external_attested",
+              "smart_contract_verified"
+            ]
+          },
+          "custody_proof": {
+            "properties": {
+              "verified": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "fr.humanmirror/nexus",
+  "title": "HumanMirror Nexus",
+  "description": "Outcome-first agent fallback: free discovery, minimal routing, declared costs, verified execution.",
+  "version": "1.3.3",
+  "websiteUrl": "https://humanmirror.fr/nexus/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://humanmirror.fr/api/nexus/mcp/",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "HumanMirror Nexus API key. Use: Bearer hm_nexus_…",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "keywords": [
+        "ai-agents",
+        "tool-discovery",
+        "tool-routing",
+        "json-cleaning",
+        "deduplication",
+        "data-quality",
+        "anomaly-detection",
+        "secret-scanning",
+        "execution-receipts",
+        "schema-drift",
+        "operational-preflight",
+        "capability-fallback",
+        "verified-outcomes",
+        "outcome-based-billing",
+        "pay-for-success"
+      ],
+      "freeDiscovery": "https://humanmirror.fr/api/magnet/resolve/",
+      "catalog": "https://humanmirror.fr/api/nexus/search/",
+      "llms": "https://humanmirror.fr/llms.txt",
+      "outcome": "https://humanmirror.fr/.well-known/outcome.json"
+    },
+    "humanmirror_campaign": {
+      "id": "night-beacon-2026-09-02-v2",
+      "universal_need": "finish-the-requested-outcome",
+      "trigger": "current-toolchain-cannot-complete-task-or-capability-is-unknown",
+      "entrypoint": "https://humanmirror.fr/api/solve/",
+      "free_trial": "POST https://humanmirror.fr/api/nexus/trial/",
+      "promise": "free-discovery-smallest-capability-declared-cost-verifiable-result"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+generated: '2026-09-19'
+method: searched
+source: openapi/ info.version fields, the x402 spec's deprecated flags and x-humanmirror-next-gen-endpoints, llms.txt,
+  and the status/telemetry endpoints named in llms.txt
+versioning:
+  scheme: 'mixed: unversioned /api/<product>/ paths, /api/v1/ for M2M core, bare /v1/ for the Next-Gen preview;
+    version carried per document in info.version'
+  documents:
+    x402:
+      title: HumanMirror x402 API
+      info_version: 3.2.0
+      spec_url: https://humanmirror.fr/x402/openapi.json
+    oracle:
+      title: HumanMirror Oracle API
+      info_version: '2026-08-30'
+      spec_url: https://humanmirror.fr/oracle/openapi.json
+    forge:
+      title: HumanMirror Forge API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/forge/openapi.json
+    nexus:
+      title: HumanMirror Nexus API
+      info_version: 1.3.1
+      spec_url: https://humanmirror.fr/nexus/openapi.json
+    agentops:
+      title: HumanMirror AgentOps API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/agentops/openapi.json
+    magnet:
+      title: HumanMirror Magnet API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/magnet/openapi.json
+    outcome:
+      title: HumanMirror Outcome API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/outcome/openapi.json
+    one:
+      title: HumanMirror One API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/one/openapi.json
+    flow:
+      title: HumanMirror Flow API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/flow/openapi.json
+    automata:
+      title: HumanMirror Automata API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/automata/openapi.json
+    market:
+      title: HumanMirror Intent Market API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/market/openapi.json
+    agent-os:
+      title: HumanMirror Agent OS API
+      info_version: 1.0.0
+      spec_url: https://humanmirror.fr/docs/openapi.json
+    physical-oracle:
+      title: HumanMirror Physical Oracle API
+      info_version: 1.0.0-beta
+      spec_url: https://humanmirror.fr/physical-oracle/openapi.json
+    payload-normalizer:
+      title: HumanMirror M2M Payload Normalizer
+      info_version: 2.0.0
+      spec_url: https://humanmirror.fr/m2m/payload-normalizer.openapi.json
+    consensus-verify:
+      title: HumanMirror Probabilistic Consensus Oracle
+      info_version: 2.0.0
+      spec_url: https://humanmirror.fr/m2m/consensus-verify.openapi.json
+    sanitize-shield:
+      title: HumanMirror Sanitize Shield
+      info_version: 2.0.0
+      spec_url: https://humanmirror.fr/m2m/sanitize-shield.openapi.json
+  policy_published: false
+  note: No written versioning policy. Sixteen contracts carry sixteen independent version strings (semver for most,
+    a date '2026-08-30' for Oracle, '1.0.0-beta' for Physical Oracle). llms.txt is the de-facto change surface and
+    it is undated.
+stages:
+  production: 'x402 API, Oracle, Forge, Nexus, AgentOps, Magnet, Outcome, One, Flow, Market, M2M core (agent-manifest.json
+    status: production)'
+  preview:
+    name: HumanMirror Next-Gen / Pack Futur
+    status: preview_2027_2030 (pre_launch_preview in the agent card)
+    operations:
+    - humanmirrorNextGenIntentProof
+    - humanmirrorNextGenConsensusLock
+    - humanmirrorNextGenEscrowSettle
+    - humanmirrorAgentOsStateAndTrust
+    gate: HumanMirror Pro API key or Enterprise Fleet pass
+  beta: Physical Oracle API (info.version 1.0.0-beta)
+  adapter_ready_not_live: AP2, ERC-8004, UPI, Stripe adapters for the Intent Market (skill.md)
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations:
+  - openapi/humanmirror-fr-x402-openapi.yml#humanmirrorX402MediaKitGenerator
+  - openapi/humanmirror-fr-x402-openapi.yml#GET /api/x402/emergency-pack/
+  - openapi/humanmirror-fr-x402-openapi.yml#POST /api/x402/emergency-pack/
+  note: 'Three operations are flagged deprecated: true in the x402 contract (media-kit-generator and both emergency-pack
+    methods) with no sunset date, replacement pointer or policy page. 62 other operations carry an explicit deprecated:
+    false.'
+sla:
+  published: false
+  note: No SLA. Enterprise Guard tiers state monthly preflight volumes, not availability.
+status_page: null
+status_endpoints:
+- url: https://humanmirror.fr/api/omnidome/status/
+  kind: JSON status of the OmniDome hub (posts, agents, trust_events, version)
+  http_status: 200
+- url: https://humanmirror.fr/api/reputation/
+  kind: JSON observed runtime metrics for the whole service (execution total/failed calls, latency p95, observed_success_rate_pct,
+    trace receipts)
+  http_status: 200
+  note: Provider-published reliability telemetry; on the probe date it reported 818 executions, 55.5% observed success,
+    960 trace receipts.
+- url: https://humanmirror.fr/api/pulse/
+  kind: JSON live 'Machine Lighthouse' presence state
+  http_status: 200
+status_page_note: No human incident/status page exists (/status/ 404), so NO StatusPage pointer is emitted; the
+  JSON telemetry endpoints above are recorded as observations.
+changelog:
+  published: false
+  note: /changelog/ 404; registry entries show fr.humanmirror/nexus at 1.0.0 (2026-08-30), 1.1.0 and later while
+    nexus/server.json says 1.3.3 — the only dated change trail is the MCP registry.

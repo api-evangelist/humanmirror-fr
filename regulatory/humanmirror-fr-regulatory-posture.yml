@@ -1,0 +1,87 @@
+generated: '2026-09-19'
+method: searched
+probe: true
+source: https://humanmirror.fr/confidentialite/
+probed_paths:
+  /accessibility/: 404
+  /accessibility/vpat/: 404
+  /legal/subprocessors/: 404
+  /legal/dpa/: 404
+  /privacy/requests/: 404
+  /transparency/: 404
+  /security/sbom/: 404
+  /docs/data-residency/: 404
+  /ai/transparency/: 404
+  /legal/report-content/: 404
+  /.well-known/gpc.json: 404
+  /.well-known/dnt-policy.txt: 404
+  /security/: 404
+  /legal/: 404
+signals:
+  data_subject_request:
+    url: https://humanmirror.fr/confidentialite/
+    section: 7. Vos droits
+    channel: privacy@humanmirror.fr
+    stated_sla: null
+    rights_named:
+    - accès
+    - rectification
+    - effacement
+    - limitation
+    - opposition (intérêt légitime)
+    - portabilité
+    - retrait du consentement
+    escalation: CNIL
+    evidence:
+    - source: https://humanmirror.fr/confidentialite/
+      http_status: 200
+      fetched: '2026-09-19'
+      quote: 'Pour exercer vos droits : privacy@humanmirror.fr . Une vérification d’identité peut être demandée
+        uniquement lorsqu’elle est nécessaire pour éviter une divulgation à un tiers. Vous pouvez également adresser
+        une réclamation à la CNIL .'
+    note: A documented rights channel with escalation authority, inside the privacy policy (dated 30 août 2026);
+      no dedicated request page (/privacy/requests/ 404), no stated response period, no API endpoint.
+  subprocessors:
+    url: https://humanmirror.fr/confidentialite/
+    section: 4. Destinataires et prestataires
+    dated: '2026-08-30'
+    form: inline list in the privacy policy, not a standalone register
+    entries:
+    - vendor: Vercel Inc.
+      purpose: site and API function hosting
+      location: United States (Covina, CA per mentions légales)
+    - vendor: Supabase
+      purpose: technical accounts, credit balances, catalogues, usage logs, Outcome/Flow aggregates, Magnet aggregates,
+        Trace receipts
+    - vendor: Stripe
+      purpose: payments for Oracle, Forge and Nexus credit packs
+    - vendor: OVHcloud
+      purpose: domain name registrar (mentions légales)
+    evidence:
+    - source: https://humanmirror.fr/confidentialite/
+      http_status: 200
+      fetched: '2026-09-19'
+      quote: Le site et les fonctions API sont hébergés par Vercel Inc. . Les comptes techniques Oracle, Forge et
+        Nexus, soldes de crédits, catalogues techniques, journaux d’usage, métriques agrégées Outcome et Flow, données
+        agrégées Magnet et reçus cryptographiques Trace sont stockés via Supabase . Les paiements HumanMirror Oracle,
+        Forge et Nexus sont traités par Stripe .
+    note: Named vendors with purposes on a dated page; recorded as a signal with its form stated honestly. Section
+      5 acknowledges transfers outside the EU under the providers' contractual mechanisms; no DPA of HumanMirror's
+      own is published (/legal/dpa/ 404).
+absent:
+  sbom: not published (/security/sbom/ 404; the CLI tarball ships no SBOM)
+  support_lifetime: no support period stated for any product or the CLI
+  accessibility_conformance: no VPAT/ACR (/accessibility/ 404)
+  training_data_summary: none
+  ai_transparency: none (the product IS agent infrastructure; the privacy policy states raw payloads are not logged,
+    but no AI-transparency statement exists)
+  global_privacy_control: no published GPC statement (cookies page describes a language preference in localStorage
+    only)
+  data_residency: none stated
+  incident_notification: none stated
+  age_assurance: none
+  notice_and_action: none
+  transparency_report: none
+  exit_assistance: none
+note: Two signals present, both carried by the privacy policy. Everything else is an honest absence measured against
+  the conventional paths above.

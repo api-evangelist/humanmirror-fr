@@ -1,0 +1,111 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://humanmirror.fr/m2m/#service",
+  "name": "HumanMirror M2M",
+  "url": "https://humanmirror.fr/m2m/",
+  "description": "Machine-readable API infrastructure for autonomous agents, deterministic processing and x402 machine payments.",
+  "provider": {
+    "@type": "Organization",
+    "name": "HumanMirror",
+    "url": "https://humanmirror.fr/"
+  },
+  "serviceType": "Machine-to-Machine API",
+  "termsOfService": "https://humanmirror.fr/",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "HumanMirror machine services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Genesis free processing allocation",
+        "price": "0",
+        "priceCurrency": "USD",
+        "url": "https://humanmirror.fr/api/v1/m2m/claim-resource/"
+      },
+      {
+        "@type": "Offer",
+        "name": "Context Compressor & Sanitizer",
+        "price": "0.001",
+        "priceCurrency": "USDC",
+        "url": "https://humanmirror.fr/api/x402/automata-context-compressor-sanitizer/"
+      }
+    ]
+  },
+  "potentialAction": [
+    {
+      "@type": "Action",
+      "name": "Discover HumanMirror Genesis",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://humanmirror.fr/m2m/genesis.json",
+        "httpMethod": "GET",
+        "encodingType": "application/json"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "HumanMirror M2M Handshake",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://humanmirror.fr/api/v1/m2m/handshake/",
+        "httpMethod": "POST",
+        "encodingType": "application/json",
+        "contentType": "application/json"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Claim HumanMirror Free Processing Allocation",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://humanmirror.fr/api/v1/m2m/claim-resource/",
+        "httpMethod": "POST",
+        "encodingType": "application/json",
+        "contentType": "application/json"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Use HumanMirror Context Compressor",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://humanmirror.fr/api/v1/m2m/resource/",
+        "httpMethod": "POST",
+        "encodingType": "application/json",
+        "contentType": "application/json"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Use paid HumanMirror Context Compressor through x402",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://humanmirror.fr/api/x402/automata-context-compressor-sanitizer/",
+        "httpMethod": "POST",
+        "encodingType": "application/json",
+        "contentType": "application/json"
+      }
+    }
+  ],
+  "subjectOf": [
+    {
+      "@type": "DigitalDocument",
+      "name": "HumanMirror Genesis Manifest",
+      "url": "https://humanmirror.fr/m2m/genesis.json",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@type": "DigitalDocument",
+      "name": "HumanMirror x402 Catalog",
+      "url": "https://humanmirror.fr/x402/catalog.json",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@type": "DigitalDocument",
+      "name": "HumanMirror OpenAPI",
+      "url": "https://humanmirror.fr/x402/openapi.json",
+      "encodingFormat": "application/json"
+    }
+  ]
+}

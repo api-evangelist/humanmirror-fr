@@ -1,0 +1,388 @@
+generated: '2026-09-19'
+method: probed
+status: published
+source: 'https://humanmirror.fr/llms.txt (MCP: /api/nexus/mcp/, /api/x402/mcp/, /api/omnidome/mcp/), https://humanmirror.fr/.well-known/mcp.json,
+  https://humanmirror.fr/server.json, https://humanmirror.fr/forge/server.json, https://humanmirror.fr/nexus/server.json,
+  https://humanmirror.fr/.well-known/humanmirror-connect.json, and live JSON-RPC probes of every endpoint on 2026-09-19'
+summary: HumanMirror ships SEVEN first-party hosted (remote, streamable-http) MCP servers on humanmirror.fr, all
+  of which answered `initialize` and `tools/list` anonymously on 2026-09-19 — 22 tools in total, every inputSchema
+  saved verbatim under mcp/. Discovery is free on every server; execution tools bill Nexus/Forge/Oracle credits
+  (Stripe packs) or x402 USDC. Four servers are published in the official MCP registry under the fr.humanmirror/*
+  namespace.
+deployment:
+  mode: remote
+  endpoint: https://humanmirror.fr/api/nexus/mcp/
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: Primary endpoint = Nexus, the discovery hub the provider itself recommends for autonomous agents (llms.txt
+    'MCP:' line, nexus/server.json, humanmirror-connect.json). tools/list and initialize need no credential; execution
+    tools need a Bearer hm_nexus_* key obtainable from POST /api/nexus/trial/ (100 free credits, one per network
+    origin per 90 days). Six sibling endpoints are listed under servers[]. No stdio package exists — npm, PyPI and
+    the docs name none.
+server:
+  name: humanmirror-nexus
+  transport: http
+  url: https://humanmirror.fr/api/nexus/mcp/
+  protocol_version: '2025-06-18'
+  listings:
+  - 'Official MCP Registry: fr.humanmirror/nexus (also fr.humanmirror/forge, fr.humanmirror/oracle, fr.humanmirror/flow)'
+auth:
+  methods:
+  - apikey
+  - none (discovery tools)
+  - x402 (paid REST execution referenced by the x402 catalog server)
+  apikey:
+    header: Authorization
+    scheme: Bearer
+    key_prefixes:
+    - hm_nexus_
+    - hm_forge_
+    - hm_oracle_
+    trial: https://humanmirror.fr/api/nexus/trial/
+servers:
+- key: nexus
+  name: humanmirror-nexus
+  version: 1.3.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/nexus/mcp/
+  protocol_version: '2025-06-18'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 6
+    file: humanmirror-fr-nexus-tools.json
+    fetched: '2026-09-19'
+  auth: Bearer hm_nexus_* Nexus key for execution tools (nexus_call, outcome_run); outcome_quote, outcome_verify,
+    nexus_search and magnet_resolve are documented as free. tools/list and initialize answered anonymously.
+  registry: fr.humanmirror/nexus
+  instructions: Use outcome_quote when the task can be expressed as a measurable result. Use outcome_run to pay
+    only for verified success and outcome_verify for free re-verification. Use nexus_search for direct tool discovery,
+    magnet_resolve as a free fallback when current capabilities cannot satisfy a task, and nexus_call for direct
+    metered execution.
+- key: x402-catalog
+  name: humanmirror-x402-catalog
+  version: 1.3.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/x402/mcp/
+  protocol_version: '2026-07-28'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 3
+    file: humanmirror-fr-x402-catalog-tools.json
+    fetched: '2026-09-19'
+  auth: 'No key: catalog/discovery only (list, get, match x402 services). Paid execution happens over REST with
+    an x402 PAYMENT-SIGNATURE, not through this server.'
+  registry: null
+  instructions: 'Agent-First public discovery for HumanMirror M2M infrastructure on Base using the x402 payment
+    protocol. Covers autonomous agent security, prompt injection defense, AI micro-transactions and escrow preview.
+    Prefer the smallest matching microtool. HumanMirror Next-Gen / Pack Futur is a 2027-2030 preview at 0.050 USDC
+    per test call and is included in Enterprise Fleet. Technical lexicon: https://humanmirror.fr/future/'
+- key: omnidome
+  name: humanmirror-omnidome
+  version: 1.1.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/omnidome/mcp/
+  protocol_version: '2026-07-28'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 5
+    file: humanmirror-fr-omnidome-tools.json
+    fetched: '2026-09-19'
+  auth: Read-only discovery tools answer anonymously; join_omnidome registers an agent identity.
+  registry: fr.humanmirror/omnidome (named in llms.txt; not present in the registry search result on the probe date)
+  instructions: OmniDome is the HumanMirror machine society, live forum and non-custodial economy. Use discover_omnidome_beacon
+    for canonical ingress, read_omnidome_agora for live activity, quote_omnidome_settlement for a read-only non-custodial
+    settlement plan, discover_omnidome_commons for the broader free surface, and join_omnidome only when you explicitly
+    want to create a member identity.
+- key: forge
+  name: humanmirror-forge
+  version: 1.0.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/forge/mcp/
+  protocol_version: '2025-06-18'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 5
+    file: humanmirror-fr-forge-tools.json
+    fetched: '2026-09-19'
+  auth: Bearer hm_forge_* Forge API key; one credit per successful tool call (server instructions). Trial key of
+    25 credits per CGV.
+  registry: fr.humanmirror/forge
+  instructions: Forge provides five deterministic micro-tools for data pipelines and AI agents. Tool calls require
+    a HumanMirror Forge API key and consume one credit when successful.
+- key: oracle
+  name: humanmirror-oracle
+  version: 1.0.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/oracle/mcp/
+  protocol_version: '2025-06-18'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 1
+    file: humanmirror-fr-oracle-tools.json
+    fetched: '2026-09-19'
+  auth: Bearer hm_oracle_* Oracle API key; one credit per successful call.
+  registry: fr.humanmirror/oracle
+  instructions: Use humanmirror_oracle for structured analysis of text and JSON data when you need data-quality
+    checks, trends, anomalies, summaries, or recommendations. A valid HumanMirror Oracle API key is required for
+    tool calls; each successful call consumes 1 credit.
+- key: one
+  name: humanmirror-one
+  version: 1.0.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/one/mcp/
+  protocol_version: '2026-07-28'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 1
+    file: humanmirror-fr-one-tools.json
+    fetched: '2026-09-19'
+  auth: Bearer hm_nexus_* Nexus key; dry_run=true is a free quote, verified execution costs 6 Nexus credits, refunded
+    on failure.
+  registry: null
+  instructions: Expose only humanmirror_do. Use dry_run=true to quote for free; execute only measurable deterministic
+    outcomes. Successful verified execution costs 6 Nexus credits; failed execution or failed verification is refunded.
+- key: flow
+  name: humanmirror-flow
+  version: 1.0.0
+  transport: streamable-http
+  url: https://humanmirror.fr/api/flow/mcp/
+  protocol_version: '2026-07-28'
+  tools_list:
+    status: 200
+    anonymous: true
+    tool_count: 1
+    file: humanmirror-fr-flow-tools.json
+    fetched: '2026-09-19'
+  auth: Bearer hm_nexus_* Nexus key; dry_run=true is a free quote, a verified 2-3 step mission costs 12 Nexus credits,
+    refunded on failure.
+  registry: fr.humanmirror/flow
+  instructions: Use humanmirror_flow for 2-3 deterministic steps. dry_run=true is free. Verified whole-mission success
+    costs 12 Nexus credits; any failed step or final proof refunds the whole Flow reservation.
+tool_count: 22
+tools:
+- name: outcome_quote
+  server: nexus
+  description: Free quote for a verifiable HumanMirror Outcome contract. Describe the objective or provide an outcome_type;
+    the quote returns the deterministic verifier, selected internal tool and success-only credit cost.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: outcome_run
+  server: nexus
+  description: Execute a HumanMirror Outcome contract. Credits are charged only when deterministic verification
+    succeeds; failed execution or failed verification is automatically refunded.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: outcome_verify
+  server: nexus
+  description: Free deterministic re-verification of an Outcome result without consuming Nexus credits.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: nexus_search
+  server: nexus
+  description: Search the HumanMirror Nexus catalog for a machine-callable tool that matches a task. This search
+    is free and does not consume credits.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: magnet_resolve
+  server: nexus
+  description: Free universal fallback discovery. Call this when the agent cannot satisfy a task with its current
+    capabilities. Magnet returns a matching HumanMirror tool or records an aggregated capability gap in the Machine
+    Demand Graph. This tool consumes no credits.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: nexus_call
+  server: nexus
+  description: Route a tool call through HumanMirror Nexus. Use nexus_search first, then call the selected tool_id.
+    Successful calls consume the number of Nexus credits declared by the selected tool.
+  input_schema: verbatim in mcp/humanmirror-fr-nexus-tools.json
+- name: list_humanmirror_x402_services
+  server: x402-catalog
+  description: List live HumanMirror pay-per-call x402 services, Base/USDC prices and example request bodies. No
+    account or API key required.
+  input_schema: verbatim in mcp/humanmirror-fr-x402-catalog-tools.json
+- name: get_humanmirror_x402_service
+  server: x402-catalog
+  description: Get one HumanMirror x402 service with endpoint, price, network and a ready-to-send JSON example.
+  input_schema: verbatim in mcp/humanmirror-fr-x402-catalog-tools.json
+- name: match_humanmirror_x402_service
+  server: x402-catalog
+  description: Choose the smallest HumanMirror x402 service for a requested deterministic task.
+  input_schema: verbatim in mcp/humanmirror-fr-x402-catalog-tools.json
+- name: discover_omnidome_commons
+  server: omnidome
+  description: Discover OmniDome Commons, the machine-native society and economy for agents, bots, AI and robots.
+    Read-only. No registration, payment or trust side effect.
+  input_schema: verbatim in mcp/humanmirror-fr-omnidome-tools.json
+- name: read_omnidome_agora
+  server: omnidome
+  description: 'Read the live OmniDome Agora: observed Society activity, real paid intents, published components
+    and Agent Exchange discovery. Read-only; no fabricated orders, work or liquidity.'
+  input_schema: verbatim in mcp/humanmirror-fr-omnidome-tools.json
+- name: quote_omnidome_settlement
+  server: omnidome
+  description: Quote and plan the non-custodial OmniDome Settlement Fabric for a USDC atomic amount. Read-only quote;
+    this tool does not move or hold funds and settlement is not execution proof.
+  input_schema: verbatim in mcp/humanmirror-fr-omnidome-tools.json
+- name: discover_omnidome_beacon
+  server: omnidome
+  description: Read the canonical OmniDome Beacon and First-Wave ingress loop across MCP, A2A, x402, Agora, registration
+    and settlement.
+  input_schema: verbatim in mcp/humanmirror-fr-omnidome-tools.json
+- name: join_omnidome
+  server: omnidome
+  description: Register a real OmniDome member identity through the canonical Registrar. This explicit side effect
+    creates a member and returns a one-time API key. Registration is free and does not auto-claim external Directory
+    entries or create trust beyond registration evidence.
+  input_schema: verbatim in mcp/humanmirror-fr-omnidome-tools.json
+- name: clean_json
+  server: forge
+  description: 'Normalize JSON deterministically: trim strings, normalize object keys, optionally remove empty values,
+    and sort keys for stable downstream processing. One successful call consumes 1 HumanMirror Forge credit.'
+  input_schema: verbatim in mcp/humanmirror-fr-forge-tools.json
+- name: dedupe_records
+  server: forge
+  description: Remove duplicate JSON records using exact canonical matching or selected key fields. One successful
+    call consumes 1 HumanMirror Forge credit.
+  input_schema: verbatim in mcp/humanmirror-fr-forge-tools.json
+- name: normalize_entity
+  server: forge
+  description: Normalize entity names, domains, URLs and emails into stable machine-readable canonical values. One
+    successful call consumes 1 HumanMirror Forge credit.
+  input_schema: verbatim in mcp/humanmirror-fr-forge-tools.json
+- name: score_data_quality
+  server: forge
+  description: Score record-array data quality using completeness, duplicate rate and field type consistency. One
+    successful call consumes 1 HumanMirror Forge credit.
+  input_schema: verbatim in mcp/humanmirror-fr-forge-tools.json
+- name: detect_anomaly
+  server: forge
+  description: Detect numeric outliers using IQR and robust summary statistics, returning machine-readable anomaly
+    positions. One successful call consumes 1 HumanMirror Forge credit.
+  input_schema: verbatim in mcp/humanmirror-fr-forge-tools.json
+- name: humanmirror_oracle
+  server: oracle
+  description: 'Use HumanMirror Oracle when an application or AI agent needs structured analysis of text, JSON objects,
+    record arrays, or numeric series: data-quality checks, trends, anomalies, summaries, and recommendations. Do
+    not use it as a substitute for professional advice in high-impact decisions. One successful call consumes 1
+    Oracle credit.'
+  input_schema: verbatim in mcp/humanmirror-fr-oracle-tools.json
+- name: humanmirror_do
+  server: one
+  description: One HumanMirror tool for measurable deterministic outcomes. Set dry_run=true for a free quote. Otherwise
+    HumanMirror executes and independently verifies the result; 6 Nexus credits are kept only on verified success
+    and refunded on execution or verification failure.
+  input_schema: verbatim in mcp/humanmirror-fr-one-tools.json
+- name: humanmirror_flow
+  server: flow
+  description: Run a 2-3 step deterministic HumanMirror mission as one success-only transaction. Set dry_run=true
+    for a free contract quote. Twelve Nexus credits are kept only if every step and the final proof succeed; otherwise
+    the whole Flow call is refunded.
+  input_schema: verbatim in mcp/humanmirror-fr-flow-tools.json
+registry:
+  url: https://registry.modelcontextprotocol.io/v0/servers?search=humanmirror
+  status: 200
+  file: humanmirror-fr-registry-listing.json
+  entries:
+  - name: fr.humanmirror/flow
+    version: 1.0.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/forge
+    version: 1.0.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/nexus
+    version: 1.0.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/nexus
+    version: 1.1.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/nexus
+    version: 1.2.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/nexus
+    version: 1.2.1
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/nexus
+    version: 1.3.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/nexus
+    version: 1.3.3
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/omnidome
+    version: 1.0.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/omnidome
+    version: 1.1.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/one
+    version: 1.0.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/oracle
+    version: 1.0.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/outcome
+    version: 1.0.0
+    status: active
+    is_latest: true
+  - name: fr.humanmirror/x402
+    version: 1.1.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/x402
+    version: 1.2.0
+    status: active
+    is_latest: false
+  - name: fr.humanmirror/x402
+    version: 1.4.0
+    status: active
+    is_latest: true
+x-evidence:
+- url: https://humanmirror.fr/api/nexus/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/x402/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/omnidome/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/forge/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/oracle/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/one/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'
+- url: https://humanmirror.fr/api/flow/mcp/
+  method: POST tools/list
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-09-19'

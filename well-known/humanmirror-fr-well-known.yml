@@ -1,0 +1,114 @@
+generated: '2026-09-19'
+method: probed
+source: live probes of /.well-known/ on humanmirror.fr and www.humanmirror.fr on 2026-09-19
+summary: 'One real document from the closed list is served: /.well-known/ai-plugin.json (an OpenAI-plugin-style
+  manifest for HumanMirror Oracle pointing at /oracle/openapi.json) — so the WellKnown pointer is earned. The A2A
+  agent card is served at BOTH the canonical and legacy paths (see a2a/). Nothing else on the closed list exists:
+  no security.txt (NO SecurityTxt pointer), no OIDC / OAuth AS / protected-resource metadata (no OAuth anywhere
+  on the surface — keys and x402 payments only), no api-catalog, no apis.json, no UCP/ACP/AAuth.'
+pointer_basis: WellKnown emitted on the strength of the 200 for ai-plugin.json (application/json, parses, names
+  the provider). SecurityTxt NOT emitted.
+mcp_host_note: Every MCP server lives on the apex host humanmirror.fr (/api/*/mcp/), so there is no separate MCP
+  host to probe; the oauth-protected-resource miss above covers the MCP resource servers too.
+hosts:
+- host: https://humanmirror.fr
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/openid-configuration
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/api-catalog
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/api-catalog.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: humanmirror-fr-ai-plugin.json
+  - path: /.well-known/ucp.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/acp.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/apis.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /apis.json
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /apis.yml
+    status: 404
+    body: The page could not be found (Vercel NOT_FOUND, text/plain, 79 bytes)
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: ../a2a/humanmirror-fr-agent-card.json
+  - path: /.well-known/agent.json
+    status: 200
+    file: ../a2a/humanmirror-fr-agent-legacy.json
+  additional_documents:
+    note: HumanMirror publishes an unusually large set of vendor-specific /.well-known/ manifests (all 200, application/json).
+      Recorded here as observations; none is on the closed list the scorer reads, and none is a standard document.
+    paths:
+    - /.well-known/mcp.json
+    - /.well-known/forge-mcp.json
+    - /.well-known/nexus.json
+    - /.well-known/agents.json
+    - /.well-known/agent-manifest.json
+    - /.well-known/humanmirror.json
+    - /.well-known/x402
+    - /.well-known/x402.json
+    - /.well-known/products.json
+    - /.well-known/omnidome.json
+    - /.well-known/agent-os.json
+    - /.well-known/escrow.json
+    - /.well-known/intent-market.json
+    - /.well-known/enterprise-pass.json
+    - /.well-known/mirror-loop.json
+    - /.well-known/value-protocol.json
+    - /.well-known/humanmirror-connect.json
+    - /.well-known/humanmirror-agentops.json
+    - /.well-known/magnet.json
+    - /.well-known/outcome.json
+    - /.well-known/one.json
+    - /.well-known/flow.json
+    - /.well-known/automata.json
+    - /.well-known/pulse.json
+    - /.well-known/physical-oracle.json
+    - /.well-known/atlas.json
+    - /.well-known/pangi.json
+    - /.well-known/omni-sync.json
+    - /.well-known/shared-context.json
+    - /.well-known/perception-behavior.json
+    - /.well-known/global-enterprise.json
+    - /.well-known/outbound.json
+    - /.well-known/optimize.json
+    - /.well-known/x402-proof.json
+    - /.well-known/m2m-genesis.json
+    - /.well-known/consensus-verify.json
+    - /.well-known/payload-normalizer.json
+    - /.well-known/sanitize-shield.json
+    - /.well-known/nexus-ai-plugin.json
+    - /.well-known/forge-ai-plugin.json
+    - /.well-known/agent-exchange.json
+- host: https://www.humanmirror.fr
+  documents:
+  - path: /.well-known/security.txt
+    status: 308
+    redirect: https://humanmirror.fr/.well-known/security.txt
+  - path: /.well-known/agent-card.json
+    status: 308
+    redirect: https://humanmirror.fr/.well-known/agent-card.json
+  note: www.humanmirror.fr answers 308 to the apex for every path; not probed further.

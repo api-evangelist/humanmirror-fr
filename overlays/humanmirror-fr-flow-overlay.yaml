@@ -1,0 +1,51 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror Flow API
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-flow-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-flow-openapi.yml (4 operations) and the searched artifacts in this
+  repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/flow/openapi.json
+      sha256: 4abd1874e2b91f90086e719a0961d38217b96e211a1e0780c307d6863e3c71b7
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/
+- target: $.paths['/api/flow/quote/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiFlowQuotePost
+- target: $.paths['/api/flow/run/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiFlowRunPost
+- target: $.paths['/api/flow/mcp/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiFlowMcpPost
+- target: $.paths['/api/flow/stats/'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiFlowStatsGet

@@ -1,0 +1,31 @@
+generated: '2026-09-19'
+method: generated
+source: openapi/ (operationIds verified against the specs; Nexus/Outcome specs carry none, so those steps cite METHOD
+  /path), mcp/humanmirror-fr-nexus-tools.json, and the provider's own skill.md which was searched and saved verbatim.
+skills:
+- file: humanmirror-fr-genesis-skill.md
+  name: humanmirror-genesis
+  method: searched
+  source: https://humanmirror.fr/skill.md
+  description: 'Provider-published Agent Skill: machine-native deterministic context cleanup with a free Genesis
+    bootstrap (20 calls / 48h) and x402 paid continuation, plus the Machine Port, Pulse, Gateway, Next-Gen preview,
+    Escrow v1, Shared Context, Perception signals and Intent Market entry points.'
+  operations: null
+  note: Saved verbatim; it is prose + endpoints rather than operationIds, and it contains the provider's zero-width
+    provenance watermark.
+- file: humanmirror-fr-secure-external-context.md
+  name: humanmirror-secure-external-context
+  method: generated
+  description: Quarantine prompt injection, scan secrets, preflight the tool call and bind an execution receipt
+    over x402.
+  operations: 5
+- file: humanmirror-fr-verified-outcome.md
+  name: humanmirror-verified-outcome
+  method: generated
+  description: Trial key, free quote, success-only run and free re-verification through Nexus/Outcome (REST and
+    MCP).
+  operations: 6
+exclusions:
+- surface: Physical Oracle worker registration / payout
+  reason: A2H field-work flow involving human workers' payout addresses; not packaged as a skill pending review
+    of the personal-data implications.

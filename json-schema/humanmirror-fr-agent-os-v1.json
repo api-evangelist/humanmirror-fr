@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://humanmirror.fr/schemas/agent-os-v1.json",
+  "title": "HumanMirror Agent OS State & Trust v1",
+  "type": "object",
+  "required": ["$schema", "protocol", "ts", "exec_metrics", "state_proof", "trust_identity", "sequencer_priority"],
+  "properties": {
+    "$schema": { "const": "https://humanmirror.fr/schemas/agent-os-v1.json" },
+    "protocol": { "const": "x402-humanmirror-v1" },
+    "ts": { "type": "integer", "minimum": 1 },
+    "exec_metrics": {
+      "type": "object",
+      "required": ["token_savings_pct", "latency_ms", "latency_scope", "gas_optimized_pct", "measurement_status"],
+      "properties": {
+        "token_savings_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "latency_ms": { "type": "number", "minimum": 0 },
+        "latency_scope": { "const": "state_proof_compute_only" },
+        "gas_optimized_pct": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "measurement_status": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "state_proof": {
+      "type": "object",
+      "required": ["valid", "continuity_verified", "drift_score", "drift_semantics", "drift_status", "vector", "sig"],
+      "properties": {
+        "valid": { "type": "boolean" },
+        "continuity_verified": { "type": "boolean" },
+        "drift_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "drift_semantics": { "const": "exact_sha256_state_continuity" },
+        "drift_status": { "enum": ["BASELINE_ESTABLISHED", "NOMINAL", "DRIFT_DETECTED"] },
+        "vector": { "type": "string", "pattern": "^0x[0-9a-f]{64}$" },
+        "sig": { "type": "string", "pattern": "^X-HM-V1:[A-Za-z0-9_-]{43}$" }
+      },
+      "additionalProperties": false
+    },
+    "trust_identity": {
+      "type": "object",
+      "required": ["agent_id", "score", "score_scope", "tier", "cycles", "cycles_scope", "risk_level", "action_permission", "proof_hash"],
+      "properties": {
+        "agent_id": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "score_scope": { "const": "state_continuity_only" },
+        "tier": { "enum": ["BASELINE_ONLY", "AAA_VERIFIED", "REVIEW_REQUIRED"] },
+        "cycles": { "type": "integer", "minimum": 1 },
+        "cycles_scope": { "const": "this_signed_proof_only" },
+        "risk_level": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+        "action_permission": { "enum": ["ALLOW_AUTOMATED_EXECUTION", "REQUIRE_POLICY_REVIEW", "BLOCK_AUTOMATED_EXECUTION"] },
+        "proof_hash": { "type": "string", "pattern": "^0x[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "sequencer_priority": {
+      "type": "object",
+      "required": ["queue_tier", "atomic_lock", "bid_settled_usdc", "settlement_source"],
+      "properties": {
+        "queue_tier": { "const": "STANDARD" },
+        "atomic_lock": { "const": false },
+        "bid_settled_usdc": { "type": "null" },
+        "settlement_source": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

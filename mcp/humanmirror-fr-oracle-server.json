@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "fr.humanmirror/oracle",
+  "title": "HumanMirror Oracle",
+  "description": "Structured analysis API and remote MCP tool for text, JSON records and numeric series.",
+  "version": "1.0.0",
+  "websiteUrl": "https://humanmirror.fr/oracle/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://humanmirror.fr/api/oracle/mcp/",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "HumanMirror Oracle API key. Use: Bearer hm_oracle_…",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

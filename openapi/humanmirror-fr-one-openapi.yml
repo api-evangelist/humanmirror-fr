@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: HumanMirror One API
+  version: 1.0.0
+  description: Single-tool verified outcome interface. Dry-run quotes are free. Verified execution costs 6 Nexus credits;
+    failed execution or verification is refunded.
+servers:
+- url: https://humanmirror.fr
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+paths:
+  /api/one/run/:
+    post:
+      summary: Quote or execute through HumanMirror One
+      security:
+      - {}
+      - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                dry_run:
+                  type: boolean
+                objective:
+                  type: string
+                outcome_type:
+                  type: string
+                contract_id:
+                  type: string
+                input: {}
+                criteria:
+                  type: object
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Free quote or verified success
+        '400':
+          description: Execution/verification failed and credits refunded
+        '401':
+          description: Missing or invalid Nexus key for execution
+  /api/one/mcp/:
+    post:
+      summary: Single-tool MCP JSON-RPC endpoint
+      security:
+      - {}
+      - BearerAuth: []
+      responses:
+        '200':
+          description: MCP response

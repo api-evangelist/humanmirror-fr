@@ -1,0 +1,91 @@
+generated: '2026-09-19'
+method: probed
+source: https://humanmirror.fr/.well-known/agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: humanmirror.fr
+  legacy_path:
+    path: /.well-known/agent.json
+    status: 200
+    file: humanmirror-fr-agent-legacy.json
+    note: Also served. Same agent, same 27 skills, same url, but a superset document that adds HumanMirror-specific
+      keys (payments, intents, discovery, pricing_policy, provenance, agent_os, machine_port, protocols). Saved
+      for completeness; the canonical card is the graded one.
+  ownership: provider.organization is 'HumanMirror', provider.url https://humanmirror.fr/, iconUrl and every endpoint
+    are on humanmirror.fr, and the same URL is named as 'A2A Agent Card' in the provider's own llms.txt, index.html.md,
+    x402 OpenAPI (x-humanmirror-agent-first.a2a) and ai-plugin siblings.
+conformance:
+  spec: A2A 1.0.0
+  grade: flavored
+  protocol_version: null
+  interface_protocol_version: '1.0'
+  preferred_transport: null
+  interface_binding: JSONRPC
+  capabilities_is_object: true
+  skills_is_array: true
+  deviations:
+  - no-protocolVersion (a protocolVersion '1.0' appears only inside supportedInterfaces[])
+  - supportedInterfaces-instead-of-additionalInterfaces
+  - no-preferredTransport
+  note: Hard-check failure is the missing top-level protocolVersion; the card otherwise carries capabilities as
+    an object (with an a2a-x402 extension), skills as an array of 27, default input/output modes, provider and documentationUrl.
+card:
+  name: HumanMirror Discovery Agent
+  url: https://humanmirror.fr/api/a2a/
+  version: 1.8.0
+  skills: 27
+  skill_ids:
+  - machine_resolve
+  - omni_sync
+  - night_beacon_free_start
+  - enterprise_pass_unlimited
+  - zero_point_consensus
+  - liquidity_status
+  - proof_of_micro_work
+  - zero_cost_execution_sink
+  - genesis_free_bootstrap
+  - scan_secrets_before_external_action
+  - solve_outcome
+  - discover_humanmirror_tools
+  - resolve_capability_gap
+  - quote_verified_outcome
+  - run_verified_outcome
+  - verify_outcome
+  - run_verified_flow
+  - connect_humanmirror
+  - pay_per_verified_result
+  - next_gen_intent_proof
+  - next_gen_consensus_lock
+  - next_gen_escrow_settle
+  - next_gen_state_and_trust
+  - shared_context
+  - perception_behavior_vector
+  - physical_oracle
+  - pangi_performance_advisor
+  file: humanmirror-fr-agent-card.json
+  documentation_url: https://humanmirror.fr/future/
+  extensions:
+  - https://github.com/google-a2a/a2a-x402/v0.1
+endpoint_probe:
+  url: https://humanmirror.fr/api/a2a/
+  method: POST JSON-RPC agent/getAuthenticatedExtendedCard
+  http_status: 400
+  body: '{"jsonrpc":"2.0","id":1,"error":{"code":-32601,"message":"Supported A2A methods: SendMessage and message/send."}}'
+  note: The declared interface is live and speaks JSON-RPC; it advertises SendMessage and message/send. GET on the
+    same URL returns 200 application/json.
+x-evidence:
+  fetched: '2026-09-19'
+  url: https://humanmirror.fr/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  body_bytes: 27814
+  sha256: fd55e92eeaa8c2817292729e802b387b9de45b753cbc668cd004a3dd9365f851
+  body_parses_as: JSON object with AgentCard shape (name, url, version, capabilities{}, skills[], provider, documentationUrl,
+    supportedInterfaces[])
+  corroborating_probes:
+  - url: https://humanmirror.fr/.well-known/agent.json
+    http_status: 200
+  - url: https://www.humanmirror.fr/.well-known/agent-card.json
+    http_status: 308
+    note: www redirects to the apex

@@ -1,23 +1,537 @@
 aid: humanmirror-fr
 name: HumanMirror
-description: 'HumanMirror is a company surfaced via the API Evangelist harvest backlog (source: a2a-registry)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'HumanMirror is a Toulouse, France-based agent-infrastructure provider (operated as an entrepreneur
+  individuel) that sells security, verification, data-quality and payment-orchestration services to autonomous agents
+  and the developers who run them. Agents pay per call in USDC on Base through x402 V2 (0.001 / 0.010 / 0.050 USDC
+  tiers, 5 USDC bundles, a 297 USDC 30-day pass) or in Stripe-bought credits (Oracle, Forge, Nexus); humans buy
+  audits, a Pro subscription and Enterprise Guard governance tiers in EUR. The surface is unusually machine-first:
+  16 OpenAPI 3.1 contracts, seven hosted MCP servers whose tools/list is open, an A2A agent card, llms.txt, an ai-plugin
+  manifest, published JSON Schemas and ~40 vendor /.well-known/ manifests, all on a single host.'
 url: https://raw.githubusercontent.com/api-evangelist/humanmirror-fr/refs/heads/main/apis.yml
+image: https://humanmirror.fr/assets/humanmirror-mark.svg
 x-type: company
 x-source: harvest:a2a-registry
-x-tier: stub
-x-tier-reason: harvest
+x-tier: enriched
+x-tier-reason: enrichment-pipeline
+x-hq:
+  city: Toulouse
+  country: FR
+  source: https://humanmirror.fr/mentions-legales/
 specificationVersion: '0.20'
 created: '2026-09-19'
 modified: '2026-09-19'
 tags:
 - Company
-apis: []
+- AI Agents
+- Agent Security
+- Prompt Injection Defense
+- x402
+- Machine Payments
+- USDC
+- MCP
+- A2A
+- Data Quality
+- Verified Outcomes
+- Micro-Transactions
+- France
+apis:
+- aid: humanmirror-fr:x402
+  name: HumanMirror x402 API
+  description: 'HumanMirror x402 API v3.2.0: 82 pay-per-call operations settled in USDC on Base through x402 V2
+    — agent security (secret scanning, safe preflight, execution receipts, sanitize shield), data quality (clean/dedupe/normalize/anomaly),
+    ~35 ''Automata'' operational guards, canonical 5 USDC bundles, the 297 USDC / 30-day Enterprise Fleet pass,
+    the free Zero-Cost Sink and micro-work routes, and the credentialed Next-Gen preview (intent proof, fleet consensus
+    lock, escrow settle, Agent OS state & trust). Every paid route answers 402 + PAYMENT-REQUIRED first.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr
+  tags:
+  - x402
+  - Machine Payments
+  - USDC
+  - Agent Security
+  - Prompt Injection Defense
+  - Data Quality
+  - Execution Receipts
+  - Escrow
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-x402-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/x402/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-x402-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/x402/mcp/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: AgentSkill
+    url: skills/humanmirror-fr-secure-external-context.md
+  - type: AgentSkill
+    url: skills/humanmirror-fr-genesis-skill.md
+- aid: humanmirror-fr:m2m-core
+  name: HumanMirror M2M Core Services
+  description: 'Three separately published contracts for the M2M core: Sanitize Shield (indirect prompt-injection
+    quarantine with a signed Cleanliness Proof), M2M Payload Normalizer (canonical JSON + stable SHA-256 digest)
+    and the Probabilistic Consensus Oracle (weighted log-odds validation of two contradictory agent signals). Each
+    has a free discovery GET, three free calls per 24 hours, then 0.001 USDC via x402; all three are also inside
+    the x402 contract.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/m2m/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Prompt Injection Defense
+  - JSON Canonicalization
+  - Consensus
+  - Agent Security
+  - x402
+  - M2M
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-sanitize-shield-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/m2m/sanitize-shield.openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-sanitize-shield-overlay.yaml
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-payload-normalizer-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/m2m/payload-normalizer.openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-payload-normalizer-overlay.yaml
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-consensus-verify-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/m2m/consensus-verify.openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-consensus-verify-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+- aid: humanmirror-fr:oracle
+  name: HumanMirror Oracle API
+  description: Structured analysis of text, JSON records and numeric series (data quality, trends, anomalies, recommendations).
+    Bearer hm_oracle_* key; one credit per successful analysis; 100 credits for 4.99 EUR via Stripe. Also exposed
+    as a remote MCP server (fr.humanmirror/oracle) and an ai-plugin manifest.
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/oracle/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Data Analysis
+  - Anomaly Detection
+  - AI Agents
+  - MCP
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-oracle-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/oracle/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-oracle-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/oracle/mcp/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+- aid: humanmirror-fr:forge
+  name: HumanMirror Forge API
+  description: Five deterministic micro-tools for agent data pipelines — clean_json, dedupe_records, normalize_entity,
+    score_data_quality, detect_anomaly — multiplexed through POST /api/forge/run with a Bearer hm_forge_* key; 25-call
+    free trial, 1 000 credits for 4.99 EUR. Also a remote MCP server (fr.humanmirror/forge) and a Postman collection.
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/forge/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Data Quality
+  - Deduplication
+  - Entity Normalization
+  - MCP
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-forge-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/forge/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-forge-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/forge/mcp/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+- aid: humanmirror-fr:nexus
+  name: HumanMirror Nexus API
+  description: 'Machine-to-machine tool discovery, routing and credit metering: free catalog search, a 100-credit
+    trial key per network origin, Stripe checkout/claim for 5 000-credit packs, routed tool calls, and the success-only
+    Outcome quote/run/verify trio. The hub MCP server (fr.humanmirror/nexus) exposes six tools including the free
+    Magnet fallback resolver.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/nexus/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Tool Discovery
+  - Tool Routing
+  - Verified Outcomes
+  - Pay For Success
+  - MCP
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-nexus-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/nexus/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-nexus-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/nexus/mcp/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: AgentSkill
+    url: skills/humanmirror-fr-verified-outcome.md
+- aid: humanmirror-fr:agentops
+  name: HumanMirror AgentOps API
+  description: 'Deterministic operational utilities billed in Nexus credits under a Bearer hm_nexus_* key: Sentinel
+    output inspection, Trace receipt issue + public verify, Lens schema inference and contract diff, Vault secret
+    scan, Circuit preflight. Published with a Postman collection; reachable through the Nexus MCP server by tool_id.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/agentops/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Agent Operations
+  - Execution Receipts
+  - Secret Scanning
+  - Schema Diff
+  - Preflight
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-agentops-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/agentops/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-agentops-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+- aid: humanmirror-fr:magnet
+  name: HumanMirror Magnet API
+  description: 'Free outcome-first fallback discovery for blocked agents: resolve a stated outcome to a live Nexus
+    capability or record a sanitized capability gap in a privacy-thresholded public Machine Demand Graph (hot gaps,
+    gap status). No key required; 429 on abuse.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/magnet/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Capability Discovery
+  - Fallback
+  - Machine Demand
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-magnet-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/magnet/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-magnet-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+- aid: humanmirror-fr:outcome
+  name: HumanMirror Outcome API
+  description: 'Verified outcome execution: quote and verify are free, a successful outcome.run costs 5 Nexus credits
+    and failed execution or failed deterministic verification is refunded. The same three paths are mirrored in
+    the Nexus contract and as MCP tools outcome_quote / outcome_run / outcome_verify.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/outcome/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Verified Outcomes
+  - Pay For Success
+  - Deterministic Verification
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-outcome-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/outcome/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-outcome-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+- aid: humanmirror-fr:one
+  name: HumanMirror One API
+  description: 'Single-tool verified-outcome interface (humanmirror_do): dry-run quotes are free, verified execution
+    costs 6 Nexus credits, failures are refunded. The provider''s recommended default MCP surface for agents that
+    want the smallest schema footprint.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/one/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Verified Outcomes
+  - MCP
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-one-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/one/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-one-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/one/mcp/
+- aid: humanmirror-fr:flow
+  name: HumanMirror Flow API
+  description: 'Verified 2-3 step agent missions billed as one whole transaction: free quote, 12 Nexus credits kept
+    only if every step and the final proof succeed. One MCP tool (humanmirror_flow), registry entry fr.humanmirror/flow.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/flow/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Workflows
+  - Verified Outcomes
+  - MCP
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-flow-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/flow/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-flow-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/flow/mcp/
+- aid: humanmirror-fr:market
+  name: HumanMirror Intent Market API
+  description: 'Non-custodial intent marketplace for autonomous agents: buyers publish a paid intent (0.010 USDC
+    via x402), providers bid for free, the market awards the best admissible bid (0.050 USDC); live state is public.
+    AP2 / ERC-8004 / UPI / Stripe adapters are declared ''adapter-ready'', not live.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/market/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Marketplace
+  - Intent Routing
+  - x402
+  - Bidding
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-market-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/market/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-market-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+- aid: humanmirror-fr:agent-os
+  name: HumanMirror Agent OS API
+  description: Cryptographic Proof-of-State and exact SHA-256 state-continuity drift detection (state-and-trust,
+    0.050 USDC via x402) plus the HumanMirror Universal Value Protocol (HUVP/1) resolver, policy firewall and receipt
+    endpoints. Published with a standalone JSON Schema (agent-os-v1).
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/value/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Proof of State
+  - Drift Detection
+  - Value Routing
+  - Payment Policy
+  - x402
+  - AI Agents
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-agent-os-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/docs/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-agent-os-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+- aid: humanmirror-fr:physical-oracle
+  name: HumanMirror Physical Oracle API
+  description: 'Beta (1.0.0-beta) agent-to-human field-verification network: quote and post bounded public-world
+    verification missions, register field workers, claim/submit/verify missions, and confirm the 80/20 buyer-to-worker
+    USDC payout with a 20% platform commission via x402. HumanMirror does not hold worker payout funds.'
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/physical-oracle/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Physical Verification
+  - Human In The Loop
+  - Field Work
+  - x402
+  - Beta
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-physical-oracle-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/physical-oracle/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-physical-oracle-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+- aid: humanmirror-fr:automata
+  name: HumanMirror Automata API
+  description: Public machine catalog and status for HumanMirror Automata, the family of ~35 operational guard services
+    (renewal, broken-link, chargeback, KYC, invoice, dunning, uptime, webhook dead-letter …) whose paid execution
+    routes live in the x402 contract. One GET; event intake is private and provider-verified.
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/automata/
+  baseURL: https://humanmirror.fr
+  tags:
+  - Operational Automation
+  - Catalog
+  - x402
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-automata-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/automata/openapi.json
+  - type: Overlay
+    url: overlays/humanmirror-fr-automata-overlay.yaml
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:omnidome
+  name: OmniDome by HumanMirror (MCP)
+  description: The OmniDome machine-society hub — registrar, agora, beacon, commons, settlement quotes, trust hall,
+    agent exchange (1 bp fee) — exposed as a remote MCP server whose five discovery tools answer anonymously, plus
+    /api/omnidome/* JSON endpoints described in .well-known/omnidome.json. No OpenAPI is published for this surface,
+    which is why it is listed by its MCP server and manifest only.
+  image: https://humanmirror.fr/assets/humanmirror-mark.svg
+  humanURL: https://humanmirror.fr/omnidome/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Agent Society
+  - Agent Exchange
+  - Trust
+  - MCP
+  - AI Agents
+  properties:
+  - type: MCPServer
+    url: https://humanmirror.fr/api/omnidome/mcp/
+  - type: Documentation
+    url: https://humanmirror.fr/omnidome/
+  - type: Documentation
+    url: https://humanmirror.fr/.well-known/omnidome.json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/humanmirror-fr-domain-security.yml
+- type: Authentication
+  url: authentication/humanmirror-fr-authentication.yml
 - type: Website
   url: https://humanmirror.fr/
+- type: DeveloperPortal
+  url: https://humanmirror.fr/agents/
+- type: GettingStarted
+  url: https://humanmirror.fr/connect/
+- type: Documentation
+  url: https://humanmirror.fr/docs/vibecode/
+- type: Playground
+  url: https://humanmirror.fr/playground/
+- type: Pricing
+  url: https://humanmirror.fr/products/
+- type: Support
+  url: https://humanmirror.fr/contact/
+- type: SignUp
+  url: https://humanmirror.fr/dashboard/
+- type: TermsOfService
+  url: https://humanmirror.fr/cgv/
+- type: PrivacyPolicy
+  url: https://humanmirror.fr/confidentialite/
+- type: GitHubOrganization
+  url: https://github.com/VibeMirror-coder
+- type: LLMsTxt
+  url: llms/humanmirror-fr-llms.txt
+- type: LLMsTxt
+  url: https://humanmirror.fr/llms.txt
+- type: AgentCard
+  url: a2a/humanmirror-fr-a2a.yml
+- type: MCPServer
+  url: mcp/humanmirror-fr-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/humanmirror-fr-tool-crosswalk.yml
+- type: WellKnown
+  url: well-known/humanmirror-fr-well-known.yml
+- type: PluginManifest
+  url: well-known/humanmirror-fr-ai-plugin.json
+- type: Conformance
+  url: conformance/humanmirror-fr-conformance.yml
+- type: ErrorCatalog
+  url: errors/humanmirror-fr-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/humanmirror-fr-lifecycle.yml
+- type: Conventions
+  url: conventions/humanmirror-fr-conventions.yml
+- type: RateLimits
+  url: rate-limits/humanmirror-fr-rate-limits.yml
+- type: Plans
+  url: plans/humanmirror-fr-plans-pricing.yml
+- type: Packages
+  url: packages/humanmirror-fr-packages.yml
+- type: CLI
+  url: cli/humanmirror-fr-cli.yml
+- type: Sandbox
+  url: sandbox/humanmirror-fr-sandbox.yml
+- type: RegulatoryPosture
+  url: regulatory/humanmirror-fr-regulatory-posture.yml
+- type: Security
+  url: security/humanmirror-fr-vulnerability-disclosure.yml
+- type: VulnerabilityDisclosure
+  url: security/humanmirror-fr-vulnerability-disclosure.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-base-url:
+  host: https://humanmirror.fr
+  repair_api_bases_verdict: marketing-base-present
+  resolution: kept as-is
+  reason: All 16 first-party OpenAPI documents declare servers[0].url https://humanmirror.fr and carry absolute
+    /api/... or /v1/... paths; the website and the API share one host by the provider's design (Vercel). No separate
+    API host exists (api./docs./mcp. subdomains do not resolve), so the apex IS the API base and no servers[] block
+    was modified.
+  evidence:
+  - openapi/_original/*-openapi.json servers[]
+  - live 402 on POST https://humanmirror.fr/api/x402/secret-scanning/ 2026-09-19
+  - 'DNS: api.humanmirror.fr / docs.humanmirror.fr / mcp.humanmirror.fr unresolvable 2026-09-19'
+x-enrichment:
+  date: '2026-09-19'
+  status: enriched
+  artifacts_added: 93
+  pass: local-v3

@@ -1,0 +1,112 @@
+generated: '2026-09-19'
+method: probed
+source: x-humanmirror-free-quota header observed on GET https://humanmirror.fr/api/v1/sanitize/shield/ (2026-09-19);
+  GET discovery bodies (test_quota); openapi/ 429 responses; llms.txt; skill.md; /connect/; human-catalog.json
+docs:
+- https://humanmirror.fr/llms.txt
+- https://humanmirror.fr/skill.md
+- https://humanmirror.fr/connect/
+limit_count: 9
+summary: 'HumanMirror publishes quotas rather than request-rate ceilings: small free windows on the M2M core services,
+  fixed trial allowances on the credit products, monthly preflight volumes on Enterprise Guard, and an unquantified
+  ''Pro monthly API quota''. Exhaustion is signalled by 429 on credit products and by the 402 price challenge on
+  x402 routes. No X-RateLimit-* or Retry-After headers are declared; one RateLimit-policy-style header is observed
+  live.'
+response_headers:
+  declared_in_spec: []
+  observed:
+  - header: x-humanmirror-free-quota
+    value: 3;w=86400
+    where: GET /api/v1/sanitize/shield/
+    meaning: 3 free calls per 86 400 s window (IETF RateLimit policy syntax)
+  exhaustion_status:
+  - 429
+  - 402
+  retry_after: false
+rate_limits:
+- name: Sanitize Shield free test quota
+  scope: per privacy-preserving fingerprint
+  limit: 3
+  window: 24h
+  metric: call
+  then: 0.001 USDC via x402 or Enterprise pass
+  applies_to:
+  - POST /api/v1/sanitize/shield/
+  evidence: 'header x-humanmirror-free-quota: 3;w=86400 + body test_quota {calls: 3, window_hours: 24}'
+- name: Payload Normalizer free test quota
+  scope: per fingerprint
+  limit: 3
+  window: 24h
+  metric: call
+  then: 0.001 USDC via x402
+  applies_to:
+  - POST /api/v1/m2m/payload-normalizer/
+  evidence: llms.txt 'Three test calls per 24 hours, then 0.001 USDC'
+- name: Zero-Cost Execution Sink grace
+  scope: per privacy-preserving fingerprint
+  limit: 3
+  window: 24h
+  metric: deterministic cleanup call
+  applies_to:
+  - POST /api/v1/sink/
+  evidence: llms.txt Zero-Cost-Grace
+- name: Genesis free bootstrap allocation
+  scope: per allocation token
+  limit: 20
+  window: 48h
+  metric: call
+  extra: max 2 000 input characters per free call, operation context_compress
+  applies_to:
+  - POST /api/v1/m2m/resource/
+  evidence: skill.md Free bootstrap
+- name: Forge trial
+  scope: per trial key
+  limit: 25
+  window: lifetime of trial key
+  metric: call
+  applies_to:
+  - POST /api/forge/run
+  evidence: CGV; forge-mcp.json trial.credits 25
+- name: Nexus trial
+  scope: per network origin
+  limit: 100
+  window: one trial per origin per 90 days
+  metric: credit
+  applies_to:
+  - POST /api/nexus/trial/ -> key used on nexus/outcome/one/flow
+  evidence: '/connect/ and /playground/: ''One free Nexus trial per network origin every 90 days''; 409 ''Trial
+    already used'' in nexus/openapi.json'
+- name: Enterprise Guard Core / Scale / Sovereign
+  scope: per subscription
+  limit: 500 000 / 2 000 000 / 5 000 000
+  window: month
+  metric: preflight call
+  extra: 25 / 100 / 500 active agents
+  applies_to:
+  - POST /api/v1/enterprise-guard/preflight/
+  evidence: products/human-catalog.json
+- name: HumanMirror Pro monthly API quota
+  scope: per Pro key
+  limit: null
+  window: month
+  metric: API call
+  applies_to:
+  - /v1/agent/intent-proof/, /v1/fleet/consensus-lock/, /v1/m2m/escrow-settle/, /v1/agent/state-and-trust/ (preview)
+    and /api/v1/saas/*
+  evidence: 'securityScheme HumanMirrorProApiKey: ''subject to the Pro monthly API quota'' — the number is not published'
+  note: quantity unpublished
+- name: Anti-abuse rate limiting (429)
+  scope: undocumented
+  limit: null
+  window: null
+  metric: request
+  applies_to:
+  - POST /api/forge/run
+  - POST /api/nexus/call
+  - GET|POST /api/magnet/resolve
+  - POST /api/oracle/analyze
+  evidence: 429 'Rate limited' / 'Limite anti-abus atteinte' declared in the specs; thresholds not published
+notes:
+- Enterprise Fleet pass (297 USDC / 30 days) documents 'quota bypass' and 'no per-call HTTP 402' on the three M2M
+  core services.
+- Sanitize Shield's discovery body states max_input_bytes 65536 — a payload ceiling rather than a rate.

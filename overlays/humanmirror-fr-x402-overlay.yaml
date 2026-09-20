@@ -1,0 +1,56 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the HumanMirror x402 API
+  version: 1.0.0
+extends: ../openapi/humanmirror-fr-x402-openapi.yml
+x-generated: '2026-09-19'
+x-method: generated
+x-source: Generated from openapi/humanmirror-fr-x402-openapi.yml (82 operations) and the searched artifacts in this
+  repo. Never mutates the provider's contract.
+actions:
+- target: $.info
+  description: Record where API Evangelist harvested this contract and the provider's sibling discovery surfaces,
+    without touching the provider's document.
+  update:
+    x-apievangelist:
+      provider: HumanMirror
+      slug: humanmirror-fr
+      harvested: '2026-09-19'
+      source: https://humanmirror.fr/x402/openapi.json
+      sha256: 64afbb1d895608e4dc94229f3df18adaa36b40213a859b90a4da5884a69147ac
+      profile: https://apis.io/providers/humanmirror-fr/
+    x-llms-txt: https://humanmirror.fr/llms.txt
+    x-agent-card: https://humanmirror.fr/.well-known/agent-card.json
+    x-mcp-servers:
+    - https://humanmirror.fr/api/nexus/mcp/
+    - https://humanmirror.fr/api/x402/mcp/
+    - https://humanmirror.fr/api/omnidome/mcp/
+    - https://humanmirror.fr/api/forge/mcp/
+    - https://humanmirror.fr/api/oracle/mcp/
+    - https://humanmirror.fr/api/one/mcp/
+    - https://humanmirror.fr/api/flow/mcp/
+- target: $.paths['/api/x402/emergency-pack/'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiX402EmergencyPackGet
+- target: $.paths['/api/x402/emergency-pack/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiX402EmergencyPackPost
+- target: $.paths['/api/referral/create/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiReferralCreatePost
+- target: $.paths['/api/referral/status/'].get
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiReferralStatusGet
+- target: $.paths['/api/referral/claim/'].post
+  description: Add an operationId the provider omitted so tools and crosswalks can reference the operation stably
+    (API Evangelist naming; not the provider's).
+  update:
+    operationId: humanmirrorApiReferralClaimPost

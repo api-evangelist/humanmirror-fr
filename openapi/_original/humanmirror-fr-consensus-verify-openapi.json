@@ -1,0 +1,149 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HumanMirror Probabilistic Consensus Oracle",
+    "version": "2.0.0",
+    "description": "Deterministic two-signal consensus verification using weighted log-odds and asymmetric decision costs. Granular unit surface: Canonical bundle: https://humanmirror.fr/api/v1/agent/operations/"
+  },
+  "servers": [
+    {
+      "url": "https://humanmirror.fr"
+    }
+  ],
+  "paths": {
+    "/api/v1/consensus/verify/": {
+      "get": {
+        "operationId": "discoverConsensusOracle",
+        "responses": {
+          "200": {
+            "description": "Discovery metadata"
+          }
+        },
+        "x-humanmirror-paid-price-usdc": "0.001",
+        "x-humanmirror-canonical-bundle": "https://humanmirror.fr/api/v1/agent/operations/",
+        "x-humanmirror-pricing-tier": "granular_unit_0_001"
+      },
+      "post": {
+        "operationId": "verifyAgentConsensus",
+        "parameters": [
+          {
+            "name": "PAYMENT-SIGNATURE",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "signal_a",
+                  "signal_b"
+                ],
+                "properties": {
+                  "signal_a": {
+                    "$ref": "#/$defs/signal"
+                  },
+                  "signal_b": {
+                    "$ref": "#/$defs/signal"
+                  },
+                  "prior_probability": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "exclusiveMaximum": 1,
+                    "default": 0.5
+                  },
+                  "costs": {
+                    "type": "object",
+                    "properties": {
+                      "false_positive": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "default": 1
+                      },
+                      "false_negative": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "default": 1
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Normalized consensus metric"
+          },
+          "400": {
+            "description": "Invalid signal model"
+          },
+          "402": {
+            "description": "Free/test quota exhausted; x402 payment required at the 0.001 USDC granular unit tier",
+            "headers": {
+              "PAYMENT-REQUIRED": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Quota or payment service unavailable"
+          }
+        },
+        "x-humanmirror-paid-price-usdc": "0.001",
+        "x-humanmirror-canonical-bundle": "https://humanmirror.fr/api/v1/agent/operations/",
+        "x-humanmirror-pricing-tier": "granular_unit_0_001"
+      }
+    }
+  },
+  "$defs": {
+    "signal": {
+      "type": "object",
+      "required": [
+        "state",
+        "confidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "state": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "reliability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 1
+        },
+        "weight": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "default": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "externalDocs": {
+    "url": "https://humanmirror.fr/.well-known/consensus-verify.json"
+  },
+  "x-humanmirror-canonical-bundle": "https://humanmirror.fr/api/v1/agent/operations/"
+}
