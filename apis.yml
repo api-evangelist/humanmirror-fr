@@ -32,6 +32,20 @@ tags:
 - A2A
 - Data Quality
 - Verified Outcomes
+- Microtransactions
+- France
+tags_raw:
+- Company
+- AI Agents
+- Agent Security
+- Prompt Injection Defense
+- x402
+- Machine Payments
+- USDC
+- MCP
+- A2A
+- Data Quality
+- Verified Outcomes
 - Micro-Transactions
 - France
 apis:
@@ -387,6 +401,12 @@ apis:
   humanURL: https://humanmirror.fr/physical-oracle/
   baseURL: https://humanmirror.fr
   tags:
+  - Physical Verification
+  - Human-in-the-Loop
+  - Field Work
+  - x402
+  - Beta
+  tags_raw:
   - Physical Verification
   - Human In The Loop
   - Field Work
