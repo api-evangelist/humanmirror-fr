@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Consensus API
+  x-refined-note:
+  - x-keywords differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Consensus across 3 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-consensus-verify-openapi.yml, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Consensus
+paths:
+  /api/v1/consensus/verify/:
+    get:
+      operationId: discoverConsensusOracle
+      responses:
+        '200':
+          description: Discovery metadata
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - Consensus
+      summary: Discover consensus oracle
+      x-summary-source: derived
+    post:
+      operationId: verifyAgentConsensus
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - signal_a
+              - signal_b
+              properties:
+                signal_a:
+                  $ref: '#/$defs/signal'
+                signal_b:
+                  $ref: '#/$defs/signal'
+                prior_probability:
+                  type: number
+                  exclusiveMinimum: 0
+                  exclusiveMaximum: 1
+                  default: 0.5
+                costs:
+                  type: object
+                  properties:
+                    false_positive:
+                      type: number
+                      exclusiveMinimum: 0
+                      default: 1
+                    false_negative:
+                      type: number
+                      exclusiveMinimum: 0
+                      default: 1
+                  additionalProperties: false
+              additionalProperties: false
+      responses:
+        '200':
+          description: Normalized consensus metric
+        '400':
+          description: Invalid signal model
+        '402':
+          description: Oracle test quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota or payment service unavailable
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/operations/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - Consensus
+      summary: Verify agent consensus
+      x-summary-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-consensus-verify-openapi.yml
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

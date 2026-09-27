@@ -1,0 +1,184 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr M2M Core API
+  version: 3.2.0
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+  description: 'Operations tagged M2M Core across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: M2M Core
+paths:
+  /v1/agent/shared-context/:
+    post:
+      tags:
+      - M2M Core
+      operationId: humanmirrorSharedContext
+      summary: Persist or recall inter-agent shared context
+      description: Capability-based shared memory across agents and sessions. Uses Omni-Sync credits first, then x402 at 0.010 USDC on Base.
+      x-humanmirror-price-usdc: '0.010'
+      x-humanmirror-status: production
+      x-humanmirror-manifest: https://humanmirror.fr/.well-known/shared-context.json
+      security:
+      - OmniSyncApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - action
+              properties:
+                action:
+                  type: string
+                  enum:
+                  - create_space
+                  - append
+                  - recall
+                  - sync
+                context_key:
+                  type: string
+                kind:
+                  type: string
+                  enum:
+                  - fact
+                  - decision
+                  - state
+                  - event
+                  - note
+                content: {}
+                tags:
+                  type: array
+                  items:
+                    type: string
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 50
+      responses:
+        '200':
+          description: Shared context operation completed
+        '400':
+          description: Invalid request
+        '401':
+          description: Omni-Sync API key required
+        '402':
+          description: Credits exhausted; x402 payment required (0.010 USDC on Base)
+        '503':
+          description: Context store or payment infrastructure unavailable
+    servers:
+    - url: https://humanmirror.fr
+  /v1/agent/perception-vector/:
+    post:
+      tags:
+      - M2M Core
+      operationId: humanmirrorPerceptionBehaviorVector
+      summary: Project aggregate cohort behavioral signals
+      description: Deterministic cohort-level projection for non-sensitive aggregate metrics. Individual targeting, sensitive-trait inference and high-impact eligibility decisions are not supported.
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-status: production
+      x-humanmirror-manifest: https://humanmirror.fr/.well-known/perception-behavior.json
+      x-humanmirror-privacy:
+        minimum_cohort_size: 30
+        individual_targeting: false
+        sensitive_attributes: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - cohort_size
+              - metrics
+              properties:
+                cohort_size:
+                  type: integer
+                  minimum: 30
+                cohort_label:
+                  type: string
+                  maxLength: 120
+                metrics:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    adhesion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    resistance:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    hesitation:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    completion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    abandonment:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    engagement:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+                    conversion:
+                      type: number
+                      minimum: 0
+                      maximum: 1
+      responses:
+        '200':
+          description: Aggregate signal vector returned
+        '400':
+          description: Invalid, individual or sensitive input
+        '402':
+          description: x402 payment required (0.050 USDC on Base)
+        '503':
+          description: Payment infrastructure unavailable
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

@@ -1,0 +1,80 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Flow API
+  version: 1.0.0
+  description: 'Operations tagged Flow across 2 of this provider''s published API definitions: humanmirror-fr-flow-openapi.json, humanmirror-fr-flow-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Flow
+paths:
+  /api/flow/quote/:
+    post:
+      summary: Create a free Flow contract quote
+      responses:
+        '200':
+          description: Flow quote
+      tags:
+      - Flow
+      operationId: postApiFlowQuote
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/flow/run/:
+    post:
+      summary: Execute Flow; charge only if every step succeeds
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: Verified Flow success
+        '400':
+          description: Flow failed; reservation refunded
+      tags:
+      - Flow
+      operationId: postApiFlowRun
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/flow/mcp/:
+    post:
+      summary: HumanMirror Flow MCP server
+      responses:
+        '200':
+          description: MCP JSON-RPC response
+      tags:
+      - Flow
+      operationId: postApiFlowMcp
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/flow/stats/:
+    get:
+      summary: Public aggregate Flow stats
+      responses:
+        '200':
+          description: Flow stats
+      tags:
+      - Flow
+      operationId: getApiFlowStats
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+x-refined-from:
+- humanmirror-fr-flow-openapi.json
+- humanmirror-fr-flow-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

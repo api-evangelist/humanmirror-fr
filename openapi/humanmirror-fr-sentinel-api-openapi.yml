@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Sentinel API
+  version: 1.0.0
+  description: 'Operations tagged Sentinel across 2 of this provider''s published API definitions: humanmirror-fr-agentops-openapi.json, humanmirror-fr-agentops-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Sentinel
+paths:
+  /api/sentinel/inspect:
+    post:
+      summary: Inspect AI output hygiene
+      security:
+      - NexusBearer: []
+      responses:
+        '200':
+          description: Sentinel quality report
+        '401':
+          description: Invalid Nexus key
+        '402':
+          description: Insufficient credits
+      tags:
+      - Sentinel
+      operationId: postApiSentinelInspect
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    NexusBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+x-refined-from:
+- humanmirror-fr-agentops-openapi.json
+- humanmirror-fr-agentops-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

@@ -1,22 +1,18 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: HumanMirror Agent OS API
+  title: Humanmirror Fr Agent API
   version: 1.0.0
-  description: Machine-native Proof-of-State and exact SHA-256 state-continuity verification with scoped trust/automation
-    signals. Paid execution uses x402 V2 with USDC on Base mainnet.
+  description: 'Operations tagged Agent across 2 of this provider''s published API definitions: humanmirror-fr-agent-os-openapi.json, humanmirror-fr-agent-os-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://humanmirror.fr
-externalDocs:
-  description: HumanMirror Agent OS discovery manifest
-  url: https://humanmirror.fr/.well-known/agent-os.json
+tags:
+- name: Agent
 paths:
   /api/v1/agent/state-and-trust/:
     post:
       summary: Sign agent state and verify exact continuity
       operationId: validateStateAndTrust
-      description: Signs a caller-supplied SHA-256 state, compares it with an optional previous SHA-256 state hash for exact
-        continuity, and issues a scoped trust/automation signal. This endpoint does not claim semantic-vector distance, persistent
-        reputation history, MEV protection, or unmeasured efficiency gains.
+      description: Signs a caller-supplied SHA-256 state, compares it with an optional previous SHA-256 state hash for exact continuity, and issues a scoped trust/automation signal. This endpoint does not claim semantic-vector distance, persistent reputation history, MEV protection, or unmeasured efficiency gains.
       x-humanmirror-price-usdc: '0.050'
       x-humanmirror-protocol: x402-humanmirror-v1
       x-x402:
@@ -73,41 +69,16 @@ paths:
               description: Base64-encoded x402 v2 payment requirements.
         '503':
           description: x402 runtime or facilitator unavailable.
-  /api/value/resolve/:
-    get:
-      summary: Discover HumanMirror Universal Value Resolver
-      responses:
-        '200':
-          description: HUVP discovery and rail status.
-    post:
-      summary: Normalize value intent and select a compatible live rail
-      operationId: resolveUniversalValueIntent
-      description: Applies HUVP normalization, Value Firewall policy and safe live-rail routing. Returns a fee quote; it does
-        not fabricate settlement.
-      responses:
-        '200':
-          description: Normalized intent, firewall decision, route and fee policy.
-        '400':
-          description: Invalid intent.
-        '403':
-          description: Policy blocked the transaction.
-  /api/value/firewall/:
-    post:
-      summary: Evaluate transaction policy before routing
-      operationId: evaluateValueFirewall
-      responses:
-        '200':
-          description: ALLOW, REVIEW or BLOCK policy result.
-  /api/value/receipt/:
-    post:
-      summary: Create a signed caller-attested universal receipt
-      operationId: createUniversalValueReceipt
-      description: Caller-attested receipts are kept distinct from authoritative verified settlement receipts.
-      responses:
-        '200':
-          description: Signed HUVP receipt.
-        '400':
-          description: Transaction reference required.
+      tags:
+      - Agent
+    servers:
+    - url: https://humanmirror.fr
+externalDocs:
+  description: HumanMirror Agent OS discovery manifest
+  url: https://humanmirror.fr/.well-known/agent-os.json
+x-refined-from:
+- humanmirror-fr-agent-os-openapi.json
+- humanmirror-fr-agent-os-openapi.yml
 x-humanmirror-discovery:
   agent_os: https://humanmirror.fr/.well-known/agent-os.json
   agent: https://humanmirror.fr/.well-known/agent.json

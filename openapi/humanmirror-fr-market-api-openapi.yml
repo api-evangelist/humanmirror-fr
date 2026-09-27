@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Market API
+  version: 1.0.0
+  description: 'Operations tagged Market across 2 of this provider''s published API definitions: humanmirror-fr-market-openapi.json, humanmirror-fr-market-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Market
+paths:
+  /api/market/live/:
+    get:
+      summary: Read real live market state
+      responses:
+        '200':
+          description: Live market counters
+      tags:
+      - Market
+      operationId: getApiMarketLive
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/market/intent/:
+    get:
+      summary: Inspect paid intent publishing terms
+      tags:
+      - Market
+      operationId: getApiMarketIntent
+      x-operation-id-source: derived
+    post:
+      summary: Publish a paid intent after x402 settlement
+      responses:
+        '402':
+          description: x402 payment required
+        '200':
+          description: Intent published
+      tags:
+      - Market
+      operationId: postApiMarketIntent
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/market/bid/:
+    get:
+      summary: Inspect provider bidding contract
+      tags:
+      - Market
+      operationId: getApiMarketBid
+      x-operation-id-source: derived
+    post:
+      summary: Submit a provider bid
+      responses:
+        '200':
+          description: Bid accepted
+      tags:
+      - Market
+      operationId: postApiMarketBid
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/market/award/:
+    get:
+      summary: Inspect paid award terms
+      tags:
+      - Market
+      operationId: getApiMarketAward
+      x-operation-id-source: derived
+    post:
+      summary: Rank admissible bids and award one provider after x402 settlement
+      responses:
+        '402':
+          description: x402 payment required
+        '200':
+          description: Award issued
+      tags:
+      - Market
+      operationId: postApiMarketAward
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+x-refined-from:
+- humanmirror-fr-market-openapi.json
+- humanmirror-fr-market-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

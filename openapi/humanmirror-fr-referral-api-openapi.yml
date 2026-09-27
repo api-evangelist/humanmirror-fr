@@ -1,0 +1,95 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Referral API
+  version: 3.2.0
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+  description: 'Operations tagged Referral across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Referral
+paths:
+  /api/referral/create/:
+    post:
+      summary: Create an Enterprise referral identifier
+      description: Requires an active Enterprise Bearer token. Creates a signed referral identifier bound to the referrer.
+      responses:
+        '200':
+          description: Referral identifier created.
+        '401':
+          description: Active Enterprise pass required.
+      tags:
+      - Referral
+      operationId: postApiReferralCreate
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/referral/status/:
+    get:
+      summary: Read Enterprise referral rewards
+      responses:
+        '200':
+          description: Referral reward ledger.
+        '401':
+          description: Active Enterprise pass required.
+      tags:
+      - Referral
+      operationId: getApiReferralStatus
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/referral/claim/:
+    post:
+      summary: Claim credited referral days
+      description: Claims all unclaimed 30-day rewards and returns a replacement Enterprise Bearer token with extended expiry.
+      responses:
+        '200':
+          description: Reward claim result.
+        '401':
+          description: Active Enterprise pass required.
+      tags:
+      - Referral
+      operationId: postApiReferralClaim
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

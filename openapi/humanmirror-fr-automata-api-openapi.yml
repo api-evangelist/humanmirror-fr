@@ -1,0 +1,34 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Automata API
+  version: 1.0.0
+  description: 'Operations tagged Automata across 2 of this provider''s published API definitions: humanmirror-fr-automata-openapi.json, humanmirror-fr-automata-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Automata
+paths:
+  /api/automata:
+    get:
+      summary: Get the 25 Automata definitions and aggregate status
+      responses:
+        '200':
+          description: Automata catalog
+      tags:
+      - Automata
+      operationId: getApiAutomata
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+x-refined-from:
+- humanmirror-fr-automata-openapi.json
+- humanmirror-fr-automata-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

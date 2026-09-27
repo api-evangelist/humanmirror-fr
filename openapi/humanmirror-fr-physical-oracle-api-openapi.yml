@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Physical Oracle API
+  version: 1.0.0-beta
+  description: 'Operations tagged Physical Oracle across 2 of this provider''s published API definitions: humanmirror-fr-physical-oracle-openapi.json, humanmirror-fr-physical-oracle-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Physical Oracle
+paths:
+  /api/physical-oracle/:
+    get:
+      summary: Discover Physical Oracle
+      responses:
+        '200':
+          description: Discovery
+      tags:
+      - Physical Oracle
+      operationId: getApiPhysicalOracle
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/quote/:
+    post:
+      summary: Quote a public physical verification mission
+      responses:
+        '200':
+          description: Quote and observed field supply
+        '422':
+          description: Unsafe or invalid mission
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleQuote
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/missions/:
+    post:
+      summary: Create a mission
+      responses:
+        '201':
+          description: Mission created; buyer key returned once
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleMissions
+      x-operation-id-source: derived
+    get:
+      summary: Read buyer mission state
+      responses:
+        '200':
+          description: Mission state
+      tags:
+      - Physical Oracle
+      operationId: getApiPhysicalOracleMissions
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/workers/register/:
+    post:
+      summary: Register a field executor
+      responses:
+        '201':
+          description: Field key returned once
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleWorkersRegister
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/workers/snapshot/:
+    get:
+      summary: List compatible missions for a field executor
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Worker profile and missions
+      tags:
+      - Physical Oracle
+      operationId: getApiPhysicalOracleWorkersSnapshot
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/claim/:
+    post:
+      summary: Claim one mission for 20 minutes
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Mission and one-time claim nonce
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleClaim
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/submit/:
+    post:
+      summary: Submit bounded photo evidence
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Proof submitted
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleSubmit
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/verify/:
+    post:
+      summary: Buyer accepts or rejects submitted evidence
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Decision and signed physical receipt
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleVerify
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/commission/:
+    post:
+      summary: Pay accepted-mission HumanMirror commission over x402
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Commission settled
+        '402':
+          description: x402 payment required
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOracleCommission
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+  /api/physical-oracle/payout-confirm/:
+    post:
+      summary: Verify direct Base USDC payout to field executor
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Mission settled
+      tags:
+      - Physical Oracle
+      operationId: postApiPhysicalOraclePayoutConfirm
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+x-refined-from:
+- humanmirror-fr-physical-oracle-openapi.json
+- humanmirror-fr-physical-oracle-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

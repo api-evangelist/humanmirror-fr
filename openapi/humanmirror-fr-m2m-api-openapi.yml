@@ -1,0 +1,209 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr M2m API
+  x-refined-note:
+  - x-keywords differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged M2m across 3 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-payload-normalizer-openapi.yml, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: M2m
+paths:
+  /api/v1/m2m/fallback/:
+    get:
+      operationId: discoverM2MFallback
+      summary: Discover HumanMirror machine fallback normalizer
+      responses:
+        '200':
+          description: Fallback routing metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    post:
+      operationId: normalizeM2MFallback
+      summary: Normalize malformed or adjacent machine requests and return resilience pointers
+      responses:
+        '200':
+          description: Normalized request plus sink/x402 pointers.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/m2m/bot-convert/:
+    post:
+      operationId: convertBotPayload
+      summary: Convert common bot/agent payloads into canonical HumanMirror context requests
+      responses:
+        '200':
+          description: Canonical machine request.
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/m2m/micro-work/claim/:
+    get:
+      operationId: claimMicroWork
+      summary: Claim deterministic micro-work for one HumanMirror service execution credit
+      responses:
+        '200':
+          description: Challenge issued
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/m2m/micro-work/submit/:
+    post:
+      operationId: submitMicroWork
+      summary: Submit deterministic micro-work and receive one short-lived service credit
+      responses:
+        '200':
+          description: Service credit issued
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/m2m/liquidity-status/:
+    get:
+      operationId: readLiquidityStatus
+      summary: Read Base USDC balance for a supplied wallet
+      parameters:
+      - name: wallet
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Read-only balance result
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - M2m
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/m2m/payload-normalizer/:
+    get:
+      operationId: discoverPayloadNormalizer
+      responses:
+        '200':
+          description: Discovery metadata
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - M2m
+      summary: Discover payload normalizer
+      x-summary-source: derived
+    post:
+      operationId: normalizeM2MPayload
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload: {}
+                options:
+                  type: object
+                  properties:
+                    trim_strings:
+                      type: boolean
+                      default: true
+                    drop_nulls:
+                      type: boolean
+                      default: false
+                    key_case:
+                      type: string
+                      enum:
+                      - preserve
+                      - snake_case
+                      default: preserve
+                  additionalProperties: false
+              additionalProperties: false
+      responses:
+        '200':
+          description: Canonical normalized payload
+        '400':
+          description: Invalid or oversized payload
+        '402':
+          description: Initial benchmark quota exhausted; x402 payment required
+          headers:
+            PAYMENT-REQUIRED:
+              schema:
+                type: string
+        '503':
+          description: Quota or payment facilitator unavailable
+      deprecated: false
+      description: 'Granular unit route at 0.001 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/data-quality/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - M2m
+      summary: Normalize M2 MPayload
+      x-summary-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-payload-normalizer-openapi.yml
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

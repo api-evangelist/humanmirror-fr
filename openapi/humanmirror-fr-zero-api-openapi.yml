@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Zero API
+  version: 3.2.0
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+  description: 'Operations tagged Zero across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Zero
+paths:
+  /api/v1/zero/:
+    get:
+      operationId: discoverZeroPointConsensus
+      summary: Discover Zero Point Consensus
+      responses:
+        '200':
+          description: Product and x402 payment metadata
+          content:
+            application/json:
+              schema:
+                type: object
+      deprecated: false
+      description: 'Granular unit route at 0.050 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      tags:
+      - Zero
+    post:
+      operationId: buyZeroPointConsensus
+      summary: Generate a Zero Point Consensus Certificate
+      description: 'Granular unit route at 0.050 USDC on Base mainnet. Upgrade path: https://humanmirror.fr/api/v1/agent/verification/'
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  minLength: 20
+                  maxLength: 8000
+                public_share:
+                  type: boolean
+              required:
+              - question
+              additionalProperties: false
+      responses:
+        '200':
+          description: Consensus Certificate after successful x402 settlement
+        '402':
+          description: x402 payment required
+        '422':
+          description: Consensus generation failed; payment not settled
+        '503':
+          description: Payment facilitator unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      tags:
+      - Zero
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

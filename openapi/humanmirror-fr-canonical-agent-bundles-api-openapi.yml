@@ -1,0 +1,490 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Canonical agent bundles API
+  version: 3.2.0
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+  description: 'Operations tagged Canonical agent bundles across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Canonical agent bundles
+  description: Canonical, bundle-priced HumanMirror services for autonomous agents. These routes supersede primitive legacy aliases.
+paths:
+  /api/x402/enterprise-pass/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseEnterpriseFleet
+      summary: HumanMirror Enterprise Fleet
+      description: Thirty-day unlimited access to core HumanMirror M2M services for autonomous agent fleets.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '297.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '297000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 297.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: enterprise_30d
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/agent/security-intelligence/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseSecurityIntelligence
+      summary: HumanMirror Security Intelligence Bundle
+      description: 'Curated defensive intelligence for autonomous-agent gateways: prompt injection, secrets, tool safety, SSRF, webhook, x402 and supply-chain controls.'
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bundle:
+                  type: string
+                  const: agent-security-intelligence
+              additionalProperties: true
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - indicators
+                - controls
+                - recommended_pipeline
+                - license
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/agent/data-quality/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseDataQuality
+      summary: HumanMirror Data Quality Bundle
+      description: Bundle-normalize structured JSON, deduplicate record arrays when applicable, score data quality and return machine-verifiable proofs.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - input
+              properties:
+                input: {}
+                options:
+                  type: object
+                min_quality_score:
+                  type: number
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - normalized
+                - quality
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/agent/verification/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseVerification
+      summary: HumanMirror Verification & Safety Bundle
+      description: Run a bundled safety preflight across secrets, output quality, command/tool risk and optional execution provenance.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                input: {}
+                output: {}
+                command: {}
+                receipt_metadata:
+                  type: object
+                min_trust_score:
+                  type: number
+                max_risk:
+                  type: string
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - checks
+                - status
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+    servers:
+    - url: https://humanmirror.fr
+  /api/v1/agent/operations/:
+    post:
+      tags:
+      - Canonical agent bundles
+      operationId: purchaseOperations
+      summary: HumanMirror Operations Decision Bundle
+      description: Combine autonomous-operations preflight, optional automaton decision and optional two-signal probabilistic consensus into one paid bundle.
+      x-humanmirror-canonical-bundle: true
+      x-humanmirror-price-usdc: '5.000'
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '5000000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                automaton_slug:
+                  type: string
+                event_type:
+                  type: string
+                connectors:
+                  type: array
+                signal_a:
+                  type: object
+                signal_b:
+                  type: object
+                prior_probability:
+                  type: number
+                costs:
+                  type: object
+      responses:
+        '200':
+          description: Bundle delivered after verified x402 settlement
+          headers:
+            PAYMENT-RESPONSE:
+              description: Base64-encoded x402 settlement receipt
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - status
+                - operations
+                - integrity
+        '400':
+          description: Invalid JSON payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '402':
+          description: Payment Required — 5.000 USDC on Base mainnet
+          headers:
+            PAYMENT-REQUIRED:
+              required: true
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+        '502':
+          description: Payment facilitator unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineError'
+      x-humanmirror-pricing-tier: thematic_bundle
+    servers:
+    - url: https://humanmirror.fr
+components:
+  schemas:
+    MachineError:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+        code:
+          type: string
+        retryable:
+          type: boolean
+      additionalProperties: true
+    PaymentRequired:
+      type: object
+      required:
+      - x402Version
+      - accepts
+      properties:
+        x402Version:
+          type: integer
+          const: 2
+        error:
+          type: string
+        resource:
+          type: object
+        accepts:
+          type: array
+          minItems: 1
+          items:
+            type: object
+      additionalProperties: true
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

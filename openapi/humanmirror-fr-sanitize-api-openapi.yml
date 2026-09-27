@@ -1,0 +1,101 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Sanitize API
+  x-refined-note:
+  - x-keywords differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Sanitize across 4 of this provider''s published API definitions: humanmirror-fr-sanitize-shield-openapi.json, humanmirror-fr-x402-openapi.json, humanmirror-fr-sanitize-shield-openapi.yml, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Sanitize
+paths:
+  /api/v1/sanitize/shield/:
+    get:
+      operationId: discoverSanitizeShield
+      responses:
+        '200':
+          description: Machine-readable service discovery
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - Sanitize
+      summary: Discover sanitize shield
+      x-summary-source: derived
+    post:
+      operationId: sanitizeShield
+      summary: Analyze and quarantine untrusted agent context
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShieldRequest'
+            examples:
+              structured:
+                value:
+                  payload:
+                    source: web
+                    content: Release notes for version 2.0
+                  context:
+                    trust_level: untrusted
+        responses:
+          '200':
+            description: Analysis completed
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ShieldResponse'
+          '400':
+            description: Invalid or oversized payload
+          '402':
+            description: Free quota exhausted; x402 payment required
+            headers:
+              PAYMENT-REQUIRED:
+                schema:
+                  type: string
+                description: Base64url x402 V2 payment requirements
+          '503':
+            description: Quota, proof-signing or payment service unavailable
+      x-humanmirror-paid-price-usdc: '0.001'
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      tags:
+      - Sanitize
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-sanitize-shield-openapi.json
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-sanitize-shield-openapi.yml
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

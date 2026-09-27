@@ -1,0 +1,464 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr M2M Next-Gen Preview API
+  version: 3.2.0
+  x-keywords:
+  - M2M infrastructure on Base
+  - x402 payment protocol
+  - Autonomous agent security
+  - Prompt injection defense
+  - AI micro-transactions and escrow
+  - Intent-Proof
+  - M2M Escrow
+  - Consensus-Lock
+  description: 'Operations tagged M2M Next-Gen Preview across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: M2M Next-Gen Preview
+  description: HumanMirror Next-Gen / Pack Futur — pre-launch 2027-2030 routes. 0.050 USDC per test call, included in Enterprise Fleet and available as Preview for HumanMirror Pro.
+paths:
+  /v1/agent/intent-proof/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenIntentProof
+      summary: Intent Proof — Passport of Intent
+      description: Analyze an untrusted agent payload for prompt-injection risk and issue a signed safe-routing certificate. The non-malice score is a risk signal, not a guarantee of benign intent.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payload
+              properties:
+                payload: {}
+                context:
+                  type: object
+                policy:
+                  type: object
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+    servers:
+    - url: https://humanmirror.fr
+  /v1/fleet/consensus-lock/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenConsensusLock
+      summary: Fleet Consensus Lock — Fleet Tribunal
+      description: Arbitrate 2-12 caller-supplied model decisions with deterministic confidence/weight scoring and issue a signed execution receipt.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - models
+              properties:
+                models:
+                  type: array
+                  minItems: 2
+                  maxItems: 12
+                  items:
+                    type: object
+                lock_threshold:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+    servers:
+    - url: https://humanmirror.fr
+  /v1/m2m/escrow-settle/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorNextGenEscrowSettle
+      summary: Escrow Settle — Smart Escrow Preview
+      description: 'Evaluate quality checks and issue RELEASE, REFUND or REVIEW plus an x402-escrow-v1 state envelope. This is a non-custodial preview: HumanMirror does not hold or move third-party funds and does not claim FUNDS_LOCKED without independently verified custody evidence.'
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - checks
+              properties:
+                escrow_reference:
+                  type: string
+                checks:
+                  type: array
+                  minItems: 1
+                  maxItems: 50
+                  items:
+                    type: object
+                release_threshold:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                escrow_id:
+                  type: string
+                  description: Alias of escrow_reference for x402-escrow-v1 clients.
+                amount_usdc:
+                  type: number
+                  minimum: 0
+                  description: Optional escrow amount metadata. This does not lock funds.
+                payer_agent:
+                  type: string
+                worker_agent:
+                  type: string
+                release_condition:
+                  type: string
+                  default: PROOF_OF_EXECUTION_VERIFIED
+              anyOf:
+              - required:
+                - escrow_reference
+              - required:
+                - escrow_id
+      responses:
+        '200':
+          description: Next-Gen preview result with signed settlement receipt and x402-escrow-v1 state envelope.
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+            X-HumanMirror-Escrow-Protocol:
+              description: Escrow state protocol identifier
+              schema:
+                type: string
+                const: x402-escrow-v1
+            X-HumanMirror-Escrow-Manifest:
+              description: Escrow machine manifest
+              schema:
+                type: string
+                format: uri
+            X-HumanMirror-Escrow-Schema:
+              description: Escrow state JSON Schema
+              schema:
+                type: string
+                format: uri
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+      x-humanmirror-escrow-protocol: x402-escrow-v1
+      x-humanmirror-escrow-manifest: https://humanmirror.fr/.well-known/escrow.json
+      x-humanmirror-escrow-schema: https://humanmirror.fr/schemas/escrow-v1.json
+    servers:
+    - url: https://humanmirror.fr
+  /v1/agent/state-and-trust/:
+    post:
+      tags:
+      - M2M Next-Gen Preview
+      operationId: humanmirrorAgentOsStateAndTrust
+      summary: Agent OS — State & Trust Proof
+      description: Sign a SHA-256 agent state, verify exact continuity against an optional previous state hash, and issue a scoped trust and automation signal. Exact hash continuity is not semantic-vector distance.
+      x-humanmirror-status: preview_2027_2030
+      x-humanmirror-price-usdc: '0.050'
+      x-humanmirror-pricing-tier: granular_unit_0_050
+      x-humanmirror-access:
+        x402_test_call: 0.050 USDC
+        enterprise_fleet: included
+        humanmirror_pro: preview included
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        amount: '50000'
+        requestHeader: PAYMENT-SIGNATURE
+        challengeHeader: PAYMENT-REQUIRED
+        settlementHeader: PAYMENT-RESPONSE
+      security:
+      - HumanMirrorProApiKey: []
+      - EnterpriseBearer: []
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit to receive PAYMENT-REQUIRED when no Pro/Enterprise credential is supplied.
+      - name: X-API-Key
+        in: header
+        required: false
+        schema:
+          type: string
+        description: HumanMirror Pro Preview access.
+      - name: Authorization
+        in: header
+        required: false
+        schema:
+          type: string
+        description: Bearer Enterprise Fleet pass.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - agent_id
+              - current_state_hash
+              properties:
+                agent_id:
+                  type: string
+                  minLength: 1
+                  maxLength: 160
+                previous_vector:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+                current_state_hash:
+                  type: string
+                  pattern: ^(0x)?[0-9a-fA-F]{64}$
+              additionalProperties: false
+      responses:
+        '200':
+          description: Next-Gen preview result
+          headers:
+            X-HumanMirror-Provenance:
+              description: Cryptographic provenance token
+              schema:
+                type: string
+            X-HumanMirror-Trace:
+              description: Stable route trace digest
+              schema:
+                type: string
+        '400':
+          description: Invalid preview input
+        '401':
+          description: Invalid HumanMirror Pro API key
+        '402':
+          description: Payment Required — 0.050 USDC on Base mainnet or Pro quota exhausted
+          headers:
+            PAYMENT-REQUIRED:
+              description: Base64-encoded x402 v2 payment requirements
+              schema:
+                type: string
+        '403':
+          description: HumanMirror Pro or Enterprise access required for credentialed preview
+        '503':
+          description: Payment, usage or preview infrastructure unavailable
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-x402-openapi.json
+- humanmirror-fr-x402-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

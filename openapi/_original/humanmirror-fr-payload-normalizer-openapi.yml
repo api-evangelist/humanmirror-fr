@@ -1,3 +1,5 @@
+# x-archived-from: humanmirror-fr-payload-normalizer-openapi.yml
+# x-archived-on: 2026-09-26
 openapi: 3.1.0
 info:
   title: HumanMirror M2M Payload Normalizer

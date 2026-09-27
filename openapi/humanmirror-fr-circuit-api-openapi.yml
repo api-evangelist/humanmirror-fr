@@ -1,0 +1,42 @@
+openapi: 3.2.0
+info:
+  title: Humanmirror Fr Circuit API
+  version: 1.0.0
+  description: 'Operations tagged Circuit across 2 of this provider''s published API definitions: humanmirror-fr-agentops-openapi.json, humanmirror-fr-agentops-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://humanmirror.fr
+tags:
+- name: Circuit
+paths:
+  /api/circuit/preflight:
+    post:
+      summary: Preflight operational risk in a proposed action
+      security:
+      - NexusBearer: []
+      responses:
+        '200':
+          description: Risk preflight
+      tags:
+      - Circuit
+      operationId: postApiCircuitPreflight
+      x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    NexusBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_nexus_*
+x-refined-from:
+- humanmirror-fr-agentops-openapi.json
+- humanmirror-fr-agentops-openapi.yml
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

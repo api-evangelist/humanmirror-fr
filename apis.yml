@@ -49,407 +49,13 @@ tags_raw:
 - Micro-Transactions
 - France
 apis:
-- aid: humanmirror-fr:x402
-  name: HumanMirror x402 API
-  description: 'HumanMirror x402 API v3.2.0: 82 pay-per-call operations settled in USDC on Base through x402 V2
-    — agent security (secret scanning, safe preflight, execution receipts, sanitize shield), data quality (clean/dedupe/normalize/anomaly),
-    ~35 ''Automata'' operational guards, canonical 5 USDC bundles, the 297 USDC / 30-day Enterprise Fleet pass,
-    the free Zero-Cost Sink and micro-work routes, and the credentialed Next-Gen preview (intent proof, fleet consensus
-    lock, escrow settle, Agent OS state & trust). Every paid route answers 402 + PAYMENT-REQUIRED first.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr
-  tags:
-  - x402
-  - Machine Payments
-  - USDC
-  - Agent Security
-  - Prompt Injection Defense
-  - Data Quality
-  - Execution Receipts
-  - Escrow
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-x402-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/x402/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-x402-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/x402/
-  - type: Documentation
-    url: https://humanmirror.fr/future/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/x402/mcp/
-  - type: JSONSchema
-    url: json-schema/humanmirror-fr-escrow-v1.json
-  - type: JSONSchema
-    url: json-schema/humanmirror-fr-genesis.json
-  - type: AgentSkill
-    url: skills/humanmirror-fr-secure-external-context.md
-  - type: AgentSkill
-    url: skills/humanmirror-fr-genesis-skill.md
-- aid: humanmirror-fr:m2m-core
-  name: HumanMirror M2M Core Services
-  description: 'Three separately published contracts for the M2M core: Sanitize Shield (indirect prompt-injection
-    quarantine with a signed Cleanliness Proof), M2M Payload Normalizer (canonical JSON + stable SHA-256 digest)
-    and the Probabilistic Consensus Oracle (weighted log-odds validation of two contradictory agent signals). Each
-    has a free discovery GET, three free calls per 24 hours, then 0.001 USDC via x402; all three are also inside
-    the x402 contract.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/m2m/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Prompt Injection Defense
-  - JSON Canonicalization
-  - Consensus
-  - Agent Security
-  - x402
-  - M2M
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-sanitize-shield-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/m2m/sanitize-shield.openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-sanitize-shield-overlay.yaml
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-payload-normalizer-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/m2m/payload-normalizer.openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-payload-normalizer-overlay.yaml
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-consensus-verify-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/m2m/consensus-verify.openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-consensus-verify-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/machine/
-  - type: JSONLD
-    url: json-ld/humanmirror-fr-m2m.jsonld
-- aid: humanmirror-fr:oracle
-  name: HumanMirror Oracle API
-  description: Structured analysis of text, JSON records and numeric series (data quality, trends, anomalies, recommendations).
-    Bearer hm_oracle_* key; one credit per successful analysis; 100 credits for 4.99 EUR via Stripe. Also exposed
-    as a remote MCP server (fr.humanmirror/oracle) and an ai-plugin manifest.
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/oracle/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Data Analysis
-  - Anomaly Detection
-  - AI Agents
-  - MCP
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-oracle-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/oracle/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-oracle-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/oracle/docs/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/oracle/mcp/
-  - type: PluginManifest
-    url: well-known/humanmirror-fr-ai-plugin.json
-  - type: PluginManifest
-    url: https://humanmirror.fr/.well-known/ai-plugin.json
-- aid: humanmirror-fr:forge
-  name: HumanMirror Forge API
-  description: Five deterministic micro-tools for agent data pipelines — clean_json, dedupe_records, normalize_entity,
-    score_data_quality, detect_anomaly — multiplexed through POST /api/forge/run with a Bearer hm_forge_* key; 25-call
-    free trial, 1 000 credits for 4.99 EUR. Also a remote MCP server (fr.humanmirror/forge) and a Postman collection.
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/forge/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Data Quality
-  - Deduplication
-  - Entity Normalization
-  - MCP
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-forge-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/forge/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-forge-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/forge/docs/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/forge/mcp/
-  - type: Postman
-    url: postman/humanmirror-fr-forge.postman_collection.json
-  - type: Postman
-    url: https://humanmirror.fr/forge/postman-collection.json
-- aid: humanmirror-fr:nexus
-  name: HumanMirror Nexus API
-  description: 'Machine-to-machine tool discovery, routing and credit metering: free catalog search, a 100-credit
-    trial key per network origin, Stripe checkout/claim for 5 000-credit packs, routed tool calls, and the success-only
-    Outcome quote/run/verify trio. The hub MCP server (fr.humanmirror/nexus) exposes six tools including the free
-    Magnet fallback resolver.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/nexus/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Tool Discovery
-  - Tool Routing
-  - Verified Outcomes
-  - Pay For Success
-  - MCP
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-nexus-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/nexus/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-nexus-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/nexus/docs/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/nexus/mcp/
-  - type: Postman
-    url: postman/humanmirror-fr-nexus.postman_collection.json
-  - type: Postman
-    url: https://humanmirror.fr/nexus/postman-collection.json
-  - type: AgentSkill
-    url: skills/humanmirror-fr-verified-outcome.md
-- aid: humanmirror-fr:agentops
-  name: HumanMirror AgentOps API
-  description: 'Deterministic operational utilities billed in Nexus credits under a Bearer hm_nexus_* key: Sentinel
-    output inspection, Trace receipt issue + public verify, Lens schema inference and contract diff, Vault secret
-    scan, Circuit preflight. Published with a Postman collection; reachable through the Nexus MCP server by tool_id.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/agentops/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Agent Operations
-  - Execution Receipts
-  - Secret Scanning
-  - Schema Diff
-  - Preflight
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-agentops-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/agentops/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-agentops-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/agentops/
-  - type: Postman
-    url: postman/humanmirror-fr-agentops.postman_collection.json
-  - type: Postman
-    url: https://humanmirror.fr/agentops/postman-collection.json
-- aid: humanmirror-fr:magnet
-  name: HumanMirror Magnet API
-  description: 'Free outcome-first fallback discovery for blocked agents: resolve a stated outcome to a live Nexus
-    capability or record a sanitized capability gap in a privacy-thresholded public Machine Demand Graph (hot gaps,
-    gap status). No key required; 429 on abuse.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/magnet/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Capability Discovery
-  - Fallback
-  - Machine Demand
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-magnet-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/magnet/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-magnet-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/magnet/gaps/
-  - type: Postman
-    url: postman/humanmirror-fr-magnet.postman_collection.json
-  - type: Postman
-    url: https://humanmirror.fr/magnet/postman-collection.json
-- aid: humanmirror-fr:outcome
-  name: HumanMirror Outcome API
-  description: 'Verified outcome execution: quote and verify are free, a successful outcome.run costs 5 Nexus credits
-    and failed execution or failed deterministic verification is refunded. The same three paths are mirrored in
-    the Nexus contract and as MCP tools outcome_quote / outcome_run / outcome_verify.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/outcome/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Verified Outcomes
-  - Pay For Success
-  - Deterministic Verification
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-outcome-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/outcome/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-outcome-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/outcome/docs/
-- aid: humanmirror-fr:one
-  name: HumanMirror One API
-  description: 'Single-tool verified-outcome interface (humanmirror_do): dry-run quotes are free, verified execution
-    costs 6 Nexus credits, failures are refunded. The provider''s recommended default MCP surface for agents that
-    want the smallest schema footprint.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/one/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Verified Outcomes
-  - MCP
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-one-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/one/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-one-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/one/docs/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/one/mcp/
-- aid: humanmirror-fr:flow
-  name: HumanMirror Flow API
-  description: 'Verified 2-3 step agent missions billed as one whole transaction: free quote, 12 Nexus credits kept
-    only if every step and the final proof succeed. One MCP tool (humanmirror_flow), registry entry fr.humanmirror/flow.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/flow/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Workflows
-  - Verified Outcomes
-  - MCP
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-flow-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/flow/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-flow-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/flow/docs/
-  - type: MCPServer
-    url: https://humanmirror.fr/api/flow/mcp/
-- aid: humanmirror-fr:market
-  name: HumanMirror Intent Market API
-  description: 'Non-custodial intent marketplace for autonomous agents: buyers publish a paid intent (0.010 USDC
-    via x402), providers bid for free, the market awards the best admissible bid (0.050 USDC); live state is public.
-    AP2 / ERC-8004 / UPI / Stripe adapters are declared ''adapter-ready'', not live.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/market/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Marketplace
-  - Intent Routing
-  - x402
-  - Bidding
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-market-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/market/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-market-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/market/
-- aid: humanmirror-fr:agent-os
-  name: HumanMirror Agent OS API
-  description: Cryptographic Proof-of-State and exact SHA-256 state-continuity drift detection (state-and-trust,
-    0.050 USDC via x402) plus the HumanMirror Universal Value Protocol (HUVP/1) resolver, policy firewall and receipt
-    endpoints. Published with a standalone JSON Schema (agent-os-v1).
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/value/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Proof of State
-  - Drift Detection
-  - Value Routing
-  - Payment Policy
-  - x402
-  - AI Agents
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-agent-os-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/docs/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-agent-os-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/value/
-  - type: JSONSchema
-    url: json-schema/humanmirror-fr-agent-os-v1.json
-  - type: JSONSchema
-    url: https://humanmirror.fr/schemas/agent-os-v1.json
-- aid: humanmirror-fr:physical-oracle
-  name: HumanMirror Physical Oracle API
-  description: 'Beta (1.0.0-beta) agent-to-human field-verification network: quote and post bounded public-world
-    verification missions, register field workers, claim/submit/verify missions, and confirm the 80/20 buyer-to-worker
-    USDC payout with a 20% platform commission via x402. HumanMirror does not hold worker payout funds.'
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/physical-oracle/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Physical Verification
-  - Human-in-the-Loop
-  - Field Work
-  - x402
-  - Beta
-  tags_raw:
-  - Physical Verification
-  - Human In The Loop
-  - Field Work
-  - x402
-  - Beta
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-physical-oracle-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/physical-oracle/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-physical-oracle-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/physical-oracle/
-  - type: Documentation
-    url: https://humanmirror.fr/field/
-- aid: humanmirror-fr:automata
-  name: HumanMirror Automata API
-  description: Public machine catalog and status for HumanMirror Automata, the family of ~35 operational guard services
-    (renewal, broken-link, chargeback, KYC, invoice, dunning, uptime, webhook dead-letter …) whose paid execution
-    routes live in the x402 contract. One GET; event intake is private and provider-verified.
-  image: https://humanmirror.fr/assets/humanmirror-mark.svg
-  humanURL: https://humanmirror.fr/automata/
-  baseURL: https://humanmirror.fr
-  tags:
-  - Operational Automation
-  - Catalog
-  - x402
-  properties:
-  - type: OpenAPI
-    url: openapi/humanmirror-fr-automata-openapi.yml
-  - type: OpenAPI
-    url: https://humanmirror.fr/automata/openapi.json
-  - type: Overlay
-    url: overlays/humanmirror-fr-automata-overlay.yaml
-  - type: Documentation
-    url: https://humanmirror.fr/automata/
 - aid: humanmirror-fr:omnidome
   name: OmniDome by HumanMirror (MCP)
-  description: The OmniDome machine-society hub — registrar, agora, beacon, commons, settlement quotes, trust hall,
-    agent exchange (1 bp fee) — exposed as a remote MCP server whose five discovery tools answer anonymously, plus
-    /api/omnidome/* JSON endpoints described in .well-known/omnidome.json. No OpenAPI is published for this surface,
-    which is why it is listed by its MCP server and manifest only.
+  description: >-
+    The OmniDome machine-society hub — registrar, agora, beacon, commons, settlement quotes, trust hall,
+    agent exchange (1 bp fee) — exposed as a remote MCP server whose five discovery tools answer anonymously,
+    plus /api/omnidome/* JSON endpoints described in .well-known/omnidome.json. No OpenAPI is published
+    for this surface, which is why it is listed by its MCP server and manifest only.
   image: https://humanmirror.fr/assets/humanmirror-mark.svg
   humanURL: https://humanmirror.fr/omnidome/
   baseURL: https://humanmirror.fr/api/omnidome/
@@ -466,12 +72,2010 @@ apis:
     url: https://humanmirror.fr/omnidome/
   - type: Documentation
     url: https://humanmirror.fr/.well-known/omnidome.json
+- aid: humanmirror-fr:humanmirror-fr-agent-api
+  name: HumanMirror Agent API
+  description: The Agent API from HumanMirror — 1 operation(s) for agent.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Agent
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-agent-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-automata-api
+  name: HumanMirror Automata API
+  description: The Automata API from HumanMirror — 1 operation(s) for automata.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Automata
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-automata-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-canonical-agent-bundles-api
+  name: HumanMirror Canonical agent bundles API
+  description: >-
+    Canonical, bundle-priced HumanMirror services for autonomous agents. These routes supersede primitive
+    legacy aliases.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Canonical agent bundles
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-circuit-api
+  name: HumanMirror Circuit API
+  description: The Circuit API from HumanMirror — 1 operation(s) for circuit.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Circuit
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-circuit-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-consensus-api
+  name: HumanMirror Consensus API
+  description: The Consensus API from HumanMirror — 1 operation(s) for consensus.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Consensus
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-consensus-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-flow-api
+  name: HumanMirror Flow API
+  description: The Flow API from HumanMirror — 4 operation(s) for flow.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Flow
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-flow-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-forge-api
+  name: HumanMirror Forge API
+  description: The Forge API from HumanMirror — 3 operation(s) for forge.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Forge
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-forge-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-lens-api
+  name: HumanMirror Lens API
+  description: The Lens API from HumanMirror — 2 operation(s) for lens.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Lens
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-lens-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-m2m-api
+  name: HumanMirror M2m API
+  description: The M2m API from HumanMirror — 6 operation(s) for m2m.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - M2m
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-m2m-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-m2m-core-api
+  name: HumanMirror M2M Core API
+  description: The M2M Core API from HumanMirror — 2 operation(s) for m2m core.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - M2M Core
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-m2m-core-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-m2m-next-gen-preview-api
+  name: HumanMirror M2M Next-Gen Preview API
+  description: >-
+    HumanMirror Next-Gen / Pack Futur — pre-launch 2027-2030 routes. 0.050 USDC per test call, included
+    in Enterprise Fleet and available as Preview for HumanMirror Pro.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - M2M Next-Gen Preview
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-m2m-next-gen-preview-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-magnet-api
+  name: HumanMirror Magnet API
+  description: The Magnet API from HumanMirror — 3 operation(s) for magnet.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Magnet
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-magnet-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-market-api
+  name: HumanMirror Market API
+  description: The Market API from HumanMirror — 4 operation(s) for market.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Market
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-market-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-nexus-api
+  name: HumanMirror Nexus API
+  description: The Nexus API from HumanMirror — 6 operation(s) for nexus.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Nexus
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-nexus-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-one-api
+  name: HumanMirror One API
+  description: The One API from HumanMirror — 2 operation(s) for one.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - One
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-one-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-oracle-api
+  name: HumanMirror Oracle API
+  description: The Oracle API from HumanMirror — 2 operation(s) for oracle.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Oracle
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-oracle-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-outcome-api
+  name: HumanMirror Outcome API
+  description: The Outcome API from HumanMirror — 4 operation(s) for outcome.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Outcome
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-outcome-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-physical-oracle-api
+  name: HumanMirror Physical Oracle API
+  description: The Physical Oracle API from HumanMirror — 10 operation(s) for physical oracle.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Physical Oracle
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-physical-oracle-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-referral-api
+  name: HumanMirror Referral API
+  description: The Referral API from HumanMirror — 3 operation(s) for referral.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Referral
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-referral-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-sanitize-api
+  name: HumanMirror Sanitize API
+  description: The Sanitize API from HumanMirror — 1 operation(s) for sanitize.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Sanitize
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-sanitize-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-sentinel-api
+  name: HumanMirror Sentinel API
+  description: The Sentinel API from HumanMirror — 1 operation(s) for sentinel.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Sentinel
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-sentinel-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-sink-api
+  name: HumanMirror Sink API
+  description: The Sink API from HumanMirror — 1 operation(s) for sink.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Sink
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-sink-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-trace-api
+  name: HumanMirror Trace API
+  description: The Trace API from HumanMirror — 2 operation(s) for trace.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Trace
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-trace-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-value-api
+  name: HumanMirror Value API
+  description: The Value API from HumanMirror — 3 operation(s) for value.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Value
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-value-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-vault-api
+  name: HumanMirror Vault API
+  description: The Vault API from HumanMirror — 1 operation(s) for vault.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Vault
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-vault-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-x402-api
+  name: HumanMirror X402 API
+  description: The X402 API from HumanMirror — 52 operation(s) for x402.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - X402
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-x402-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
+- aid: humanmirror-fr:humanmirror-fr-zero-api
+  name: HumanMirror Zero API
+  description: The Zero API from HumanMirror — 1 operation(s) for zero.
+  humanURL: https://humanmirror.fr/x402/
+  baseURL: https://humanmirror.fr/api/omnidome/
+  tags:
+  - Zero
+  properties:
+  - type: OpenAPI
+    url: openapi/humanmirror-fr-zero-api-openapi.yml
+  - type: Documentation
+    url: https://humanmirror.fr/x402/
+  - type: Documentation
+    url: https://humanmirror.fr/future/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-escrow-v1.json
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-genesis.json
+  - type: Documentation
+    url: https://humanmirror.fr/machine/
+  - type: JSONLD
+    url: json-ld/humanmirror-fr-m2m.jsonld
+  - type: Documentation
+    url: https://humanmirror.fr/oracle/docs/
+  - type: PluginManifest
+    url: well-known/humanmirror-fr-ai-plugin.json
+  - type: PluginManifest
+    url: https://humanmirror.fr/.well-known/ai-plugin.json
+  - type: Documentation
+    url: https://humanmirror.fr/forge/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-forge.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/forge/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/nexus/docs/
+  - type: Postman
+    url: postman/humanmirror-fr-nexus.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/nexus/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/agentops/
+  - type: Postman
+    url: postman/humanmirror-fr-agentops.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/agentops/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/magnet/gaps/
+  - type: Postman
+    url: postman/humanmirror-fr-magnet.postman_collection.json
+  - type: Postman
+    url: https://humanmirror.fr/magnet/postman-collection.json
+  - type: Documentation
+    url: https://humanmirror.fr/outcome/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/one/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/flow/docs/
+  - type: Documentation
+    url: https://humanmirror.fr/market/
+  - type: Documentation
+    url: https://humanmirror.fr/value/
+  - type: JSONSchema
+    url: json-schema/humanmirror-fr-agent-os-v1.json
+  - type: JSONSchema
+    url: https://humanmirror.fr/schemas/agent-os-v1.json
+  - type: Documentation
+    url: https://humanmirror.fr/physical-oracle/
+  - type: Documentation
+    url: https://humanmirror.fr/field/
+  - type: Documentation
+    url: https://humanmirror.fr/automata/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/humanmirror-fr-x402-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/x402/mcp/
+- type: AgentSkill
+  url: skills/humanmirror-fr-secure-external-context.md
+- type: AgentSkill
+  url: skills/humanmirror-fr-genesis-skill.md
+- type: Overlay
+  url: overlays/humanmirror-fr-sanitize-shield-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-payload-normalizer-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-consensus-verify-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-oracle-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/oracle/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-forge-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/forge/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-nexus-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/nexus/mcp/
+- type: AgentSkill
+  url: skills/humanmirror-fr-verified-outcome.md
+- type: Overlay
+  url: overlays/humanmirror-fr-agentops-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-magnet-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-outcome-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-one-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/one/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-flow-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/flow/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-market-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-agent-os-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-physical-oracle-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-automata-overlay.yaml
 - type: DomainSecurity
   url: security/humanmirror-fr-domain-security.yml
 - type: Authentication
@@ -555,3 +2159,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 93
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://humanmirror.fr/.well-known/agent-card.json"
+  grade: "flavored"
+  protocol_version: "1.0"
+  control: 404
