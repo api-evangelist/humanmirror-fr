@@ -2166,3 +2166,11 @@ x-a2a:
   grade: "flavored"
   protocol_version: "1.0"
   control: 404
+x-correction-request:
+  requested: '2026-09-27'
+  source: email 2026-09-25 + 2026-09-27 (contact.humanmirror@gmail.com)
+  request: 'Re-profile from the authoritative APIs.json v0.23 at https://humanmirror.fr/apis.json and
+    what it declares: OpenAPI https://humanmirror.fr/openapi.json, docs https://humanmirror.fr/one/, MCP
+    https://humanmirror.fr/api/one/mcp/, A2A https://humanmirror.fr/.well-known/agent-card.json, x402
+    https://humanmirror.fr/.well-known/x402.json. Record the three SKILL.md files in github.com/VibeMirror-coder/humanmirror/skills
+    (purchase-firewall, safe-preflight, execution-receipt) as FIRST-PARTY Agent Skills, not derived.'
