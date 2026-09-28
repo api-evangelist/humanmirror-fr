@@ -1,0 +1,73 @@
+generated: '2026-09-28'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/humanmirror-fr-agent-api-openapi.yml
+- openapi/humanmirror-fr-automata-api-openapi.yml
+- openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml
+- openapi/humanmirror-fr-circuit-api-openapi.yml
+- openapi/humanmirror-fr-consensus-api-openapi.yml
+vocabulary:
+  name: HumanMirror Domain Vocabulary
+  description: 'Terms declared by HumanMirror''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-09-28'
+  terms:
+  - term: Canonical agent bundles
+    definition: Canonical, bundle-priced HumanMirror services for autonomous agents. These routes supersede primitive legacy aliases.
+    tags:
+    - Resource Group
+    source: openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml
+  - term: M2M Next-Gen Preview
+    definition: HumanMirror Next-Gen / Pack Futur — pre-launch 2027-2030 routes. 0.050 USDC per test call, included in Enterprise Fleet and available
+      as Preview for HumanMirror Pro.
+    tags:
+    - Resource Group
+    source: openapi/humanmirror-fr-m2m-next-gen-preview-api-openapi.yml
+  - term: MachineError
+    definition: 'Object declared by the contract with fields: error, code, retryable.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml#/components/schemas/MachineError
+  - term: PaymentRequired
+    definition: 'Object declared by the contract with fields: x402Version, error, resource, accepts.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml#/components/schemas/PaymentRequired
+  - term: ForgeError
+    definition: 'Object declared by the contract with fields: ok, version, request_id, error.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-forge-api-openapi.yml#/components/schemas/ForgeError
+  - term: ForgeSuccess
+    definition: 'Object declared by the contract with fields: ok, version, request_id, tool, result, usage.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-forge-api-openapi.yml#/components/schemas/ForgeSuccess
+  - term: ForgeRun
+    definition: 'Object declared by the contract with fields: tool, input, options.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-forge-api-openapi.yml#/components/schemas/ForgeRun
+  - term: Error
+    definition: 'Object declared by the contract with fields: ok, version, request_id, error.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-oracle-api-openapi.yml#/components/schemas/Error
+  - term: AnalyzeSuccess
+    definition: 'Object declared by the contract with fields: ok, version, request_id, result, usage.'
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-oracle-api-openapi.yml#/components/schemas/AnalyzeSuccess
+  - term: ShieldRequest
+    definition: Referenced by this document but never defined in it. API Evangelist added this empty placeholder so the document resolves; the
+      shape is unknown and is NOT a claim about the API.
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-sanitize-api-openapi.yml#/components/schemas/ShieldRequest
+  - term: ShieldResponse
+    definition: Referenced by this document but never defined in it. API Evangelist added this empty placeholder so the document resolves; the
+      shape is unknown and is NOT a claim about the API.
+    tags:
+    - Object
+    source: openapi/humanmirror-fr-sanitize-api-openapi.yml#/components/schemas/ShieldResponse

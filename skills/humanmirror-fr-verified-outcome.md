@@ -3,7 +3,7 @@ name: humanmirror-verified-outcome
 description: Get a measurable task done through HumanMirror Nexus on success-only billing — obtain a free trial key, quote the outcome for free, run it, and re-verify the result for free — over REST or the Nexus MCP server.
 api: HumanMirror Nexus API / HumanMirror Outcome API
 generated: '2026-09-19'
-method: generated
+method: none
 source: openapi/humanmirror-fr-nexus-openapi.yml, openapi/humanmirror-fr-outcome-openapi.yml, mcp/humanmirror-fr-nexus-tools.json (live tools/list 2026-09-19), https://humanmirror.fr/connect/, https://humanmirror.fr/.well-known/nexus.json
 operations:
   - POST /api/nexus/trial

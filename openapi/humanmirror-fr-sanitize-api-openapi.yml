@@ -4,7 +4,7 @@ info:
   x-refined-note:
   - x-keywords differs across the merged source definitions and was not carried
   version: '1.0'
-  description: 'Operations tagged Sanitize across 4 of this provider''s published API definitions: humanmirror-fr-sanitize-shield-openapi.json, humanmirror-fr-x402-openapi.json, humanmirror-fr-sanitize-shield-openapi.yml, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Sanitize across 2 of this provider''s published API definitions: humanmirror-fr-sanitize-shield-openapi.json, humanmirror-fr-x402-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -88,8 +88,6 @@ externalDocs:
 x-refined-from:
 - humanmirror-fr-sanitize-shield-openapi.json
 - humanmirror-fr-x402-openapi.json
-- humanmirror-fr-sanitize-shield-openapi.yml
-- humanmirror-fr-x402-openapi.yml
 x-humanmirror-discovery:
   agent_os: https://humanmirror.fr/.well-known/agent-os.json
   agent: https://humanmirror.fr/.well-known/agent.json

@@ -1,7 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Humanmirror Fr X402 API
+  title: HumanMirror X402 API
   version: 3.2.0
+  description: 'HumanMirror Agent-First machine-payment API: M2M infrastructure on Base using x402 V2 and USDC, autonomous agent security, prompt injection defense, AI micro-transactions and non-custodial escrow preview. Granular calls use 0.001 / 0.010 / 0.050 USDC, thematic bundles 5.000 USDC, Enterprise Fleet 297.000 USDC / 30 days, plus the 2027-2030 Next-Gen preview suite at 0.050 USDC per test call.'
   x-keywords:
   - M2M infrastructure on Base
   - x402 payment protocol
@@ -11,7 +12,6 @@ info:
   - Intent-Proof
   - M2M Escrow
   - Consensus-Lock
-  description: 'Operations tagged X402 across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -73,8 +73,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/one/:
     post:
       operationId: humanmirrorX402One
@@ -115,8 +113,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/flow/:
     post:
       operationId: humanmirrorX402Flow
@@ -169,8 +165,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_050
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/clean-json/:
     post:
       operationId: humanmirrorX402CleanJson
@@ -214,8 +208,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/deduplicate-records/:
     post:
       operationId: humanmirrorX402DeduplicateRecords
@@ -259,8 +251,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/normalize-entity/:
     post:
       operationId: humanmirrorX402NormalizeEntity
@@ -304,8 +294,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/data-quality/:
     post:
       operationId: humanmirrorX402DataQuality
@@ -349,8 +337,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/anomaly-detection/:
     post:
       operationId: humanmirrorX402AnomalyDetection
@@ -394,8 +380,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/secret-scanning/:
     post:
       operationId: humanmirrorX402SecretScanning
@@ -439,8 +423,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/output-quality/:
     post:
       operationId: humanmirrorX402OutputQuality
@@ -484,8 +466,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/schema-compatibility/:
     post:
       operationId: humanmirrorX402SchemaCompatibility
@@ -529,8 +509,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/safe-preflight/:
     post:
       operationId: humanmirrorX402SafePreflight
@@ -574,8 +552,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/execution-receipt/:
     post:
       operationId: humanmirrorX402ExecutionReceipt
@@ -619,8 +595,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-decision/:
     post:
       operationId: humanmirrorX402AutomataDecision
@@ -668,8 +642,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-annual-renewal-guard/:
     post:
       operationId: humanmirrorX402AnnualRenewalGuard
@@ -713,8 +685,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-broken-link-rescue/:
     post:
       operationId: humanmirrorX402BrokenLinkRescue
@@ -758,8 +728,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-cart-glitch-shield/:
     post:
       operationId: humanmirrorX402CartGlitchShield
@@ -803,8 +771,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-chargeback-shield/:
     post:
       operationId: humanmirrorX402ChargebackShield
@@ -848,8 +814,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-checkout-link-guard/:
     post:
       operationId: humanmirrorX402CheckoutLinkGuard
@@ -893,8 +857,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-cloud-credit-optimizer/:
     post:
       operationId: humanmirrorX402CloudCreditOptimizer
@@ -938,8 +900,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-cloud-migration-watchdog/:
     post:
       operationId: humanmirrorX402CloudMigrationWatchdog
@@ -983,8 +943,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-db-bloat-guard/:
     post:
       operationId: humanmirrorX402DbBloatGuard
@@ -1028,8 +986,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-deliverability-failover/:
     post:
       operationId: humanmirrorX402DeliverabilityFailover
@@ -1073,8 +1029,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-dependency-autohealer/:
     post:
       operationId: humanmirrorX402DependencyAutohealer
@@ -1118,8 +1072,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-digital-asset-guard/:
     post:
       operationId: humanmirrorX402DigitalAssetGuard
@@ -1163,8 +1115,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-fx-cost-optimizer/:
     post:
       operationId: humanmirrorX402FxCostOptimizer
@@ -1208,8 +1158,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-inventory-sync-sentinel/:
     post:
       operationId: humanmirrorX402InventorySyncSentinel
@@ -1253,8 +1201,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-invoice-recovery/:
     post:
       operationId: humanmirrorX402InvoiceRecovery
@@ -1298,8 +1244,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-invoice-syntax-sentinel/:
     post:
       operationId: humanmirrorX402InvoiceSyntaxSentinel
@@ -1343,8 +1287,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-kyc-rescue/:
     post:
       operationId: humanmirrorX402KycRescue
@@ -1388,8 +1330,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-lead-drop-shield/:
     post:
       operationId: humanmirrorX402LeadDropShield
@@ -1433,8 +1373,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-reputation-guard/:
     post:
       operationId: humanmirrorX402ReputationGuard
@@ -1478,8 +1416,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-secops-autopatch/:
     post:
       operationId: humanmirrorX402SecopsAutopatch
@@ -1523,8 +1459,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-seo-domain-watch/:
     post:
       operationId: humanmirrorX402SeoDomainWatch
@@ -1568,8 +1502,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-smart-dunning/:
     post:
       operationId: humanmirrorX402SmartDunning
@@ -1613,8 +1545,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-tax-ledger/:
     post:
       operationId: humanmirrorX402TaxLedger
@@ -1658,8 +1588,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-uptime-panic-guard/:
     post:
       operationId: humanmirrorX402UptimePanicGuard
@@ -1703,8 +1631,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-vat-recovery/:
     post:
       operationId: humanmirrorX402VatRecovery
@@ -1748,8 +1674,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-webhook-dead-letter/:
     post:
       operationId: humanmirrorX402WebhookDeadLetter
@@ -1793,8 +1717,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-autonomous-escrow-agent/:
     post:
       operationId: humanmirrorX402AutonomousEscrowAgent
@@ -1838,8 +1760,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-api-break-sentinel/:
     post:
       operationId: humanmirrorX402ApiBreakSentinel
@@ -1883,8 +1803,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-global-ai-tax-proxy/:
     post:
       operationId: humanmirrorX402GlobalAiTaxProxy
@@ -1928,8 +1846,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-ghost-cart-form-rescue/:
     post:
       operationId: humanmirrorX402GhostCartFormRescue
@@ -1973,8 +1889,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-data-brokerage-automate/:
     post:
       operationId: humanmirrorX402DataBrokerageAutomate
@@ -2018,8 +1932,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-expired-domain-opportunity-watch/:
     post:
       operationId: humanmirrorX402ExpiredDomainOpportunityWatch
@@ -2063,8 +1975,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-media-kit-generator/:
     post:
       operationId: humanmirrorX402MediaKitGenerator
@@ -2102,8 +2012,6 @@ paths:
       x-humanmirror-pricing-tier: thematic_bundle
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-clean-ex/:
     post:
       operationId: humanmirrorX402CleanEx
@@ -2141,8 +2049,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_001
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-price-sniper/:
     post:
       operationId: humanmirrorX402PriceSniper
@@ -2180,8 +2086,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-proof-of-vibe/:
     post:
       operationId: humanmirrorX402ProofOfVibe
@@ -2219,8 +2123,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_001
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-dead-bot-switch/:
     post:
       operationId: humanmirrorX402DeadBotSwitch
@@ -2258,8 +2160,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_010
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/automata-context-compressor-sanitizer/:
     post:
       operationId: humanmirrorX402ContextCompressorSanitizer
@@ -2297,8 +2197,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_001
       tags:
       - X402
-    servers:
-    - url: https://humanmirror.fr
   /api/x402/emergency-pack/:
     get:
       summary: Inspect HumanMirror Emergency 10
@@ -2332,8 +2230,6 @@ paths:
       - X402
       operationId: postApiX402EmergencyPack
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
 components:
   securitySchemes:
     HumanMirrorProApiKey:
@@ -2354,15 +2250,90 @@ components:
 externalDocs:
   description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
   url: https://humanmirror.fr/future/
-x-refined-from:
-- humanmirror-fr-x402-openapi.json
-- humanmirror-fr-x402-openapi.yml
-x-humanmirror-discovery:
-  agent_os: https://humanmirror.fr/.well-known/agent-os.json
-  agent: https://humanmirror.fr/.well-known/agent.json
+x-humanmirror-agent-manifest: https://humanmirror.fr/.well-known/agent-manifest.json
+x-humanmirror-canonical-endpoints:
+- id: security-intelligence
+  url: https://humanmirror.fr/api/v1/agent/security-intelligence/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: data-quality
+  url: https://humanmirror.fr/api/v1/agent/data-quality/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: verification
+  url: https://humanmirror.fr/api/v1/agent/verification/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: operations
+  url: https://humanmirror.fr/api/v1/agent/operations/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: enterprise-fleet
+  url: https://humanmirror.fr/api/x402/enterprise-pass/
+  price_usdc: '297.000'
+  billing_unit: 30_days
+x-humanmirror-pricing-ladder:
+  granular_unit_tiers_usdc:
+  - '0.001'
+  - '0.010'
+  - '0.050'
+  thematic_bundle_usdc: '5.000'
+  enterprise_fleet_usdc: '297.000'
+x-humanmirror-next-gen-endpoints:
+- id: next_gen_intent_proof
+  url: https://humanmirror.fr/v1/agent/intent-proof/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_consensus_lock
+  url: https://humanmirror.fr/v1/fleet/consensus-lock/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_escrow_settle
+  url: https://humanmirror.fr/v1/m2m/escrow-settle/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+x-humanmirror-provenance:
+  owner: HumanMirror
+  scheme: zero-width+HMAC-SHA256
+  watermark_sha256: 8cf2f98bdc78f5034d0fc568f119d07fe18f884c4384d5df43d486e5659e9592
+x-humanmirror-agent-first:
+  future_lexicon: https://humanmirror.fr/future/
+  llms: https://humanmirror.fr/llms.txt
   a2a: https://humanmirror.fr/.well-known/agent-card.json
-  x402: https://humanmirror.fr/.well-known/x402.json
-  catalog: https://humanmirror.fr/x402/catalog.json
   mcp: https://humanmirror.fr/api/x402/mcp/
-  schema: https://humanmirror.fr/schemas/agent-os-v1.json
-  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json
+x-humanmirror-core-products:
+  shared_context:
+    endpoint: https://humanmirror.fr/v1/agent/shared-context/
+    manifest: https://humanmirror.fr/.well-known/shared-context.json
+    price_usdc: '0.010'
+    stripe_credits: true
+  perception_behavior_vector:
+    endpoint: https://humanmirror.fr/v1/agent/perception-vector/
+    manifest: https://humanmirror.fr/.well-known/perception-behavior.json
+    price_usdc: '0.050'
+    privacy_mode: aggregate_cohort_only
+x-humanmirror-global-enterprise:
+  version: 2026-09-04-v1
+  manifest: https://humanmirror.fr/.well-known/global-enterprise.json
+  profile_endpoint: https://humanmirror.fr/api/v1/global-enterprise/profile/
+  billing_capabilities: https://humanmirror.fr/api/v1/global-enterprise/billing-capabilities/
+  headers:
+  - X-Industry-Profile
+  - X-Jurisdiction
+  - X-Billing-Currency
+  built_in_profiles:
+  - finance
+  - pharma
+  - retail
+  - logistics
+  - tech
+  - entertainment
+  custom_profiles: true
+  compatibility: additive_no_header_no_behavior_change
+  compliance_assurance: policy_guardrails_not_legal_certification

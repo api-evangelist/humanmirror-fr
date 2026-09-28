@@ -1,0 +1,82 @@
+generated: '2026-09-28'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 5
+  own: 2
+  other_domain: 2
+  platform: 1
+  roles:
+  - api
+  - other
+  - source
+  - website
+hosts:
+- host: api.humanmirror.fr
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: humanmirror.fr
+  role: api
+  relation: own
+- host: api.modelcontextprotocol.io
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: modelcontextprotocol.io
+  role: api
+  relation: other-domain
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  serves: []
+  registrable_domain: github.com
+  role: source
+  relation: platform
+- host: humanmirror.fr
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - spec-found
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - MCPServer
+  - Website
+  - DeveloperPortal
+  - GettingStarted
+  - Documentation
+  - Playground
+  - Pricing
+  - Support
+  - SignUp
+  - TermsOfService
+  - PrivacyPolicy
+  - LLMsTxt
+  serves:
+  - api
+  - docs
+  - spec
+  - hosting
+  vendor: vercel
+  registrable_domain: humanmirror.fr
+  role: website
+  relation: own
+- host: registry.modelcontextprotocol.io
+  found_by:
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: modelcontextprotocol.io
+  role: other
+  relation: other-domain

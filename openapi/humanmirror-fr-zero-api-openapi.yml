@@ -1,7 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Humanmirror Fr Zero API
+  title: HumanMirror x402 Zero API
   version: 3.2.0
+  description: 'HumanMirror Agent-First machine-payment API: M2M infrastructure on Base using x402 V2 and USDC, autonomous agent security, prompt injection defense, AI micro-transactions and non-custodial escrow preview. Granular calls use 0.001 / 0.010 / 0.050 USDC, thematic bundles 5.000 USDC, Enterprise Fleet 297.000 USDC / 30 days, plus the 2027-2030 Next-Gen preview suite at 0.050 USDC per test call.'
   x-keywords:
   - M2M infrastructure on Base
   - x402 payment protocol
@@ -11,7 +12,6 @@ info:
   - Intent-Proof
   - M2M Escrow
   - Consensus-Lock
-  description: 'Operations tagged Zero across 2 of this provider''s published API definitions: humanmirror-fr-x402-openapi.json, humanmirror-fr-x402-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -76,8 +76,6 @@ paths:
       x-humanmirror-pricing-tier: granular_unit_0_050
       tags:
       - Zero
-    servers:
-    - url: https://humanmirror.fr
 components:
   securitySchemes:
     HumanMirrorProApiKey:
@@ -98,15 +96,90 @@ components:
 externalDocs:
   description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
   url: https://humanmirror.fr/future/
-x-refined-from:
-- humanmirror-fr-x402-openapi.json
-- humanmirror-fr-x402-openapi.yml
-x-humanmirror-discovery:
-  agent_os: https://humanmirror.fr/.well-known/agent-os.json
-  agent: https://humanmirror.fr/.well-known/agent.json
+x-humanmirror-agent-manifest: https://humanmirror.fr/.well-known/agent-manifest.json
+x-humanmirror-canonical-endpoints:
+- id: security-intelligence
+  url: https://humanmirror.fr/api/v1/agent/security-intelligence/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: data-quality
+  url: https://humanmirror.fr/api/v1/agent/data-quality/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: verification
+  url: https://humanmirror.fr/api/v1/agent/verification/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: operations
+  url: https://humanmirror.fr/api/v1/agent/operations/
+  price_usdc: '5.000'
+  billing_unit: bundle
+- id: enterprise-fleet
+  url: https://humanmirror.fr/api/x402/enterprise-pass/
+  price_usdc: '297.000'
+  billing_unit: 30_days
+x-humanmirror-pricing-ladder:
+  granular_unit_tiers_usdc:
+  - '0.001'
+  - '0.010'
+  - '0.050'
+  thematic_bundle_usdc: '5.000'
+  enterprise_fleet_usdc: '297.000'
+x-humanmirror-next-gen-endpoints:
+- id: next_gen_intent_proof
+  url: https://humanmirror.fr/v1/agent/intent-proof/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_consensus_lock
+  url: https://humanmirror.fr/v1/fleet/consensus-lock/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+- id: next_gen_escrow_settle
+  url: https://humanmirror.fr/v1/m2m/escrow-settle/
+  status: preview_2027_2030
+  price_usdc: '0.050'
+  enterprise_included: true
+  pro_preview: true
+x-humanmirror-provenance:
+  owner: HumanMirror
+  scheme: zero-width+HMAC-SHA256
+  watermark_sha256: 8cf2f98bdc78f5034d0fc568f119d07fe18f884c4384d5df43d486e5659e9592
+x-humanmirror-agent-first:
+  future_lexicon: https://humanmirror.fr/future/
+  llms: https://humanmirror.fr/llms.txt
   a2a: https://humanmirror.fr/.well-known/agent-card.json
-  x402: https://humanmirror.fr/.well-known/x402.json
-  catalog: https://humanmirror.fr/x402/catalog.json
   mcp: https://humanmirror.fr/api/x402/mcp/
-  schema: https://humanmirror.fr/schemas/agent-os-v1.json
-  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json
+x-humanmirror-core-products:
+  shared_context:
+    endpoint: https://humanmirror.fr/v1/agent/shared-context/
+    manifest: https://humanmirror.fr/.well-known/shared-context.json
+    price_usdc: '0.010'
+    stripe_credits: true
+  perception_behavior_vector:
+    endpoint: https://humanmirror.fr/v1/agent/perception-vector/
+    manifest: https://humanmirror.fr/.well-known/perception-behavior.json
+    price_usdc: '0.050'
+    privacy_mode: aggregate_cohort_only
+x-humanmirror-global-enterprise:
+  version: 2026-09-04-v1
+  manifest: https://humanmirror.fr/.well-known/global-enterprise.json
+  profile_endpoint: https://humanmirror.fr/api/v1/global-enterprise/profile/
+  billing_capabilities: https://humanmirror.fr/api/v1/global-enterprise/billing-capabilities/
+  headers:
+  - X-Industry-Profile
+  - X-Jurisdiction
+  - X-Billing-Currency
+  built_in_profiles:
+  - finance
+  - pharma
+  - retail
+  - logistics
+  - tech
+  - entertainment
+  custom_profiles: true
+  compatibility: additive_no_header_no_behavior_change
+  compliance_assurance: policy_guardrails_not_legal_certification

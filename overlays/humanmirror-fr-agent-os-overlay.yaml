@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the HumanMirror Agent OS API
   version: 1.0.0
-extends: ../openapi/humanmirror-fr-agent-os-openapi.yml
+extends: ../openapi/_original/humanmirror-fr-agent-os-openapi.yml
 x-generated: '2026-09-19'
 x-method: generated
 x-source: Generated from openapi/humanmirror-fr-agent-os-openapi.yml (5 operations) and the searched artifacts in

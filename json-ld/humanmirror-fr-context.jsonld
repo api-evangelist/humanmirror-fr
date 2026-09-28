@@ -1,0 +1,77 @@
+{
+  "@context": {
+    "@vocab": "https://humanmirror.fr/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "humanmirror": "https://humanmirror.fr/schema#",
+    "MachineError": "humanmirror:MachineError",
+    "error": {
+      "@id": "humanmirror:error",
+      "@type": "xsd:string"
+    },
+    "code": {
+      "@id": "humanmirror:code",
+      "@type": "xsd:string"
+    },
+    "retryable": {
+      "@id": "humanmirror:retryable",
+      "@type": "xsd:boolean"
+    },
+    "PaymentRequired": "humanmirror:PaymentRequired",
+    "x402Version": {
+      "@id": "humanmirror:x402Version",
+      "@type": "xsd:integer"
+    },
+    "resource": {
+      "@id": "humanmirror:resource"
+    },
+    "accepts": {
+      "@id": "humanmirror:accepts",
+      "@container": "@list"
+    },
+    "ForgeError": "humanmirror:ForgeError",
+    "ok": {
+      "@id": "humanmirror:ok"
+    },
+    "version": {
+      "@id": "humanmirror:version",
+      "@type": "xsd:string"
+    },
+    "request_id": {
+      "@id": "humanmirror:request_id",
+      "@type": "xsd:string"
+    },
+    "ForgeSuccess": "humanmirror:ForgeSuccess",
+    "tool": {
+      "@id": "humanmirror:tool",
+      "@type": "xsd:string"
+    },
+    "result": {
+      "@id": "humanmirror:result"
+    },
+    "usage": {
+      "@id": "humanmirror:usage"
+    },
+    "ForgeRun": "humanmirror:ForgeRun",
+    "input": {
+      "@id": "humanmirror:input"
+    },
+    "options": {
+      "@id": "humanmirror:options"
+    },
+    "Error": "humanmirror:Error",
+    "AnalyzeSuccess": "humanmirror:AnalyzeSuccess"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "HumanMirror API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects HumanMirror's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-09-28) from openapi/humanmirror-fr-agent-api-openapi.yml, openapi/humanmirror-fr-automata-api-openapi.yml, openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml.",
+  "dcterms:created": "2026-09-28",
+  "dcterms:source": [
+    "openapi/humanmirror-fr-agent-api-openapi.yml",
+    "openapi/humanmirror-fr-automata-api-openapi.yml",
+    "openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml",
+    "openapi/humanmirror-fr-circuit-api-openapi.yml",
+    "openapi/humanmirror-fr-consensus-api-openapi.yml"
+  ]
+}

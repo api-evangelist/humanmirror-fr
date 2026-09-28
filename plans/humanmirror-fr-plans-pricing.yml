@@ -1,6 +1,7 @@
 generated: '2026-09-19'
 method: probed
 source: https://humanmirror.fr/products/human-catalog.json
+name: HumanMirror API Plans
 docs:
 - https://humanmirror.fr/products/
 - https://humanmirror.fr/cgv/

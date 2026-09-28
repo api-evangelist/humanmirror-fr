@@ -4,10 +4,7 @@ source: https://humanmirror.fr/connect/, https://humanmirror.fr/docs/vibecode/, 
   https://humanmirror.fr/skill.md, https://humanmirror.fr/.well-known/mcp.json, /forge-mcp.json, /nexus.json, the
   three registry server.json files, and every securityScheme in the 16 contracts under openapi/ (listed verbatim
   below); live 402 challenge observed 2026-09-19
-docs:
-- https://humanmirror.fr/connect/
-- https://humanmirror.fr/docs/vibecode/
-- https://humanmirror.fr/llms.txt
+docs: null
 summary:
   types:
   - http bearer (per-product prefixed API keys)

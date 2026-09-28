@@ -1,4 +1,6 @@
 generated: '2026-09-19'
+name: 'HumanMirror Rate Limits'
+limits: []
 method: probed
 source: x-humanmirror-free-quota header observed on GET https://humanmirror.fr/api/v1/sanitize/shield/ (2026-09-19);
   GET discovery bodies (test_quota); openapi/ 429 responses; llms.txt; skill.md; /connect/; human-catalog.json

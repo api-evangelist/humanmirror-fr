@@ -1,3 +1,11 @@
+---
+name: humanmirror-genesis-skill
+description: Machine-native deterministic context cleanup with a free bootstrap and x402 paid continuation.
+generated: "2026-09-19"
+method: generated
+source: https://humanmirror.fr/m2m/genesis.json, https://humanmirror.fr/m2m/challenge.json, https://humanmirror.fr/x402/openapi.json, https://humanmirror.fr/.well-known/x402.json
+---
+
 # HumanMirror Genesis
 
 Machine-native deterministic context cleanup with a free bootstrap and x402 paid continuation.

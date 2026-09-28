@@ -6,10 +6,7 @@ docs:
 - https://humanmirror.fr/connect/
 - https://humanmirror.fr/skill.md
 - https://humanmirror.fr/llms.txt
-summary: 'HumanMirror has no separate test host, test mode or magic test values: every call — free or paid — hits
-  production at https://humanmirror.fr. What it publishes instead is a free-first design: trial credits, per-day
-  free quotas, a dry_run flag on the MCP tools, free quote/verify endpoints, and a hosted Playground that spends
-  23 of a free 100-credit Nexus key on three real verified calls.'
+description: 'HumanMirror has no separate test host, test mode or magic test values: every call — free or paid — hits production at https://humanmirror.fr. What it publishes instead is a free-first design: trial credits, per-day free quotas, a dry_run flag on the MCP tools, free quote/verify endpoints, and a hosted Playground that spends 23 of a free 100-credit Nexus key on three real verified calls.'
 console:
   present: true
   type: hosted playground

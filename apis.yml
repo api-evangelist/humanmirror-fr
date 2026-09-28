@@ -1,5 +1,7 @@
 aid: humanmirror-fr
+
 name: HumanMirror
+
 description: 'HumanMirror is a Toulouse, France-based agent-infrastructure provider (operated as an entrepreneur
   individuel) that sells security, verification, data-quality and payment-orchestration services to autonomous agents
   and the developers who run them. Agents pay per call in USDC on Base through x402 V2 (0.001 / 0.010 / 0.050 USDC
@@ -7,19 +9,30 @@ description: 'HumanMirror is a Toulouse, France-based agent-infrastructure provi
   audits, a Pro subscription and Enterprise Guard governance tiers in EUR. The surface is unusually machine-first:
   16 OpenAPI 3.1 contracts, seven hosted MCP servers whose tools/list is open, an A2A agent card, llms.txt, an ai-plugin
   manifest, published JSON Schemas and ~40 vendor /.well-known/ manifests, all on a single host.'
+
 url: https://raw.githubusercontent.com/api-evangelist/humanmirror-fr/refs/heads/main/apis.yml
+
 image: https://humanmirror.fr/assets/humanmirror-mark.svg
+
 x-type: company
+
 x-source: harvest:a2a-registry
+
 x-tier: enriched
+
 x-tier-reason: enrichment-pipeline
+
 x-hq:
   city: Toulouse
   country: FR
   source: https://humanmirror.fr/mentions-legales/
+
 specificationVersion: '0.20'
+
 created: '2026-09-19'
+
 modified: '2026-09-19'
+
 tags:
 - Company
 - AI Agents
@@ -34,6 +47,7 @@ tags:
 - Verified Outcomes
 - Microtransactions
 - France
+
 tags_raw:
 - Company
 - AI Agents
@@ -48,6 +62,149 @@ tags_raw:
 - Verified Outcomes
 - Micro-Transactions
 - France
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+
+common:
+- type: AgenticAccess
+  url: agentic-access/humanmirror-fr-agentic-access.yml
+- type: Spectral
+  url: rules/humanmirror-fr-rules.yml
+- type: JSONLD
+  url: json-ld/humanmirror-fr-context.jsonld
+- type: Vocabulary
+  url: vocabulary/humanmirror-fr-vocabulary.yml
+- type: DataModel
+  url: data-model/humanmirror-fr-data-model.yml
+- type: Deprecation
+  url: lifecycle/humanmirror-fr-lifecycle.yml
+- type: Hosts
+  url: hosts/humanmirror-fr-hosts.yml
+- type: Vendors
+  url: vendors/humanmirror-fr-vendors.yml
+- type: SDKs
+  url: packages/humanmirror-fr-packages.yml
+- type: Overlay
+  url: overlays/humanmirror-fr-x402-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/x402/mcp/
+- type: AgentSkill
+  url: skills/humanmirror-fr-secure-external-context.md
+- type: AgentSkill
+  url: skills/humanmirror-fr-genesis-skill.md
+- type: Overlay
+  url: overlays/humanmirror-fr-sanitize-shield-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-payload-normalizer-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-consensus-verify-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-oracle-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/oracle/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-forge-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/forge/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-nexus-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/nexus/mcp/
+- type: AgentSkill
+  url: skills/humanmirror-fr-verified-outcome.md
+- type: Overlay
+  url: overlays/humanmirror-fr-agentops-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-magnet-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-outcome-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-one-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/one/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-flow-overlay.yaml
+- type: MCPServer
+  url: https://humanmirror.fr/api/flow/mcp/
+- type: Overlay
+  url: overlays/humanmirror-fr-market-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-agent-os-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-physical-oracle-overlay.yaml
+- type: Overlay
+  url: overlays/humanmirror-fr-automata-overlay.yaml
+- type: DomainSecurity
+  url: security/humanmirror-fr-domain-security.yml
+- type: Authentication
+  url: authentication/humanmirror-fr-authentication.yml
+- type: Website
+  url: https://humanmirror.fr/
+- type: DeveloperPortal
+  url: https://humanmirror.fr/agents/
+- type: GettingStarted
+  url: https://humanmirror.fr/connect/
+- type: Documentation
+  url: https://humanmirror.fr/docs/vibecode/
+- type: Playground
+  url: https://humanmirror.fr/playground/
+- type: Pricing
+  url: https://humanmirror.fr/products/
+- type: Support
+  url: https://humanmirror.fr/contact/
+- type: SignUp
+  url: https://humanmirror.fr/dashboard/
+- type: TermsOfService
+  url: https://humanmirror.fr/cgv/
+- type: PrivacyPolicy
+  url: https://humanmirror.fr/confidentialite/
+- type: GitHubOrganization
+  url: https://github.com/VibeMirror-coder
+- type: LLMsTxt
+  url: llms/humanmirror-fr-llms.txt
+- type: LLMsTxt
+  url: https://humanmirror.fr/llms.txt
+- type: AgentCard
+  url: a2a/humanmirror-fr-a2a.yml
+- type: MCPServer
+  url: mcp/humanmirror-fr-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/humanmirror-fr-tool-crosswalk.yml
+- type: WellKnown
+  url: well-known/humanmirror-fr-well-known.yml
+- type: PluginManifest
+  url: well-known/humanmirror-fr-ai-plugin.json
+- type: Conformance
+  url: conformance/humanmirror-fr-conformance.yml
+- type: ErrorCatalog
+  url: errors/humanmirror-fr-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/humanmirror-fr-lifecycle.yml
+- type: Conventions
+  url: conventions/humanmirror-fr-conventions.yml
+- type: RateLimits
+  url: rate-limits/humanmirror-fr-rate-limits.yml
+- type: Plans
+  url: plans/humanmirror-fr-plans-pricing.yml
+- type: Packages
+  url: packages/humanmirror-fr-packages.yml
+- type: CLI
+  url: cli/humanmirror-fr-cli.yml
+- type: Sandbox
+  url: sandbox/humanmirror-fr-sandbox.yml
+- type: RegulatoryPosture
+  url: regulatory/humanmirror-fr-regulatory-posture.yml
+- type: Security
+  url: security/humanmirror-fr-vulnerability-disclosure.yml
+- type: VulnerabilityDisclosure
+  url: security/humanmirror-fr-vulnerability-disclosure.yml
+- type: AgentSkill
+  url: skills/_index.yml
+
 apis:
 - aid: humanmirror-fr:omnidome
   name: OmniDome by HumanMirror (MCP)
@@ -2020,128 +2177,7 @@ apis:
     url: https://humanmirror.fr/field/
   - type: Documentation
     url: https://humanmirror.fr/automata/
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-- FN: APIs.json
-  email: info@apis.io
-common:
-- type: Overlay
-  url: overlays/humanmirror-fr-x402-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/x402/mcp/
-- type: AgentSkill
-  url: skills/humanmirror-fr-secure-external-context.md
-- type: AgentSkill
-  url: skills/humanmirror-fr-genesis-skill.md
-- type: Overlay
-  url: overlays/humanmirror-fr-sanitize-shield-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-payload-normalizer-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-consensus-verify-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-oracle-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/oracle/mcp/
-- type: Overlay
-  url: overlays/humanmirror-fr-forge-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/forge/mcp/
-- type: Overlay
-  url: overlays/humanmirror-fr-nexus-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/nexus/mcp/
-- type: AgentSkill
-  url: skills/humanmirror-fr-verified-outcome.md
-- type: Overlay
-  url: overlays/humanmirror-fr-agentops-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-magnet-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-outcome-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-one-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/one/mcp/
-- type: Overlay
-  url: overlays/humanmirror-fr-flow-overlay.yaml
-- type: MCPServer
-  url: https://humanmirror.fr/api/flow/mcp/
-- type: Overlay
-  url: overlays/humanmirror-fr-market-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-agent-os-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-physical-oracle-overlay.yaml
-- type: Overlay
-  url: overlays/humanmirror-fr-automata-overlay.yaml
-- type: DomainSecurity
-  url: security/humanmirror-fr-domain-security.yml
-- type: Authentication
-  url: authentication/humanmirror-fr-authentication.yml
-- type: Website
-  url: https://humanmirror.fr/
-- type: DeveloperPortal
-  url: https://humanmirror.fr/agents/
-- type: GettingStarted
-  url: https://humanmirror.fr/connect/
-- type: Documentation
-  url: https://humanmirror.fr/docs/vibecode/
-- type: Playground
-  url: https://humanmirror.fr/playground/
-- type: Pricing
-  url: https://humanmirror.fr/products/
-- type: Support
-  url: https://humanmirror.fr/contact/
-- type: SignUp
-  url: https://humanmirror.fr/dashboard/
-- type: TermsOfService
-  url: https://humanmirror.fr/cgv/
-- type: PrivacyPolicy
-  url: https://humanmirror.fr/confidentialite/
-- type: GitHubOrganization
-  url: https://github.com/VibeMirror-coder
-- type: LLMsTxt
-  url: llms/humanmirror-fr-llms.txt
-- type: LLMsTxt
-  url: https://humanmirror.fr/llms.txt
-- type: AgentCard
-  url: a2a/humanmirror-fr-a2a.yml
-- type: MCPServer
-  url: mcp/humanmirror-fr-mcp.yml
-- type: ToolCrosswalk
-  url: mcp/humanmirror-fr-tool-crosswalk.yml
-- type: WellKnown
-  url: well-known/humanmirror-fr-well-known.yml
-- type: PluginManifest
-  url: well-known/humanmirror-fr-ai-plugin.json
-- type: Conformance
-  url: conformance/humanmirror-fr-conformance.yml
-- type: ErrorCatalog
-  url: errors/humanmirror-fr-problem-types.yml
-- type: Lifecycle
-  url: lifecycle/humanmirror-fr-lifecycle.yml
-- type: Conventions
-  url: conventions/humanmirror-fr-conventions.yml
-- type: RateLimits
-  url: rate-limits/humanmirror-fr-rate-limits.yml
-- type: Plans
-  url: plans/humanmirror-fr-plans-pricing.yml
-- type: Packages
-  url: packages/humanmirror-fr-packages.yml
-- type: CLI
-  url: cli/humanmirror-fr-cli.yml
-- type: Sandbox
-  url: sandbox/humanmirror-fr-sandbox.yml
-- type: RegulatoryPosture
-  url: regulatory/humanmirror-fr-regulatory-posture.yml
-- type: Security
-  url: security/humanmirror-fr-vulnerability-disclosure.yml
-- type: VulnerabilityDisclosure
-  url: security/humanmirror-fr-vulnerability-disclosure.yml
-- type: AgentSkill
-  url: skills/_index.yml
+
 x-base-url:
   host: https://humanmirror.fr
   repair_api_bases_verdict: marketing-base-present
@@ -2154,11 +2190,7 @@ x-base-url:
   - openapi/_original/*-openapi.json servers[]
   - live 402 on POST https://humanmirror.fr/api/x402/secret-scanning/ 2026-09-19
   - 'DNS: api.humanmirror.fr / docs.humanmirror.fr / mcp.humanmirror.fr unresolvable 2026-09-19'
-x-enrichment:
-  date: '2026-09-19'
-  status: enriched
-  artifacts_added: 93
-  pass: local-v3
+
 x-a2a:
   verified: true
   probed: '2026-09-26'
@@ -2166,6 +2198,7 @@ x-a2a:
   grade: "flavored"
   protocol_version: "1.0"
   control: 404
+
 x-correction-request:
   requested: '2026-09-27'
   source: email 2026-09-25 + 2026-09-27 (contact.humanmirror@gmail.com)
@@ -2174,3 +2207,9 @@ x-correction-request:
     https://humanmirror.fr/api/one/mcp/, A2A https://humanmirror.fr/.well-known/agent-card.json, x402
     https://humanmirror.fr/.well-known/x402.json. Record the three SKILL.md files in github.com/VibeMirror-coder/humanmirror/skills
     (purchase-firewall, safe-preflight, execution-receipt) as FIRST-PARTY Agent Skills, not derived.'
+x-enrichment:
+  date: '2026-09-28'
+  status: enriched
+  artifacts_added: 8
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

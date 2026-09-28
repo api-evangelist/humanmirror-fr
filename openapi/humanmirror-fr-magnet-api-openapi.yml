@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Humanmirror Fr Magnet API
+  title: HumanMirror Magnet API
   version: 1.0.0
-  description: 'Operations tagged Magnet across 2 of this provider''s published API definitions: humanmirror-fr-magnet-openapi.json, humanmirror-fr-magnet-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Free fallback capability discovery and privacy-thresholded Machine Demand Graph for AI agents.
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -48,8 +48,6 @@ paths:
       - Magnet
       operationId: postApiMagnetResolve
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
   /api/magnet/hot:
     get:
       summary: Get aggregated public capability gaps
@@ -68,8 +66,6 @@ paths:
       - Magnet
       operationId: getApiMagnetHot
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
   /api/magnet/gap:
     get:
       summary: Get public status for a Magnet capability gap
@@ -88,17 +84,3 @@ paths:
       - Magnet
       operationId: getApiMagnetGap
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
-x-refined-from:
-- humanmirror-fr-magnet-openapi.json
-- humanmirror-fr-magnet-openapi.yml
-x-humanmirror-discovery:
-  agent_os: https://humanmirror.fr/.well-known/agent-os.json
-  agent: https://humanmirror.fr/.well-known/agent.json
-  a2a: https://humanmirror.fr/.well-known/agent-card.json
-  x402: https://humanmirror.fr/.well-known/x402.json
-  catalog: https://humanmirror.fr/x402/catalog.json
-  mcp: https://humanmirror.fr/api/x402/mcp/
-  schema: https://humanmirror.fr/schemas/agent-os-v1.json
-  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

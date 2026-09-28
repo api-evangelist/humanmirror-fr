@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the HumanMirror Magnet API
   version: 1.0.0
-extends: ../openapi/humanmirror-fr-magnet-openapi.yml
+extends: ../openapi/_original/humanmirror-fr-magnet-openapi.yml
 x-generated: '2026-09-19'
 x-method: generated
 x-source: Generated from openapi/humanmirror-fr-magnet-openapi.yml (4 operations) and the searched artifacts in

@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Humanmirror Fr Forge API
+  title: HumanMirror Forge API
   version: 1.0.0
-  description: 'Operations tagged Forge across 2 of this provider''s published API definitions: humanmirror-fr-forge-openapi.json, humanmirror-fr-forge-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Five deterministic micro-tools for AI agents and automations.
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -21,8 +21,6 @@ paths:
       - Forge
       operationId: getApiForge
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
   /api/forge/trial:
     post:
       summary: Create a 25-credit trial API key
@@ -35,8 +33,6 @@ paths:
       - Forge
       operationId: postApiForgeTrial
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
   /api/forge/run:
     post:
       summary: Run a Forge micro-tool
@@ -71,8 +67,6 @@ paths:
       - Forge
       operationId: postApiForgeRun
       x-operation-id-source: derived
-    servers:
-    - url: https://humanmirror.fr
 components:
   schemas:
     ForgeError:
@@ -147,15 +141,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: hm_forge_*
-x-refined-from:
-- humanmirror-fr-forge-openapi.json
-- humanmirror-fr-forge-openapi.yml
-x-humanmirror-discovery:
-  agent_os: https://humanmirror.fr/.well-known/agent-os.json
-  agent: https://humanmirror.fr/.well-known/agent.json
-  a2a: https://humanmirror.fr/.well-known/agent-card.json
-  x402: https://humanmirror.fr/.well-known/x402.json
-  catalog: https://humanmirror.fr/x402/catalog.json
-  mcp: https://humanmirror.fr/api/x402/mcp/
-  schema: https://humanmirror.fr/schemas/agent-os-v1.json
-  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

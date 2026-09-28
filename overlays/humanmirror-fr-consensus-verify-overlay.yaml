@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the HumanMirror Probabilistic Consensus Oracle
   version: 1.0.0
-extends: ../openapi/humanmirror-fr-consensus-verify-openapi.yml
+extends: ../openapi/_original/humanmirror-fr-consensus-verify-openapi.yml
 x-generated: '2026-09-19'
 x-method: generated
 x-source: Generated from openapi/humanmirror-fr-consensus-verify-openapi.yml (2 operations) and the searched artifacts

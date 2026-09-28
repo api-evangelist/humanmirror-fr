@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for the HumanMirror Physical Oracle API
   version: 1.0.0
-extends: ../openapi/humanmirror-fr-physical-oracle-openapi.yml
+extends: ../openapi/_original/humanmirror-fr-physical-oracle-openapi.yml
 x-generated: '2026-09-19'
 x-method: generated
 x-source: Generated from openapi/humanmirror-fr-physical-oracle-openapi.yml (11 operations) and the searched artifacts

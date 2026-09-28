@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Humanmirror Fr Value API
+  title: HumanMirror Agent OS Value API
   version: 1.0.0
-  description: 'Operations tagged Value across 2 of this provider''s published API definitions: humanmirror-fr-agent-os-openapi.json, humanmirror-fr-agent-os-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: Machine-native Proof-of-State and exact SHA-256 state-continuity verification with scoped trust/automation signals. Paid execution uses x402 V2 with USDC on Base mainnet.
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -31,8 +31,6 @@ paths:
           description: Policy blocked the transaction.
       tags:
       - Value
-    servers:
-    - url: https://humanmirror.fr
   /api/value/firewall/:
     post:
       summary: Evaluate transaction policy before routing
@@ -42,8 +40,6 @@ paths:
           description: ALLOW, REVIEW or BLOCK policy result.
       tags:
       - Value
-    servers:
-    - url: https://humanmirror.fr
   /api/value/receipt/:
     post:
       summary: Create a signed caller-attested universal receipt
@@ -56,14 +52,9 @@ paths:
           description: Transaction reference required.
       tags:
       - Value
-    servers:
-    - url: https://humanmirror.fr
 externalDocs:
   description: HumanMirror Agent OS discovery manifest
   url: https://humanmirror.fr/.well-known/agent-os.json
-x-refined-from:
-- humanmirror-fr-agent-os-openapi.json
-- humanmirror-fr-agent-os-openapi.yml
 x-humanmirror-discovery:
   agent_os: https://humanmirror.fr/.well-known/agent-os.json
   agent: https://humanmirror.fr/.well-known/agent.json
