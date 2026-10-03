@@ -31,7 +31,7 @@ specificationVersion: '0.20'
 
 created: '2026-09-19'
 
-modified: '2026-09-19'
+modified: '2026-10-03'
 
 tags:
 - Company
@@ -70,6 +70,8 @@ maintainers:
   email: info@apis.io
 
 common:
+- type: APIsJSON
+  url: https://humanmirror.fr/apis.json
 - type: AgenticAccess
   url: agentic-access/humanmirror-fr-agentic-access.yml
 - type: Spectral
@@ -116,6 +118,12 @@ common:
   url: https://humanmirror.fr/api/nexus/mcp/
 - type: AgentSkill
   url: skills/humanmirror-fr-verified-outcome.md
+- type: AgentSkill
+  url: skills/humanmirror-fr-purchase-firewall.md
+- type: AgentSkill
+  url: skills/humanmirror-fr-safe-preflight.md
+- type: AgentSkill
+  url: skills/humanmirror-fr-execution-receipt.md
 - type: Overlay
   url: overlays/humanmirror-fr-agentops-overlay.yaml
 - type: Overlay
@@ -233,7 +241,7 @@ apis:
   name: HumanMirror Agent API
   description: The Agent API from HumanMirror — 1 operation(s) for agent.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Agent
   properties:
@@ -305,7 +313,7 @@ apis:
   name: HumanMirror Automata API
   description: The Automata API from HumanMirror — 1 operation(s) for automata.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Automata
   properties:
@@ -379,7 +387,7 @@ apis:
     Canonical, bundle-priced HumanMirror services for autonomous agents. These routes supersede primitive
     legacy aliases.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Canonical agent bundles
   properties:
@@ -451,7 +459,7 @@ apis:
   name: HumanMirror Circuit API
   description: The Circuit API from HumanMirror — 1 operation(s) for circuit.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Circuit
   properties:
@@ -523,7 +531,7 @@ apis:
   name: HumanMirror Consensus API
   description: The Consensus API from HumanMirror — 1 operation(s) for consensus.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Consensus
   properties:
@@ -595,7 +603,7 @@ apis:
   name: HumanMirror Flow API
   description: The Flow API from HumanMirror — 4 operation(s) for flow.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Flow
   properties:
@@ -667,7 +675,7 @@ apis:
   name: HumanMirror Forge API
   description: The Forge API from HumanMirror — 3 operation(s) for forge.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Forge
   properties:
@@ -739,7 +747,7 @@ apis:
   name: HumanMirror Lens API
   description: The Lens API from HumanMirror — 2 operation(s) for lens.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Lens
   properties:
@@ -811,7 +819,7 @@ apis:
   name: HumanMirror M2m API
   description: The M2m API from HumanMirror — 6 operation(s) for m2m.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - M2m
   properties:
@@ -883,7 +891,7 @@ apis:
   name: HumanMirror M2M Core API
   description: The M2M Core API from HumanMirror — 2 operation(s) for m2m core.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - M2M Core
   properties:
@@ -957,7 +965,7 @@ apis:
     HumanMirror Next-Gen / Pack Futur — pre-launch 2027-2030 routes. 0.050 USDC per test call, included
     in Enterprise Fleet and available as Preview for HumanMirror Pro.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - M2M Next-Gen Preview
   properties:
@@ -1029,7 +1037,7 @@ apis:
   name: HumanMirror Magnet API
   description: The Magnet API from HumanMirror — 3 operation(s) for magnet.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Magnet
   properties:
@@ -1101,7 +1109,7 @@ apis:
   name: HumanMirror Market API
   description: The Market API from HumanMirror — 4 operation(s) for market.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Market
   properties:
@@ -1173,7 +1181,7 @@ apis:
   name: HumanMirror Nexus API
   description: The Nexus API from HumanMirror — 6 operation(s) for nexus.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Nexus
   properties:
@@ -1245,7 +1253,7 @@ apis:
   name: HumanMirror One API
   description: The One API from HumanMirror — 2 operation(s) for one.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - One
   properties:
@@ -1317,7 +1325,7 @@ apis:
   name: HumanMirror Oracle API
   description: The Oracle API from HumanMirror — 2 operation(s) for oracle.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Oracle
   properties:
@@ -1389,7 +1397,7 @@ apis:
   name: HumanMirror Outcome API
   description: The Outcome API from HumanMirror — 4 operation(s) for outcome.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Outcome
   properties:
@@ -1461,7 +1469,7 @@ apis:
   name: HumanMirror Physical Oracle API
   description: The Physical Oracle API from HumanMirror — 10 operation(s) for physical oracle.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Physical Oracle
   properties:
@@ -1533,7 +1541,7 @@ apis:
   name: HumanMirror Referral API
   description: The Referral API from HumanMirror — 3 operation(s) for referral.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Referral
   properties:
@@ -1605,7 +1613,7 @@ apis:
   name: HumanMirror Sanitize API
   description: The Sanitize API from HumanMirror — 1 operation(s) for sanitize.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Sanitize
   properties:
@@ -1677,7 +1685,7 @@ apis:
   name: HumanMirror Sentinel API
   description: The Sentinel API from HumanMirror — 1 operation(s) for sentinel.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Sentinel
   properties:
@@ -1749,7 +1757,7 @@ apis:
   name: HumanMirror Sink API
   description: The Sink API from HumanMirror — 1 operation(s) for sink.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Sink
   properties:
@@ -1821,7 +1829,7 @@ apis:
   name: HumanMirror Trace API
   description: The Trace API from HumanMirror — 2 operation(s) for trace.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Trace
   properties:
@@ -1893,7 +1901,7 @@ apis:
   name: HumanMirror Value API
   description: The Value API from HumanMirror — 3 operation(s) for value.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Value
   properties:
@@ -1965,7 +1973,7 @@ apis:
   name: HumanMirror Vault API
   description: The Vault API from HumanMirror — 1 operation(s) for vault.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Vault
   properties:
@@ -2035,14 +2043,25 @@ apis:
     url: https://humanmirror.fr/automata/
 - aid: humanmirror-fr:humanmirror-fr-x402-api
   name: HumanMirror X402 API
-  description: The X402 API from HumanMirror — 52 operation(s) for x402.
+  description: The X402 API from HumanMirror — 54 operation(s) for x402. Split from the OpenAPI the provider's apis.json declares
+    for its HumanMirror Machine API (https://humanmirror.fr/openapi.json, HumanMirror x402 API 3.3.0).
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - X402
   properties:
   - type: OpenAPI
     url: openapi/humanmirror-fr-x402-api-openapi.yml
+  - type: OpenAPI
+    url: https://humanmirror.fr/openapi.json
+  - type: Documentation
+    url: https://humanmirror.fr/one/
+  - type: MCPServer
+    url: https://humanmirror.fr/api/one/mcp/
+  - type: AgentCard
+    url: https://humanmirror.fr/.well-known/agent-card.json
+  - type: AgenticAccess
+    url: https://humanmirror.fr/.well-known/x402.json
   - type: Documentation
     url: https://humanmirror.fr/x402/
   - type: Documentation
@@ -2109,7 +2128,7 @@ apis:
   name: HumanMirror Zero API
   description: The Zero API from HumanMirror — 1 operation(s) for zero.
   humanURL: https://humanmirror.fr/x402/
-  baseURL: https://humanmirror.fr/api/omnidome/
+  baseURL: https://humanmirror.fr
   tags:
   - Zero
   properties:
@@ -2199,6 +2218,23 @@ x-a2a:
   protocol_version: "1.0"
   control: 404
 
+x-apis-json:
+  url: https://humanmirror.fr/apis.json
+  specificationVersion: '0.23'
+  modified: '2026-09-27'
+  role: The provider's authoritative APIs.json index (it says so in its 2026-09-27 submission); this profile is rooted on it.
+    It declares one API, HumanMirror Machine API (baseURL https://humanmirror.fr), with OpenAPI /openapi.json, docs /one/, MCP
+    /api/one/mcp/, A2A /.well-known/agent-card.json, llms.txt, /.well-known/humanmirror-connect.json and an x402 manifest
+    /.well-known/x402.json. Saved verbatim at well-known/humanmirror-fr-apis.json on 2026-10-03.
+  saved: well-known/humanmirror-fr-apis.json
+x-x402:
+  verified: true
+  probed: '2026-10-03'
+  url: "https://humanmirror.fr/api/x402/safe-preflight/"
+  evidence:
+  - "header:payment-required"
+  control: 404
+  manifest: well-known/humanmirror-fr-x402.json
 x-correction-request:
   requested: '2026-09-27'
   source: email 2026-09-25 + 2026-09-27 (contact.humanmirror@gmail.com)
@@ -2207,6 +2243,18 @@ x-correction-request:
     https://humanmirror.fr/api/one/mcp/, A2A https://humanmirror.fr/.well-known/agent-card.json, x402
     https://humanmirror.fr/.well-known/x402.json. Record the three SKILL.md files in github.com/VibeMirror-coder/humanmirror/skills
     (purchase-firewall, safe-preflight, execution-receipt) as FIRST-PARTY Agent Skills, not derived.'
+  ledger:
+  - gmail-c95fe363 (email 2026-09-25)
+  - gmail-e861bc13 (email 2026-09-27)
+  applied: '2026-10-03'
+  applied_note: Applied by hand. Rooted on https://humanmirror.fr/apis.json (APIsJSON pointer first in common, x-apis-json block,
+    document saved verbatim); its OpenAPI https://humanmirror.fr/openapi.json (x402 API 3.3.0, 79 paths, was 3.2.0 / 76) replaced
+    openapi/_original/humanmirror-fr-x402-openapi.json verbatim and was re-split/standardized; MCP /api/one/mcp/ re-probed (1 tool,
+    humanmirror_do, already recorded); A2A card already recorded in x-a2a; x402 402-challenge verified with a 404 control and the
+    x402.json manifest saved. The three SKILL.md files are recorded as first-party skills (method searched, first_party true) from
+    https://humanmirror.fr/skills/<name>/SKILL.md, because github.com/VibeMirror-coder/humanmirror returned 404 on 2026-10-03.
+    API baseURLs moved from /api/omnidome/ to https://humanmirror.fr to match the provider apis.json and x-base-url. The top-level
+    url stays our raw apis.yml (catalog convention).
 x-enrichment:
   date: '2026-09-28'
   status: enriched

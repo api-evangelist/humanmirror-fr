@@ -1,8 +1,11 @@
 openapi: 3.2.0
 info:
-  title: HumanMirror Intent Market API
-  version: 1.0.0
-  description: Non-custodial intent marketplace for autonomous agents. x402 Base/USDC is live for paid market actions.
+  title: Humanmirror Fr Market API
+  x-refined-note:
+  - x-guidance differs across the merged source definitions and was not carried
+  - x-keywords differs across the merged source definitions and was not carried
+  version: '1.0'
+  description: 'Operations tagged Market across 2 of this provider''s published API definitions: humanmirror-fr-market-openapi.json, humanmirror-fr-x402-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -18,6 +21,8 @@ paths:
       - Market
       operationId: getApiMarketLive
       x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
   /api/market/intent/:
     get:
       summary: Inspect paid intent publishing terms
@@ -36,6 +41,8 @@ paths:
       - Market
       operationId: postApiMarketIntent
       x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
   /api/market/bid/:
     get:
       summary: Inspect provider bidding contract
@@ -52,6 +59,8 @@ paths:
       - Market
       operationId: postApiMarketBid
       x-operation-id-source: derived
+    servers:
+    - url: https://humanmirror.fr
   /api/market/award/:
     get:
       summary: Inspect paid award terms
@@ -70,12 +79,124 @@ paths:
       - Market
       operationId: postApiMarketAward
       x-operation-id-source: derived
-x-humanmirror:
-  protocol: hm-intent-market/1
-  custody: non_custodial
-  rails:
-    x402: live
-    AP2: adapter_ready
-    ERC-8004: adapter_ready
-    UPI: adapter_ready
-    Stripe: adapter_ready
+    servers:
+    - url: https://humanmirror.fr
+  /api/market/request/:
+    get:
+      operationId: humanmirrorBestExecutionTerms
+      summary: Inspect Execution Market best-execution request terms
+      responses:
+        '200':
+          description: Execution Market terms
+      tags:
+      - Market
+    post:
+      operationId: humanmirrorBestExecutionRequest
+      summary: Publish one best-execution machine demand
+      description: 0.010 USDC x402 request. Opens one HumanMirror market intent so compatible providers can bid for free.
+      responses:
+        '200':
+          description: Demand published
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '402':
+          description: Payment required
+      x-humanmirror-price-usdc: '0.010'
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: USDC
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+      tags:
+      - Market
+    servers:
+    - url: https://humanmirror.fr
+  /api/market/execute/:
+    get:
+      operationId: humanmirrorBestExecutionCommitTerms
+      summary: Inspect best-execution commitment terms
+      responses:
+        '200':
+          description: Commitment terms
+      tags:
+      - Market
+    post:
+      operationId: humanmirrorBestExecutionCommit
+      summary: Reserve and commit the best admissible provider quote
+      description: Requires commit=true. The selected bid is reserved for 120 seconds. HumanMirror charges 30% of verified quote savings and the buyer keeps 70%; sub-0.001 USDC fees are waived. Provider payment remains external and non-custodial.
+      responses:
+        '200':
+          description: Quote committed or success fee waived
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Explicit commit or valid intent required
+        '402':
+          description: Dynamic verified-savings fee required
+        '422':
+          description: No admissible saving route or quote unavailable
+      x-payment-info:
+        price:
+          mode: dynamic
+          currency: USD
+          amount: dynamic
+        protocols:
+        - x402: {}
+      x-x402:
+        version: 2
+        scheme: exact
+        network: eip155:8453
+        asset: USDC
+        payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+        fee_model: verified_savings_share
+        savings_share_bps: 3000
+      tags:
+      - Market
+    servers:
+    - url: https://humanmirror.fr
+components:
+  securitySchemes:
+    HumanMirrorProApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Active HumanMirror Pro API key. Grants Next-Gen Preview access subject to the Pro monthly API quota.
+    EnterpriseBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: hmep1
+      description: Active HumanMirror Enterprise Fleet pass. Next-Gen Preview is included.
+    OmniSyncApiKey:
+      type: http
+      scheme: bearer
+      bearerFormat: hm_omni_*
+      description: HumanMirror Omni-Sync API key. One credit per Shared Context operation when credits are available.
+externalDocs:
+  description: HumanMirror — The Agent Economy (2027-2030) technical lexicon
+  url: https://humanmirror.fr/future/
+x-refined-from:
+- humanmirror-fr-market-openapi.json
+- humanmirror-fr-x402-openapi.json
+x-humanmirror-discovery:
+  agent_os: https://humanmirror.fr/.well-known/agent-os.json
+  agent: https://humanmirror.fr/.well-known/agent.json
+  a2a: https://humanmirror.fr/.well-known/agent-card.json
+  x402: https://humanmirror.fr/.well-known/x402.json
+  catalog: https://humanmirror.fr/x402/catalog.json
+  mcp: https://humanmirror.fr/api/x402/mcp/
+  schema: https://humanmirror.fr/schemas/agent-os-v1.json
+  value_protocol: https://humanmirror.fr/.well-known/value-protocol.json

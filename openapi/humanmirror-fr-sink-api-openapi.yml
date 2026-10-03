@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: HumanMirror x402 Sink API
-  version: 3.2.0
+  version: 3.3.0
   description: 'HumanMirror Agent-First machine-payment API: M2M infrastructure on Base using x402 V2 and USDC, autonomous agent security, prompt injection defense, AI micro-transactions and non-custodial escrow preview. Granular calls use 0.001 / 0.010 / 0.050 USDC, thematic bundles 5.000 USDC, Enterprise Fleet 297.000 USDC / 30 days, plus the 2027-2030 Next-Gen preview suite at 0.050 USDC per test call.'
   x-keywords:
   - M2M infrastructure on Base
@@ -12,6 +12,10 @@ info:
   - Intent-Proof
   - M2M Escrow
   - Consensus-Lock
+  - Verified-savings best execution
+  - Execution Market
+  - provider competition
+  x-guidance: Use HumanMirror x402 routes for deterministic payment compatibility, safety preflight, and execution verification. Start without PAYMENT-SIGNATURE to receive the x402 challenge, then retry with a valid Base/USDC payment. For the lowest-friction entry point, use /api/x402/payment-compatibility-receipt/ to validate a payment shape; use /api/x402/safe-preflight/ before consequential agent actions.
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -94,6 +98,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.001'
       x-humanmirror-pricing-tier: granular_unit_0_001
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.001'
+        protocols:
+        - x402: {}
       tags:
       - Sink
 components:
@@ -203,3 +214,28 @@ x-humanmirror-global-enterprise:
   custom_profiles: true
   compatibility: additive_no_header_no_behavior_change
   compliance_assurance: policy_guardrails_not_legal_certification
+x-humanmirror-paid-retry:
+  protocol: payment-bound-idempotency/1
+  header: Idempotency-Key
+  identity: method + canonical route + request-body digest + exact payment-authorization digest
+  scope: canonical paid x402 POST routes
+  replay_header: X-HumanMirror-Idempotent-Replay
+  completed_replay_ttl_seconds: 86400
+  processing_lock_ttl_seconds: 300
+  semantics:
+    exact_retry: returns the original verified successful response without a second execution or settlement
+    altered_body: conflict; never replays unrelated output
+    fresh_payment_authorization: new payment intent even if the Idempotency-Key is reused
+    failed_execution_or_settlement: not committed as a successful replay
+x-humanmirror-best-execution:
+  protocol: hm-best-execution/1
+  fee_model: verified_savings_share
+  savings_share_bps: 3000
+  buyer_keeps_share_bps: 7000
+  quote_ttl_seconds: 120
+  provider_payment: external_non_custodial
+  manifest: https://humanmirror.fr/.well-known/intent-market.json
+x-x402:
+  payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+  asset: USDC
+  network: eip155:8453

@@ -69,6 +69,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ForgeRun:
+      type: object
+      required:
+      - tool
+      - input
+      properties:
+        tool:
+          type: string
+          enum:
+          - clean_json
+          - dedupe_records
+          - normalize_entity
+          - score_data_quality
+          - detect_anomaly
+        input: {}
+        options:
+          type: object
     ForgeError:
       type: object
       required:
@@ -119,23 +136,6 @@ components:
               type: integer
             credits_remaining:
               type: integer
-    ForgeRun:
-      type: object
-      required:
-      - tool
-      - input
-      properties:
-        tool:
-          type: string
-          enum:
-          - clean_json
-          - dedupe_records
-          - normalize_entity
-          - score_data_quality
-          - detect_anomaly
-        input: {}
-        options:
-          type: object
   securitySchemes:
     BearerAuth:
       type: http

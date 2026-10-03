@@ -120,8 +120,8 @@ components:
           - credits_used
           - credits_remaining
   responses:
-    Unauthorized:
-      description: Clé API invalide
+    PaymentRequired:
+      description: Crédits insuffisants
       content:
         application/json:
           schema:
@@ -132,8 +132,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    PaymentRequired:
-      description: Crédits insuffisants
+    Unauthorized:
+      description: Clé API invalide
       content:
         application/json:
           schema:

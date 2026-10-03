@@ -2,6 +2,7 @@ openapi: 3.2.0
 info:
   title: Humanmirror Fr Sanitize API
   x-refined-note:
+  - x-guidance differs across the merged source definitions and was not carried
   - x-keywords differs across the merged source definitions and was not carried
   version: '1.0'
   description: 'Operations tagged Sanitize across 2 of this provider''s published API definitions: humanmirror-fr-sanitize-shield-openapi.json, humanmirror-fr-x402-openapi.json. Each path carries the servers of the definition it was published in.'

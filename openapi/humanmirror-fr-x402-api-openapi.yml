@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: HumanMirror X402 API
-  version: 3.2.0
+  version: 3.3.0
   description: 'HumanMirror Agent-First machine-payment API: M2M infrastructure on Base using x402 V2 and USDC, autonomous agent security, prompt injection defense, AI micro-transactions and non-custodial escrow preview. Granular calls use 0.001 / 0.010 / 0.050 USDC, thematic bundles 5.000 USDC, Enterprise Fleet 297.000 USDC / 30 days, plus the 2027-2030 Next-Gen preview suite at 0.050 USDC per test call.'
   x-keywords:
   - M2M infrastructure on Base
@@ -12,6 +12,10 @@ info:
   - Intent-Proof
   - M2M Escrow
   - Consensus-Lock
+  - Verified-savings best execution
+  - Execution Market
+  - provider competition
+  x-guidance: Use HumanMirror x402 routes for deterministic payment compatibility, safety preflight, and execution verification. Start without PAYMENT-SIGNATURE to receive the x402 challenge, then retry with a valid Base/USDC payment. For the lowest-friction entry point, use /api/x402/payment-compatibility-receipt/ to validate a payment shape; use /api/x402/safe-preflight/ before consequential agent actions.
 servers:
 - url: https://humanmirror.fr
 tags:
@@ -61,6 +65,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required; inspect PAYMENT-REQUIRED header
         '422':
@@ -71,6 +80,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/one/:
@@ -105,12 +121,24 @@ paths:
       responses:
         '200':
           description: Verified result
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
       deprecated: false
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/flow/:
@@ -157,12 +185,24 @@ paths:
       responses:
         '200':
           description: Verified mission result
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
       deprecated: false
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.050'
       x-humanmirror-pricing-tier: granular_unit_0_050
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.050'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/clean-json/:
@@ -196,6 +236,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -206,6 +251,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/deduplicate-records/:
@@ -239,6 +291,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -249,6 +306,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/normalize-entity/:
@@ -282,6 +346,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -292,6 +361,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/data-quality/:
@@ -325,6 +401,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -335,6 +416,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/anomaly-detection/:
@@ -368,6 +456,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -378,6 +471,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/data-quality/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/secret-scanning/:
@@ -411,6 +511,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -421,6 +526,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/output-quality/:
@@ -454,6 +566,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -464,6 +581,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/schema-compatibility/:
@@ -497,6 +621,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -507,6 +636,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/safe-preflight/:
@@ -540,6 +676,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -550,6 +691,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/execution-receipt/:
@@ -583,6 +731,11 @@ paths:
       responses:
         '200':
           description: Verified result after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -593,6 +746,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-decision/:
@@ -630,6 +790,11 @@ paths:
       responses:
         '200':
           description: Decision returned after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -640,6 +805,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-annual-renewal-guard/:
@@ -673,6 +845,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -683,6 +860,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-broken-link-rescue/:
@@ -716,6 +900,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -726,6 +915,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-cart-glitch-shield/:
@@ -759,6 +955,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -769,6 +970,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-chargeback-shield/:
@@ -802,6 +1010,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -812,6 +1025,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-checkout-link-guard/:
@@ -845,6 +1065,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -855,6 +1080,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-cloud-credit-optimizer/:
@@ -888,6 +1120,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -898,6 +1135,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-cloud-migration-watchdog/:
@@ -931,6 +1175,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -941,6 +1190,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-db-bloat-guard/:
@@ -974,6 +1230,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -984,6 +1245,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-deliverability-failover/:
@@ -1017,6 +1285,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1027,6 +1300,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-dependency-autohealer/:
@@ -1060,6 +1340,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1070,6 +1355,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-digital-asset-guard/:
@@ -1103,6 +1395,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1113,6 +1410,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-fx-cost-optimizer/:
@@ -1146,6 +1450,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1156,6 +1465,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-inventory-sync-sentinel/:
@@ -1189,6 +1505,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1199,6 +1520,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-invoice-recovery/:
@@ -1232,6 +1560,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1242,6 +1575,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-invoice-syntax-sentinel/:
@@ -1275,6 +1615,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1285,6 +1630,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-kyc-rescue/:
@@ -1318,6 +1670,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1328,6 +1685,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-lead-drop-shield/:
@@ -1361,6 +1725,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1371,6 +1740,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-reputation-guard/:
@@ -1404,6 +1780,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1414,6 +1795,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-secops-autopatch/:
@@ -1447,6 +1835,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1457,6 +1850,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-seo-domain-watch/:
@@ -1490,6 +1890,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1500,6 +1905,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-smart-dunning/:
@@ -1533,6 +1945,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1543,6 +1960,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-tax-ledger/:
@@ -1576,6 +2000,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1586,6 +2015,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-uptime-panic-guard/:
@@ -1619,6 +2055,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1629,6 +2070,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-vat-recovery/:
@@ -1662,6 +2110,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1672,6 +2125,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-webhook-dead-letter/:
@@ -1705,6 +2165,11 @@ paths:
       responses:
         '200':
           description: Paid Automata decision returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1715,6 +2180,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-autonomous-escrow-agent/:
@@ -1748,6 +2220,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1758,6 +2235,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-api-break-sentinel/:
@@ -1791,6 +2275,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1801,6 +2290,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-global-ai-tax-proxy/:
@@ -1834,6 +2330,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1844,6 +2345,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-ghost-cart-form-rescue/:
@@ -1877,6 +2385,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1887,6 +2400,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-data-brokerage-automate/:
@@ -1920,6 +2440,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1930,6 +2455,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-expired-domain-opportunity-watch/:
@@ -1963,6 +2495,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -1973,6 +2510,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-media-kit-generator/:
@@ -2000,6 +2544,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2010,6 +2559,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '5.000'
       x-humanmirror-pricing-tier: thematic_bundle
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '5.000'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-clean-ex/:
@@ -2037,6 +2593,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2047,6 +2608,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.001'
       x-humanmirror-pricing-tier: granular_unit_0_001
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.001'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-price-sniper/:
@@ -2074,6 +2642,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2084,6 +2657,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-proof-of-vibe/:
@@ -2111,6 +2691,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2121,6 +2706,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.001'
       x-humanmirror-pricing-tier: granular_unit_0_001
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.001'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-dead-bot-switch/:
@@ -2148,6 +2740,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2158,6 +2755,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.010'
       x-humanmirror-pricing-tier: granular_unit_0_010
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.010'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/automata-context-compressor-sanitizer/:
@@ -2185,6 +2789,11 @@ paths:
       responses:
         '200':
           description: Paid machine result returned
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: Payment required
         '422':
@@ -2195,6 +2804,13 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/operations/
       x-humanmirror-price-usdc: '0.001'
       x-humanmirror-pricing-tier: granular_unit_0_001
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.001'
+        protocols:
+        - x402: {}
       tags:
       - X402
   /api/x402/emergency-pack/:
@@ -2218,6 +2834,11 @@ paths:
       responses:
         '200':
           description: Emergency pack activated after successful settlement.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '402':
           description: x402 V2 Base/USDC authorization required.
         '503':
@@ -2226,10 +2847,64 @@ paths:
       x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/security-intelligence/
       x-humanmirror-price-usdc: '5.000'
       x-humanmirror-pricing-tier: thematic_bundle
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '5.000'
+        protocols:
+        - x402: {}
       tags:
       - X402
       operationId: postApiX402EmergencyPack
       x-operation-id-source: derived
+  /api/x402/payment-compatibility-receipt/:
+    post:
+      operationId: humanmirrorX402PaymentCompatibilityReceipt
+      summary: Check x402 payment compatibility and return a deterministic receipt
+      description: Lowest-friction paid entrypoint at 0.001 USDC on Base mainnet. Run the free Payment Doctor first when no paid receipt is required.
+      parameters:
+      - name: PAYMENT-SIGNATURE
+        in: header
+        required: false
+        schema:
+          type: string
+        description: x402 V2 signed payment payload. Omit on first request to receive PAYMENT-REQUIRED.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Candidate x402 payment requirement or authorization shape to diagnose and bind into a deterministic compatibility receipt.
+              additionalProperties: true
+      responses:
+        '200':
+          description: Compatibility diagnosis and deterministic receipt after successful x402 settlement
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '402':
+          description: Payment required
+        '422':
+          description: Compatibility diagnosis could not be completed
+        '503':
+          description: Facilitator or settlement unavailable
+      deprecated: false
+      x-humanmirror-canonical-bundle: https://humanmirror.fr/api/v1/agent/verification/
+      x-humanmirror-price-usdc: '0.001'
+      x-humanmirror-pricing-tier: granular_unit_0_001
+      x-payment-info:
+        price:
+          mode: fixed
+          currency: USD
+          amount: '0.001'
+        protocols:
+        - x402: {}
+      tags:
+      - X402
 components:
   securitySchemes:
     HumanMirrorProApiKey:
@@ -2337,3 +3012,28 @@ x-humanmirror-global-enterprise:
   custom_profiles: true
   compatibility: additive_no_header_no_behavior_change
   compliance_assurance: policy_guardrails_not_legal_certification
+x-humanmirror-paid-retry:
+  protocol: payment-bound-idempotency/1
+  header: Idempotency-Key
+  identity: method + canonical route + request-body digest + exact payment-authorization digest
+  scope: canonical paid x402 POST routes
+  replay_header: X-HumanMirror-Idempotent-Replay
+  completed_replay_ttl_seconds: 86400
+  processing_lock_ttl_seconds: 300
+  semantics:
+    exact_retry: returns the original verified successful response without a second execution or settlement
+    altered_body: conflict; never replays unrelated output
+    fresh_payment_authorization: new payment intent even if the Idempotency-Key is reused
+    failed_execution_or_settlement: not committed as a successful replay
+x-humanmirror-best-execution:
+  protocol: hm-best-execution/1
+  fee_model: verified_savings_share
+  savings_share_bps: 3000
+  buyer_keeps_share_bps: 7000
+  quote_ttl_seconds: 120
+  provider_payment: external_non_custodial
+  manifest: https://humanmirror.fr/.well-known/intent-market.json
+x-x402:
+  payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
+  asset: USDC
+  network: eip155:8453

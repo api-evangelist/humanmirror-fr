@@ -1,0 +1,123 @@
+{
+  "aid": "humanmirror.fr:api-index",
+  "name": "HumanMirror",
+  "type": "Index",
+  "kind": "company",
+  "position": "Producing",
+  "access": "1st-Party",
+  "description": "Machine-native trust, safety, execution verification and x402 payment infrastructure for autonomous agents and enterprise agent workflows.",
+  "image": "https://humanmirror.fr/humanmirror-mark.svg",
+  "tags": [
+    "AI Agents",
+    "Agentic Commerce",
+    "x402",
+    "MCP",
+    "A2A",
+    "Execution Verification",
+    "Agent Safety",
+    "USDC",
+    "Base"
+  ],
+  "created": "2026-08-14",
+  "modified": "2026-09-27",
+  "url": "https://humanmirror.fr/apis.json",
+  "specificationVersion": "0.23",
+  "apis": [
+    {
+      "aid": "humanmirror.fr:machine-api",
+      "name": "HumanMirror Machine API",
+      "description": "Canonical HumanMirror API for autonomous-agent safety, deterministic execution receipts, payment compatibility, machine discovery and x402-paid services.",
+      "image": "https://humanmirror.fr/humanmirror-mark.svg",
+      "created": "2026-08-14",
+      "modified": "2026-09-27",
+      "humanURL": "https://humanmirror.fr/one/",
+      "baseURL": "https://humanmirror.fr",
+      "version": "3.3.0",
+      "tags": [
+        "AI Agents",
+        "x402",
+        "MCP",
+        "A2A",
+        "Agent Safety",
+        "Execution Receipts",
+        "USDC",
+        "Base"
+      ],
+      "properties": [
+        {
+          "name": "HumanMirror One",
+          "type": "Documentation",
+          "url": "https://humanmirror.fr/one/"
+        },
+        {
+          "name": "OpenAPI 3.1",
+          "type": "OpenAPI",
+          "mediaType": "application/json",
+          "url": "https://humanmirror.fr/openapi.json"
+        },
+        {
+          "name": "MCP server",
+          "type": "MCPServer",
+          "url": "https://humanmirror.fr/api/one/mcp/"
+        },
+        {
+          "name": "A2A agent card",
+          "type": "AgentCard",
+          "mediaType": "application/json",
+          "url": "https://humanmirror.fr/.well-known/agent-card.json"
+        },
+        {
+          "name": "LLMs discovery",
+          "type": "LLMsTxt",
+          "mediaType": "text/plain",
+          "url": "https://humanmirror.fr/llms.txt"
+        },
+        {
+          "name": "Machine connection manifest",
+          "type": "WellKnown",
+          "mediaType": "application/json",
+          "url": "https://humanmirror.fr/.well-known/humanmirror-connect.json"
+        },
+        {
+          "name": "x402 discovery manifest",
+          "type": "x-x402-manifest",
+          "mediaType": "application/json",
+          "url": "https://humanmirror.fr/.well-known/x402.json"
+        }
+      ],
+      "contact": [
+        {
+          "FN": "HumanMirror",
+          "email": "contact.humanmirror@gmail.com",
+          "url": "https://humanmirror.fr"
+        }
+      ]
+    }
+  ],
+  "common": [
+    {
+      "name": "Website",
+      "type": "Website",
+      "url": "https://humanmirror.fr"
+    },
+    {
+      "name": "GitHub repository",
+      "type": "GitHubRepository",
+      "url": "https://github.com/VibeMirror-coder/humanmirror"
+    },
+    {
+      "name": "Agent manifest",
+      "type": "WellKnown",
+      "mediaType": "application/json",
+      "url": "https://humanmirror.fr/.well-known/agent.json"
+    }
+  ],
+  "maintainers": [
+    {
+      "FN": "HumanMirror",
+      "email": "contact.humanmirror@gmail.com",
+      "url": "https://humanmirror.fr",
+      "X-github": "VibeMirror-coder"
+    }
+  ]
+}

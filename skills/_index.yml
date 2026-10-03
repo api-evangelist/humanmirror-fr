@@ -1,6 +1,6 @@
-generated: '2026-09-19'
+generated: '2026-10-03'
 method: generated
-source: openapi/ (operationIds verified against the specs; Nexus/Outcome specs carry none, so those steps cite METHOD
+source: three first-party SKILL.md files served at https://humanmirror.fr/skills/<name>/SKILL.md (added 2026-10-03), plus openapi/ (operationIds verified against the specs; Nexus/Outcome specs carry none, so those steps cite METHOD
   /path), mcp/humanmirror-fr-nexus-tools.json, and the provider's own skill.md which was searched and saved verbatim.
 skills:
 - file: humanmirror-fr-genesis-skill.md
@@ -25,6 +25,42 @@ skills:
   description: Trial key, free quote, success-only run and free re-verification through Nexus/Outcome (REST and
     MCP).
   operations: 6
+- file: humanmirror-fr-purchase-firewall.md
+  name: humanmirror-purchase-firewall
+  method: searched
+  first_party: true
+  source: https://humanmirror.fr/skills/purchase-firewall/SKILL.md
+  original: skills/_original/purchase-firewall-SKILL.md
+  description: 'Provider-published Agent Skill: bind an autonomous purchase or payment intent before execution (POST /api/value/bind/),
+    let the native payment rail execute, then reconcile the observed result (POST /api/value/close/) into MATCH / DRIFT evidence.'
+  operations: null
+  note: Verbatim copy in skills/_original/; the skills/ copy changes only the frontmatter name to the Agent Skills slug form (provider name kept as x-provider-name) and adds api/operations/source. The provider announced it at github.com/VibeMirror-coder/humanmirror/skills (404 on 2026-10-03, repo
+    not public); the same file is served at the source URL. /api/value/bind/ and /api/value/close/ answer live (400 on an empty body) but
+    are not described in any published OpenAPI, so no operationIds are listed.
+- file: humanmirror-fr-safe-preflight.md
+  name: humanmirror-safe-preflight
+  method: searched
+  first_party: true
+  source: https://humanmirror.fr/skills/safe-preflight/SKILL.md
+  original: skills/_original/safe-preflight-SKILL.md
+  description: 'Provider-published Agent Skill: inspect a proposed agent command or tool action before execution and return an
+    ALLOW / REVIEW / BLOCK-style decision via the x402-paid safe-preflight endpoint (0.010 USDC on Base).'
+  operation_count: 1
+  operations:
+  - humanmirrorX402SafePreflight
+  note: Verbatim copy in skills/_original/ (frontmatter name slugged in the skills/ copy). Endpoint answered 402 with a PAYMENT-REQUIRED header on 2026-10-03.
+- file: humanmirror-fr-execution-receipt.md
+  name: humanmirror-execution-receipt
+  method: searched
+  first_party: true
+  source: https://humanmirror.fr/skills/execution-receipt/SKILL.md
+  original: skills/_original/execution-receipt-SKILL.md
+  description: 'Provider-published Agent Skill: submit expected and observed action context after a consequential action and store
+    the returned deterministic execution receipt (x402-paid, 0.010 USDC on Base).'
+  operation_count: 1
+  operations:
+  - humanmirrorX402ExecutionReceipt
+  note: Verbatim copy in skills/_original/ (frontmatter name slugged in the skills/ copy). Endpoint answered 402 with a PAYMENT-REQUIRED header on 2026-10-03.
 exclusions:
 - surface: Physical Oracle worker registration / payout
   reason: A2H field-work flow involving human workers' payout addresses; not packaged as a skill pending review
