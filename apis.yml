@@ -243,6 +243,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - Agents
+  tags_raw:
   - Agent
   properties:
   - type: OpenAPI
@@ -821,6 +823,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - M2M
+  tags_raw:
   - M2m
   properties:
   - type: OpenAPI
@@ -1111,6 +1115,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - Markets
+  tags_raw:
   - Market
   properties:
   - type: OpenAPI
@@ -1543,6 +1549,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - Referrals
+  tags_raw:
   - Referral
   properties:
   - type: OpenAPI
@@ -1903,6 +1911,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - value
+  tags_raw:
   - Value
   properties:
   - type: OpenAPI
@@ -2048,6 +2058,8 @@ apis:
   humanURL: https://humanmirror.fr/x402/
   baseURL: https://humanmirror.fr
   tags:
+  - x402
+  tags_raw:
   - X402
   properties:
   - type: OpenAPI
