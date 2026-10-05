@@ -1,0 +1,12 @@
+{
+ "url": "https://humanmirror.fr/openapi.json",
+ "requested_url": "https://humanmirror.fr/openapi.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 118391,
+ "sha256": "8c5a87e7a53ba0c398b0e4daf9dbabb8b8ef8132922693fb71589371f7f9e92f",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.943), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
