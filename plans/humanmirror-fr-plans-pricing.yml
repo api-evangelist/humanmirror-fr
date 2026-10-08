@@ -222,3 +222,70 @@ notes:
   (25 / 100 / 500) and monthly preflight volumes (500k / 2M / 5M).
 - 'No enterprise ''contact us'' opacity: every tier has a number except HumanMirror Optimize (success fee) and SiteTrust''s
   endpoint (contact form).'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: HumanMirror Audit CLI
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: HumanMirror SiteTrust
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Zero Point Consensus
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: HumanMirror Pro
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Agent Safety Audit
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Agent Safety Sprint
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: HumanMirror Optimize
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise Guard Core
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise Guard Scale
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise Guard Sovereign
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
