@@ -1,0 +1,43 @@
+edges:
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=fr.humanmirror
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: fr.humanmirror/flow
+    register_id: fr.humanmirror/flow
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-14'
+  mcp_registry:
+    servers:
+    - fr.humanmirror/flow
+    - fr.humanmirror/forge
+    - fr.humanmirror/nexus
+    - fr.humanmirror/omnidome
+    - fr.humanmirror/one
+    - fr.humanmirror/oracle
+    - fr.humanmirror/outcome
+    - fr.humanmirror/x402
+    hosted_remote: 8
+    local_package: 0
+    transports:
+      streamable-http: 8
+    auth_declared: 6
+    catalog_declared: true
+    namespace_domains:
+    - humanmirror.fr
+  matched_by:
+  - namespace-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
+generated: '2026-10-14'
+method: searched
+checked:
+- https://registry.modelcontextprotocol.io/v0/servers
