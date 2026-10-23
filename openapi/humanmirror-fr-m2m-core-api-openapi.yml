@@ -306,3 +306,9 @@ x-x402:
   payTo: '0x48096526488f2D51df6bcA1B1f3A3639986cc3dD'
   asset: USDC
   network: eip155:8453
+x-provenance:
+  method: harvested
+  publisher: HumanMirror
+  source: https://humanmirror.fr/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
