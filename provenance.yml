@@ -12,6 +12,9 @@ artifacts:
   a2a/humanmirror-fr-agent-legacy.json:
     method: unknown
     evidence: no authorship recorded
+  agentic-access/humanmirror-fr-agentic-access.yml:
+    method: generated
+    evidence: declared in the artifact
   authentication/humanmirror-fr-authentication.yml:
     method: searched
     evidence: declared in the artifact
@@ -24,10 +27,25 @@ artifacts:
   conventions/humanmirror-fr-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-model/humanmirror-fr-data-model.yml:
+    method: derived
+    evidence: declared in the artifact
   errors/humanmirror-fr-problem-types.yml:
     method: derived
     evidence: declared in the artifact
   front-door-ai/2026-09-17.yml:
+    method: unknown
+    evidence: no authorship recorded
+  hosts/humanmirror-fr-hosts.yml:
+    method: derived
+    evidence: declared in the artifact
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/humanmirror-fr-integration-edges.yml:
+    method: unknown
+    evidence: no authorship recorded
+  json-ld/humanmirror-fr-context.jsonld:
     method: unknown
     evidence: no authorship recorded
   json-ld/humanmirror-fr-m2m.jsonld:
@@ -45,7 +63,7 @@ artifacts:
   json-schema/humanmirror-fr-genesis.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-19T193153.yml:
@@ -78,9 +96,27 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/humanmirror-fr-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
+  llms/humanmirror-fr-llms-provenance.yml:
+    method: searched
+    evidence: 'derive-llms-provenance.py: harvested'
   llms/humanmirror-fr-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
@@ -127,7 +163,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-agent-os-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-agentops-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-agentops-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -135,7 +179,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-automata-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-consensus-verify-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-consensus-verify-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -143,7 +195,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-flow-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-forge-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-forge-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -151,7 +211,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-magnet-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-market-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-market-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -159,7 +227,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-nexus-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-one-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-one-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -167,7 +243,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-oracle-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-outcome-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-outcome-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -175,7 +259,15 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
+  openapi/_original/humanmirror-fr-payload-normalizer-openapi.yml:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/_original/humanmirror-fr-physical-oracle-openapi.json:
+    method: harvested
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
+  openapi/_original/humanmirror-fr-physical-oracle-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
@@ -183,106 +275,146 @@ artifacts:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
-  openapi/_original/humanmirror-fr-x402-openapi.json:
+  openapi/_original/humanmirror-fr-sanitize-shield-openapi.yml:
     method: harvested
     evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
       to the provider's source is unverified
-  openapi/humanmirror-fr-agent-os-openapi.yml:
+  openapi/_original/humanmirror-fr-x402-openapi.json:
+    method: harvested
+    evidence: byte-identical to https://humanmirror.fr/openapi.json (sha256 8c5a87e7a53b, fetched 2026-10-04)
+  openapi/_original/humanmirror-fr-x402-openapi.yml:
+    method: harvested
+    evidence: the same operations as https://humanmirror.fr/openapi.json (sha256 8c5a87e7a53b, fetched
+      2026-10-04)
+  openapi/humanmirror-fr-agent-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-agentops-openapi.yml:
+  openapi/humanmirror-fr-automata-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-automata-openapi.yml:
+  openapi/humanmirror-fr-canonical-agent-bundles-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-consensus-verify-openapi.yml:
+  openapi/humanmirror-fr-circuit-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-flow-openapi.yml:
+  openapi/humanmirror-fr-consensus-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-forge-openapi.yml:
+  openapi/humanmirror-fr-flow-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-magnet-openapi.yml:
+  openapi/humanmirror-fr-forge-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-market-openapi.yml:
+  openapi/humanmirror-fr-lens-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-nexus-openapi.yml:
+  openapi/humanmirror-fr-m2m-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-one-openapi.yml:
+  openapi/humanmirror-fr-m2m-core-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-oracle-openapi.yml:
+  openapi/humanmirror-fr-m2m-next-gen-preview-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-outcome-openapi.yml:
+  openapi/humanmirror-fr-magnet-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-payload-normalizer-openapi.yml:
+  openapi/humanmirror-fr-market-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-physical-oracle-openapi.yml:
+  openapi/humanmirror-fr-nexus-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-sanitize-shield-openapi.yml:
+  openapi/humanmirror-fr-one-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/humanmirror-fr-x402-openapi.yml:
+  openapi/humanmirror-fr-oracle-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-outcome-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-physical-oracle-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-referral-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-sanitize-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-sentinel-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-sink-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-trace-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-value-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-vault-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-x402-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/humanmirror-fr-zero-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   overlays/humanmirror-fr-agent-os-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-agentops-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-automata-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-consensus-verify-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-flow-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-forge-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-magnet-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-market-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-nexus-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-one-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-oracle-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-outcome-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-payload-normalizer-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-physical-oracle-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-sanitize-shield-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   overlays/humanmirror-fr-x402-overlay.yaml:
-    method: generated
-    evidence: declared in the artifact
+    method: derived
+    evidence: an API Evangelist overlay (title) over the provider's contract
   packages/humanmirror-fr-packages.yml:
     method: searched
     evidence: declared in the artifact
@@ -290,8 +422,8 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   postman/humanmirror-fr-agentops.postman_collection.json:
-    method: derived
-    evidence: openapi/humanmirror-fr-agentops
+    method: unknown
+    evidence: no authorship recorded
   postman/humanmirror-fr-forge.postman_collection.json:
     method: derived
     evidence: openapi/humanmirror-fr-forge
@@ -307,6 +439,9 @@ artifacts:
   regulatory/humanmirror-fr-regulatory-posture.yml:
     method: searched
     evidence: declared in the artifact
+  rules/humanmirror-fr-rules.yml:
+    method: generated
+    evidence: declared in the artifact
   sandbox/humanmirror-fr-sandbox.yml:
     method: searched
     evidence: declared in the artifact
@@ -319,18 +454,39 @@ artifacts:
   skills/_index.yml:
     method: generated
     evidence: declared in the artifact
+  skills/humanmirror-fr-execution-receipt.md:
+    method: searched
+    evidence: declared in the artifact
   skills/humanmirror-fr-genesis-skill.md:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
+  skills/humanmirror-fr-purchase-firewall.md:
+    method: searched
+    evidence: declared in the artifact
+  skills/humanmirror-fr-safe-preflight.md:
+    method: searched
+    evidence: declared in the artifact
   skills/humanmirror-fr-secure-external-context.md:
     method: generated
     evidence: declared in the artifact
   skills/humanmirror-fr-verified-outcome.md:
-    method: generated
+    method: unknown
+    evidence: no authorship recorded
+  vendors/humanmirror-fr-vendors.yml:
+    method: unknown
+    evidence: no authorship recorded
+  vocabulary/humanmirror-fr-vocabulary.yml:
+    method: derived
     evidence: declared in the artifact
   well-known/humanmirror-fr-ai-plugin.json:
     method: unknown
     evidence: no authorship recorded
+  well-known/humanmirror-fr-apis.json:
+    method: unknown
+    evidence: no authorship recorded
   well-known/humanmirror-fr-well-known.yml:
+    method: unknown
+    evidence: no authorship recorded
+  well-known/humanmirror-fr-x402.json:
     method: unknown
     evidence: no authorship recorded
